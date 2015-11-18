@@ -1,27 +1,15 @@
 {
-  "name": "react-redux-universal-hot-example",
-  "description": "Example of an isomorphic (universal) webapp using react redux and hot reloading",
+  "name": "list-share",
+  "description": "Share your lists, track your friends' lists, collaborate!",
   "author": "C.J. Winslow <whoaa512@gmail.com> (http://github.com/whoaa512)",
   "license": "MIT",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/whoaa512/react-redux-universal-hot-example"
+    "url": "https://github.com/whoaa512/list-share"
   },
-  "homepage": "https://github.com/whoaa512/react-redux-universal-hot-example",
-  "keywords": [
-    "react",
-    "isomorphic",
-    "universal",
-    "webpack",
-    "express",
-    "hot reloading",
-    "react-hot-reloader",
-    "redux",
-    "starter",
-    "boilerplate",
-    "babel"
-  ],
+  "homepage": "https://github.com/whoaa512/list-share",
+  "private": true,
   "main": "bin/server.js",
   "scripts": {
     "start": "concurrent --kill-others \"npm run start-prod\" \"npm run start-prod-api\"",
