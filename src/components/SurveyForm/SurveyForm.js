@@ -1,27 +1,27 @@
-import React, {Component, PropTypes} from 'react';
-import {reduxForm} from 'redux-form';
-import surveyValidation from './surveyValidation';
+import React, {Component, PropTypes} from 'react'
+import {reduxForm} from 'redux-form'
+import surveyValidation from './surveyValidation'
 
-function asyncValidate(data) {
+function asyncValidate (data) {
   // TODO: figure out a way to move this to the server. need an instance of ApiClient
   if (!data.email) {
-    return Promise.resolve({});
+    return Promise.resolve({})
   }
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const errors = {};
-      let valid = true;
+      const errors = {}
+      let valid = true
       if (~['bobby@gmail.com', 'timmy@microsoft.com'].indexOf(data.email)) {
-        errors.email = 'Email address already used';
-        valid = false;
+        errors.email = 'Email address already used'
+        valid = false
       }
       if (valid) {
-        resolve();
+        resolve()
       } else {
-        reject(errors);
+        reject(errors)
       }
-    }, 1000);
-  });
+    }, 1000)
+  })
 }
 
 @reduxForm({
@@ -45,7 +45,7 @@ class SurveyForm extends Component {
     valid: PropTypes.bool.isRequired
   }
 
-  render() {
+  render () {
     const {
       asyncValidating,
       dirty,
@@ -56,52 +56,52 @@ class SurveyForm extends Component {
       resetForm,
       pristine,
       valid
-      } = this.props;
-    const styles = require('./SurveyForm.scss');
+      } = this.props
+    const styles = require('./SurveyForm.scss')
     const renderInput = (field, label, showAsyncValidating) =>
       <div className={'form-group' + (field.error && field.touched ? ' has-error' : '')}>
-        <label htmlFor={field.name} className="col-sm-2">{label}</label>
+        <label htmlFor={field.name} className='col-sm-2'>{label}</label>
         <div className={'col-sm-8 ' + styles.inputGroup}>
           {showAsyncValidating && asyncValidating && <i className={'fa fa-cog fa-spin ' + styles.cog}/>}
-          <input type="text" className="form-control" id={field.name} {...field}/>
-          {field.error && field.touched && <div className="text-danger">{field.error}</div>}
+          <input type='text' className='form-control' id={field.name} {...field}/>
+          {field.error && field.touched && <div className='text-danger'>{field.error}</div>}
           <div className={styles.flags}>
-            {field.dirty && <span className={styles.dirty} title="Dirty">D</span>}
-            {field.active && <span className={styles.active} title="Active">A</span>}
-            {field.visited && <span className={styles.visited} title="Visited">V</span>}
-            {field.touched && <span className={styles.touched} title="Touched">T</span>}
+            {field.dirty && <span className={styles.dirty} title='Dirty'>D</span>}
+            {field.active && <span className={styles.active} title='Active'>A</span>}
+            {field.visited && <span className={styles.visited} title='Visited'>V</span>}
+            {field.touched && <span className={styles.touched} title='Touched'>T</span>}
           </div>
         </div>
-      </div>;
+      </div>
 
     return (
       <div>
-        <form className="form-horizontal" onSubmit={handleSubmit}>
+        <form className='form-horizontal' onSubmit={handleSubmit}>
           {renderInput(name, 'Full Name')}
           {renderInput(email, 'Email', true)}
           {renderInput(occupation, 'Occupation')}
-          <div className="form-group">
-            <label htmlFor="currentlyEmployed" className="col-sm-2">Currently Employed?</label>
-            <div className="col-sm-8">
-              <input type="checkbox" id="currentlyEmployed" {...currentlyEmployed}/>
+          <div className='form-group'>
+            <label htmlFor='currentlyEmployed' className='col-sm-2'>Currently Employed?</label>
+            <div className='col-sm-8'>
+              <input type='checkbox' id='currentlyEmployed' {...currentlyEmployed}/>
             </div>
           </div>
-          <div className="form-group">
-            <label className="col-sm-2">Sex</label>
-            <div className="col-sm-8">
-              <input type="radio" id="sex-male" {...sex} value="male" checked={sex.value === 'male'}/>
-              <label htmlFor="sex-male" className={styles.radioLabel}>Male</label>
-              <input type="radio" id="sex-female" {...sex} value="female" checked={sex.value === 'female'}/>
-              <label htmlFor="sex-female" className={styles.radioLabel}>Female</label>
+          <div className='form-group'>
+            <label className='col-sm-2'>Sex</label>
+            <div className='col-sm-8'>
+              <input type='radio' id='sex-male' {...sex} value='male' checked={sex.value === 'male'}/>
+              <label htmlFor='sex-male' className={styles.radioLabel}>Male</label>
+              <input type='radio' id='sex-female' {...sex} value='female' checked={sex.value === 'female'}/>
+              <label htmlFor='sex-female' className={styles.radioLabel}>Female</label>
             </div>
           </div>
-          <div className="form-group">
-            <div className="col-sm-offset-2 col-sm-10">
-              <button className="btn btn-success" onClick={handleSubmit}>
-                <i className="fa fa-paper-plane"/> Submit
+          <div className='form-group'>
+            <div className='col-sm-offset-2 col-sm-10'>
+              <button className='btn btn-success' onClick={handleSubmit}>
+                <i className='fa fa-paper-plane'/> Submit
               </button>
-              <button className="btn btn-warning" onClick={resetForm} style={{marginLeft: 15}}>
-                <i className="fa fa-undo"/> Reset
+              <button className='btn btn-warning' onClick={resetForm} style={{marginLeft: 15}}>
+                <i className='fa fa-undo'/> Reset
               </button>
             </div>
           </div>
@@ -109,7 +109,7 @@ class SurveyForm extends Component {
 
         <h4>Props from redux-form</h4>
 
-        <table className="table table-striped">
+        <table className='table table-striped'>
           <tbody>
           <tr>
             <th>Active Field</th>
@@ -134,7 +134,7 @@ class SurveyForm extends Component {
           </tbody>
         </table>
       </div>
-    );
+    )
   }
 }
 

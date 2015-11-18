@@ -29,13 +29,36 @@
     "start-prod-api": "node ./node_modules/better-npm-run start-prod-api",
     "build": "webpack --verbose --colors --display-error-details --config webpack/prod.config.js",
     "postinstall": "webpack --display-error-details --config webpack/prod.config.js",
-    "lint": "eslint -c .eslintrc src api",
+    "lint": "standard",
     "start-dev": "node ./node_modules/better-npm-run start-dev",
     "start-dev-api": "node ./node_modules/better-npm-run start-dev-api",
     "watch-client": "node ./node_modules/better-npm-run watch-client",
     "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" \"npm run start-dev-api\"",
     "test": "karma start",
     "test-node": "./node_modules/mocha/bin/mocha ./api/**/__tests__/*-test.js --compilers js:babel-core/register"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "global": [
+      "__CLIENT__",
+      "__SERVER__",
+      "__DISABLE_SSR__",
+      "__DEVELOPMENT__",
+      "__DEVTOOLS__",
+      "socket",
+      "webpackIsomorphicTools",
+      "after",
+      "afterEach",
+      "before",
+      "beforeEach",
+      "describe",
+      "it"
+    ],
+    "ignore": [
+      "build",
+      "static",
+      "test-build"
+    ]
   },
   "betterScripts": {
     "start-prod": {

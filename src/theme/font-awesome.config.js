@@ -12,6 +12,6 @@ module.exports = {
     core: true,
     icons: true,
     larger: true,
-    path: true,
+    path: true
   }
-};
+}

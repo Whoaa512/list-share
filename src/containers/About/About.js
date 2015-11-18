@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import DocumentMeta from 'react-document-meta';
-import { MiniInfoBar } from 'components';
+import React, {Component} from 'react'
+import DocumentMeta from 'react-document-meta'
+import { MiniInfoBar } from 'components'
 
 export default class About extends Component {
 
@@ -8,21 +8,21 @@ export default class About extends Component {
     showKitten: false
   }
 
-  handleToggleKitten = () => this.setState({showKitten: !this.state.showKitten});
+  handleToggleKitten = () => this.setState({showKitten: !this.state.showKitten})
 
-  render() {
-    const {showKitten} = this.state;
-    const kitten = require('./kitten.jpg');
+  render () {
+    const {showKitten} = this.state
+    const kitten = require('./kitten.jpg')
     return (
-      <div className="container">
+      <div className='container'>
         <h1>About Us</h1>
-        <DocumentMeta title="React Redux Example: About Us"/>
+        <DocumentMeta title='React Redux Example: About Us'/>
 
         <p>This project was orginally created by Erik Rasmussen
-          (<a href="https://twitter.com/erikras" target="_blank">@erikras</a>), but has since seen many contributions
+          (<a href='https://twitter.com/erikras' target='_blank'>@erikras</a>), but has since seen many contributions
           from the open source community. Thank you to <a
-            href="https://github.com/erikras/react-redux-universal-hot-example/graphs/contributors"
-            target="_blank">all the contributors</a>.
+            href='https://github.com/erikras/react-redux-universal-hot-example/graphs/contributors'
+            target='_blank'>all the contributors</a>.
         </p>
 
         <h3>Mini Bar <span style={{color: '#aaa'}}>(not that kind)</span></h3>
@@ -45,6 +45,6 @@ export default class About extends Component {
 
         {showKitten && <div><img src={kitten}/></div>}
       </div>
-    );
+    )
   }
 }

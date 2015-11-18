@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import hoistStatics from 'hoist-non-react-statics';
+import React, { Component } from 'react'
+import hoistStatics from 'hoist-non-react-statics'
 
 /*
   Note:
@@ -7,18 +7,17 @@ import hoistStatics from 'hoist-non-react-statics';
     Otherwise, we cannot find and call the fetchData and fetchDataDeffered methods.
 */
 
-export default function connectData(fetchData, fetchDataDeferred) {
-
-  return function wrapWithFetchData(WrappedComponent) {
+export default function connectData (fetchData, fetchDataDeferred) {
+  return function wrapWithFetchData (WrappedComponent) {
     class ConnectData extends Component {
-      render() {
-        return <WrappedComponent {...this.props} />;
+      render () {
+        return <WrappedComponent {...this.props} />
       }
     }
 
-    ConnectData.fetchData = fetchData;
-    ConnectData.fetchDataDeferred = fetchDataDeferred;
+    ConnectData.fetchData = fetchData
+    ConnectData.fetchDataDeferred = fetchDataDeferred
 
-    return hoistStatics(ConnectData, WrappedComponent);
-  };
+    return hoistStatics(ConnectData, WrappedComponent)
+  }
 }

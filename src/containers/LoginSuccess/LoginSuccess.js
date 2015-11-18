@@ -1,6 +1,6 @@
-import React, {Component, PropTypes} from 'react';
-import {connect} from 'react-redux';
-import * as authActions from 'redux/modules/auth';
+import React, {Component, PropTypes} from 'react'
+import {connect} from 'react-redux'
+import * as authActions from 'redux/modules/auth'
 
 @connect(
     state => ({user: state.auth.user}),
@@ -12,10 +12,10 @@ class LoginSuccess extends Component {
     logout: PropTypes.func
   }
 
-  render() {
-    const {user, logout} = this.props;
+  render () {
+    const {user, logout} = this.props
     return (user &&
-      <div className="container">
+      <div className='container'>
         <h1>Login Success</h1>
 
         <div>
@@ -29,10 +29,10 @@ class LoginSuccess extends Component {
           </p>
 
           <div>
-            <button className="btn btn-danger" onClick={logout}><i className="fa fa-sign-out"/>{' '}Log Out</button>
+            <button className='btn btn-danger' onClick={logout}><i className='fa fa-sign-out'/>{' '}Log Out</button>
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
