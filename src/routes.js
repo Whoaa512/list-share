@@ -7,6 +7,7 @@ import {
   Home,
   Widgets,
   About,
+  Lists,
   Login,
   LoginSuccess,
   Survey,
@@ -48,6 +49,7 @@ export default (store) => {
       { /* Routes */ }
       <Route path='about' component={About}/>
       <Route path='login' component={Login}/>
+      <Route path='lists' component={Lists}/>
       <Route path='survey' component={Survey}/>
       <Route path='widgets' component={Widgets}/>
 
