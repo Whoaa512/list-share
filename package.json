@@ -95,6 +95,7 @@
   "dependencies": {
     "babel": "~5.8.29",
     "body-parser": "^1.14.1",
+    "bunyan": "^1.5.1",
     "compression": "^1.6.0",
     "express": "^4.13.3",
     "express-session": "^1.12.1",
