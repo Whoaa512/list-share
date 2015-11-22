@@ -42,10 +42,11 @@ export default function create (req) {
   })
 }
 
-function createListItem (raw) {
+export function createListItem (raw) {
   return {
     checked: false,
     description: '',
+    id: uuid.v4(),
     link: '',
     title: '<Untitled item>',
     ...raw
