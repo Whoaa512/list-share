@@ -1,5 +1,5 @@
 import ApiError from 'utils/ApiError'
-import { db, listsCollection } from 'utils/db-collections'
+import { db, listsCollection, itemsCollection } from 'utils/db-collections'
 import logger from 'utils/logger'
 import uuid from 'uuid'
 
@@ -17,11 +17,14 @@ export default function create (req) {
       return reject(new ApiError(errStr))
     }
 
+    const newItems = items.map(createListItem)
+    itemsCollection.insert(newItems)
+
     let newList = {
       id: uuid.v4(),
       creator,
       createdAt: Date.now(),
-      items: items.map(createListItem)
+      items: newItems.map(item => item.id)
     }
 
     listsCollection.insert(newList)
@@ -36,7 +39,10 @@ export default function create (req) {
     .catch(dbError => {
       let errStr = `Error trying to save db. List id: ${newList.id}`
       logger.error(dbError, errStr)
-      logger.info(newList, 'List to be added')
+      logger.info({
+        newList,
+        newItems
+      }, 'List and items to be added')
       reject(new ApiError(errStr))
     })
   })
