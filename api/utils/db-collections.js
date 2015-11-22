@@ -5,6 +5,7 @@ import Promise from 'bluebird'
 export const db = Promise.promisifyAll(new Lokijs('list-share-db.json', { autoload: true, autoloadCallback: autoloadCb }))
 export let listsCollection = { data: [] }
 export let itemsCollection = { data: [] }
+export let usersCollection = { data: [] }
 
 function autoloadCb (error) {
   collectionSetup()
@@ -23,6 +24,8 @@ function autoloadCb (error) {
 function collectionSetup (argument) {
   const allLists = 'allLists'
   const allItems = 'allItems'
+  const allUsers = 'allUsers'
   listsCollection = db.getCollection(allLists) || db.addCollection(allLists)
   itemsCollection = db.getCollection(allItems) || db.addCollection(allItems)
+  usersCollection = db.getCollection(allUsers) || db.addCollection(allUsers)
 }

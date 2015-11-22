@@ -95,6 +95,7 @@
   "dependencies": {
     "array-uniq": "^1.0.2",
     "babel": "~5.8.29",
+    "bcrypt": "^0.8.5",
     "bluebird": "^3.0.5",
     "body-parser": "^1.14.1",
     "bunyan": "^1.5.1",
