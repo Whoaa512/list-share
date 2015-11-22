@@ -6,6 +6,7 @@ import bodyParser from 'body-parser'
 import config from '../src/config'
 import * as actions from './actions/index'
 import {mapUrl} from 'utils/url.js'
+import omit from 'lodash.omit'
 import PrettyError from 'pretty-error'
 import http from 'http'
 import SocketIo from 'socket.io'
@@ -34,6 +35,9 @@ app.use((req, res) => {
   if (action) {
     action(req, params)
       .then((result) => {
+        if (result.passwordHash != null) {
+          result = omit(result, 'passwordHash')
+        }
         res.json(result)
       }, (reason) => {
         if (reason && reason.redirect) {

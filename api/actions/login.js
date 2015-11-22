@@ -1,6 +1,5 @@
 import ApiError from 'utils/ApiError'
 import bcrypt, { cryptoCatch } from 'utils/bcrypt-as-promised'
-import pick from 'lodash.pick'
 import { default as loadUser } from './users/load'
 
 export default function login (req) {
@@ -23,7 +22,7 @@ export default function login (req) {
     if (!isValidPassword) {
       throw new ApiError('Incorrect password', { status: 401 })
     }
-    req.session.user = pick(user, ['email', 'id', 'name'])
+    req.session.user = user
     return user
   })
 }
