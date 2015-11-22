@@ -1,6 +1,6 @@
 import ApiError from 'utils/ApiError'
 import logger from 'utils/logger'
-import Lokijs from 'lokjs'
+import Lokijs from 'lokijs'
 import Promise from 'bluebird'
 
 export const db = Promise.promisifyAll(new Lokijs('list-share-db.json', { autoload: true, autoloadCallback: autoloadCb }))
