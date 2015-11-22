@@ -9,6 +9,7 @@ import omit from 'lodash.omit'
 import PrettyError from 'pretty-error'
 import session from 'express-session'
 import SocketIo from 'socket.io'
+import store from 'loki-session'
 import { mapUrl } from 'utils/url'
 
 const pretty = new PrettyError()
@@ -23,6 +24,8 @@ app.use(session({
   secret: config.sessionSecret,
   resave: false,
   saveUninitialized: false,
+  store: store(__dirname + '/session-db.json'),
+  unset: 'destroy',
   cookie: { maxAge: 60000 }
 }))
 app.use(bodyParser.json())
