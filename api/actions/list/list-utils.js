@@ -12,6 +12,11 @@ export function createListItem (raw) {
   }
 }
 
+export function removeListItems (items) {
+  itemsCollection.remove(items)
+  return items
+}
+
 export function upsertListItems (items) {
   const updatedItems = items.filter(x => x.$loki != null)
   const newItems = items.filter(x => x.id == null).map(createListItem)
