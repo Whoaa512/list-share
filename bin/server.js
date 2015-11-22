@@ -3,6 +3,9 @@ require('../server.babel') // babel registration (runtime transpilation for node
 var path = require('path')
 var rootDir = path.resolve(__dirname, '..')
 ;(function (root) {
+  /* Prefer bluebird for Promise */
+  root.Promise = require('bluebird')
+
   /**
    * Define isomorphic constants.
    */

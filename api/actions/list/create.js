@@ -1,6 +1,5 @@
 import ApiError from 'utils/ApiError'
-import { db, listsCollection } from 'utils/db-collections'
-import logger from 'utils/logger'
+import { db, dbCatch, listsCollection } from 'utils/db-collections'
 import { upsertListItems } from './list-utils'
 import uuid from 'uuid'
 
@@ -36,14 +35,9 @@ export default function create (req) {
         id: newList.id
       })
     })
-    .catch(dbError => {
-      let errStr = `Error trying to save db. List id: ${newList.id}`
-      logger.error(dbError, errStr)
-      logger.info({
-        newList,
-        newItems
-      }, 'List and items to be added')
-      reject(new ApiError(errStr))
-    })
+    .catch(dbCatch(`List id: ${newList.id}`, {
+      newList,
+      newItems
+    }, 'List and items to be added'))
   })
 }

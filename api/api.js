@@ -1,14 +1,16 @@
-require('../server.babel') // babel registration (runtime transpilation for node)
+'use strict'
 
-import express from 'express'
-import session from 'express-session'
+import * as actions from './actions/index'
 import bodyParser from 'body-parser'
 import config from '../src/config'
-import * as actions from './actions/index'
-import {mapUrl} from 'utils/url.js'
-import PrettyError from 'pretty-error'
+import express from 'express'
 import http from 'http'
+import omit from 'lodash.omit'
+import PrettyError from 'pretty-error'
+import session from 'express-session'
 import SocketIo from 'socket.io'
+import store from 'loki-session'
+import { mapUrl } from 'utils/url'
 
 const pretty = new PrettyError()
 const app = express()
@@ -19,9 +21,11 @@ const io = new SocketIo(server)
 io.path('/ws')
 
 app.use(session({
-  secret: 'react and redux rule!!!!',
+  secret: config.sessionSecret,
   resave: false,
   saveUninitialized: false,
+  store: store(__dirname + '/session-db.json'),
+  unset: 'destroy',
   cookie: { maxAge: 60000 }
 }))
 app.use(bodyParser.json())
@@ -34,6 +38,9 @@ app.use((req, res) => {
   if (action) {
     action(req, params)
       .then((result) => {
+        if (result.passwordHash != null) {
+          result = omit(result, 'passwordHash')
+        }
         res.json(result)
       }, (reason) => {
         if (reason && reason.redirect) {
