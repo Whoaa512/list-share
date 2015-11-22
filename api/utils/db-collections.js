@@ -1,9 +1,11 @@
 import ApiError from 'utils/ApiError'
 import logger from 'utils/logger'
 import Lokijs from 'lokijs'
+import path from 'path'
 import Promise from 'bluebird'
 
-export const db = Promise.promisifyAll(new Lokijs('list-share-db.json', { autoload: true, autoloadCallback: autoloadCb }))
+const dbPath = path.resolve('../list-share-db.json')
+export const db = Promise.promisifyAll(new Lokijs(dbPath, { autoload: true, autoloadCallback: autoloadCb }))
 export let listsCollection = { data: [] }
 export let itemsCollection = { data: [] }
 export let usersCollection = { data: [] }
