@@ -1,15 +1,15 @@
 'use strict'
 
-import express from 'express'
-import session from 'express-session'
+import * as actions from './actions/index'
 import bodyParser from 'body-parser'
 import config from '../src/config'
-import * as actions from './actions/index'
-import {mapUrl} from 'utils/url.js'
+import express from 'express'
+import http from 'http'
 import omit from 'lodash.omit'
 import PrettyError from 'pretty-error'
-import http from 'http'
+import session from 'express-session'
 import SocketIo from 'socket.io'
+import { mapUrl } from 'utils/url'
 
 const pretty = new PrettyError()
 const app = express()
