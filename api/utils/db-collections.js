@@ -1,5 +1,5 @@
-import ApiError from 'utils/ApiError'
-import logger from 'utils/logger'
+import ApiError from './ApiError'
+import logger from './api-logger'
 import Lokijs from 'lokijs'
 import path from 'path'
 import Promise from 'bluebird'
