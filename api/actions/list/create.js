@@ -7,10 +7,9 @@ export default function create (req) {
   return new Promise((resolve, reject) => {
     const {
       items,
-      userId,
-      username
+      userId
     } = req.body
-    const creator = userId || username
+    const creator = userId
     const existingList = listsCollection.find({ creator })
 
     if (existingList != null) {
