@@ -13,7 +13,7 @@ export function createListItem (raw) {
 }
 
 export function upsertListItems (items) {
-  const updatedItems = items.filter(x => x.id != null)
+  const updatedItems = items.filter(x => x.$loki != null)
   const newItems = items.filter(x => x.id == null).map(createListItem)
   const allItems = updatedItems.concat(newItems)
   itemsCollection.update(updatedItems)
