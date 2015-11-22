@@ -1,11 +1,8 @@
 import ApiError from 'utils/ApiError'
-import bcrypt_ from 'bcrypt'
+import bcrypt from 'utils/bcrypt-as-promised'
 import logger from 'utils/logger'
-import Promise from 'bluebird'
 import uuid from 'uuid'
 import { db, usersCollection } from 'utils/db-collections'
-
-const bcrypt = Promise.promisifyAll(bcrypt_)
 
 export default function create (req) {
   return new Promise((resolve, reject) => {
