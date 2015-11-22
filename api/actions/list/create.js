@@ -10,10 +10,17 @@ export default function create (req) {
       userId,
       username
     } = req.body
+    const creator = userId || username
+    const existingList = listsCollection.find({ creator })
+
+    if (existingList != null) {
+      let errStr = 'Only one list allowed per user.'
+      return reject(new ApiError(errStr))
+    }
 
     let newList = {
       id: uuid.v4(),
-      creator: userId || username,
+      creator,
       createdAt: Date.now(),
       items: items.map(createListItem)
     }
