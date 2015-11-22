@@ -1,8 +1,7 @@
 import ApiError from 'utils/ApiError'
 import arrayUniq from 'array-uniq'
 import cloneDeep from 'clone-deep'
-import logger from 'utils/logger'
-import { db, listsCollection } from 'utils/db-collections'
+import { db, dbCatch, listsCollection } from 'utils/db-collections'
 import { getList } from './load'
 import { removeListItems, upsertListItems } from './list-utils'
 
@@ -18,15 +17,10 @@ export function updateList (list, idsToAdd, idsToRemove) {
   listsCollection.update(list)
 
   return db.saveAsync()
-  .catch(dbError => {
-    let errStr = `Error trying to save db. List id: ${list.id}`
-    logger.error(dbError, errStr)
-    logger.info({
-      old,
-      updated: list
-    }, 'List to be updated')
-    throw new ApiError(errStr)
-  })
+  .catch(dbCatch(`List id: ${list.id}`, {
+    old,
+    updated: list
+  }, 'List to be updated'))
 }
 
 export default function update (req) {

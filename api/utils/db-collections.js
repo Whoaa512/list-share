@@ -1,3 +1,4 @@
+import ApiError from 'utils/ApiError'
 import logger from 'utils/logger'
 import Lokijs from 'lokjs'
 import Promise from 'bluebird'
@@ -6,6 +7,17 @@ export const db = Promise.promisifyAll(new Lokijs('list-share-db.json', { autolo
 export let listsCollection = { data: [] }
 export let itemsCollection = { data: [] }
 export let usersCollection = { data: [] }
+
+export function dbCatch (idStr, ...infoArgs) {
+  return (dbError) => {
+    let errStr = `Error trying to save db. ${idStr}`
+    logger.error(dbError, errStr)
+    if (infoArgs.length > 0) {
+      logger.info.apply(logger, infoArgs)
+    }
+    throw new ApiError(errStr)
+  }
+}
 
 function autoloadCb (error) {
   collectionSetup()

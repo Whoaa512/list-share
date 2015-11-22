@@ -1,8 +1,7 @@
 import ApiError from 'utils/ApiError'
 import bcrypt from 'utils/bcrypt-as-promised'
-import logger from 'utils/logger'
 import uuid from 'uuid'
-import { db, usersCollection } from 'utils/db-collections'
+import { db, dbCatch, usersCollection } from 'utils/db-collections'
 
 export default function create (req) {
   return new Promise((resolve, reject) => {
@@ -37,12 +36,7 @@ export default function create (req) {
             name
           })
         })
-        .catch(dbError => {
-          let errStr = `Error trying to save db. User id: ${userObj.id}`
-          logger.error(dbError, errStr)
-          logger.info({ userObj }, 'User to be created')
-          throw new ApiError(errStr)
-        })
+        .catch(dbCatch(`User id: ${userObj.id}`, { userObj }, 'User to be created'))
       })
     )
   })
