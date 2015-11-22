@@ -1,6 +1,7 @@
 import ApiError from 'utils/ApiError'
-import { db, listsCollection, itemsCollection } from 'utils/db-collections'
+import { db, listsCollection } from 'utils/db-collections'
 import logger from 'utils/logger'
+import { upsertListItems } from './list-utils'
 import uuid from 'uuid'
 
 export default function create (req) {
@@ -17,8 +18,7 @@ export default function create (req) {
       return reject(new ApiError(errStr))
     }
 
-    const newItems = items.map(createListItem)
-    itemsCollection.insert(newItems)
+    const newItems = upsertListItems(items)
 
     let newList = {
       id: uuid.v4(),
@@ -46,15 +46,4 @@ export default function create (req) {
       reject(new ApiError(errStr))
     })
   })
-}
-
-export function createListItem (raw) {
-  return {
-    checked: false,
-    description: '',
-    id: uuid.v4(),
-    link: '',
-    title: '<Untitled item>',
-    ...raw
-  }
 }
