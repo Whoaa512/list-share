@@ -1,4 +1,4 @@
-require('../server.babel') // babel registration (runtime transpilation for node)
+'use strict'
 
 import express from 'express'
 import session from 'express-session'
