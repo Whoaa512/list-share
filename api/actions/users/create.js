@@ -1,5 +1,5 @@
 import ApiError from 'utils/ApiError'
-import bcrypt from 'utils/bcrypt-as-promised'
+import bcrypt, { saltRounds } from 'utils/bcrypt-as-promised'
 import uuid from 'uuid'
 import { db, dbCatch, usersCollection } from 'utils/db-collections'
 
@@ -16,7 +16,7 @@ export default function create (req) {
     }
 
     resolve(
-      bcrypt.hashAsync(password, 10)
+      bcrypt.hashAsync(password, saltRounds)
       .then(hash => {
         return {
           email,

@@ -3,6 +3,8 @@ import bcrypt_ from 'bcrypt'
 import logger from 'utils/logger'
 import Promise from 'bluebird'
 
+export const saltRounds = 10
+
 export const bcrypt = Promise.promisifyAll(bcrypt_)
 
 export function cryptoCatch (userId) {
