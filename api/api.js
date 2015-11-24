@@ -38,7 +38,7 @@ app.use((req, res) => {
   if (action) {
     action(req, params)
       .then((result) => {
-        if (result.passwordHash != null) {
+        if (result && result.passwordHash != null) {
           result = omit(result, 'passwordHash')
         }
         res.json(result)
