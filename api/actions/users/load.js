@@ -5,11 +5,11 @@ export function getUser (email, userId) {
   let user = null
 
   if (userId != null) {
-    user = usersCollection.find({
+    user = usersCollection.findOne({
       id: userId
     })
   } else if (email != null) {
-    user = usersCollection.find({
+    user = usersCollection.findOne({
       email
     })
   }
