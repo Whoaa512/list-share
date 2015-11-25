@@ -22,8 +22,10 @@ function asyncValidate (data) {
   })
 }
 
+export const formName = 'sign-up'
+
 @reduxForm({
-  form: 'sign-up',
+  form: formName,
   fields: ['name', 'email', 'password', 'passwordAgain'],
   validate: signUpValidation,
   asyncValidate,
