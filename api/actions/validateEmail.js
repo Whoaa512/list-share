@@ -1,21 +1,21 @@
 import ApiError from 'utils/ApiError'
-import isEmpty from 'lodash/lang/isEmpty'
+import isEmpty from 'lodash.isempty'
 import { getUser } from './users/load'
 
 export default function validateEmail (req, params) {
-  const [ email ] = params
-  console.log('wtf email', typeof email)
+  return new Promise((resolve, reject) => {
+    const [ email ] = params
 
-  if (isEmpty(email)) {
-    return Promise.reject(new ApiError('Missing email'))
-  }
+    if (isEmpty(email)) {
+      return reject(new ApiError('Missing email'))
+    }
 
-  const existingUser = getUser(email)
-  console.log('existingUser', existingUser)
+    const existingUser = getUser(email)
 
-  if (existingUser != null) {
-    return Promise.reject(new ApiError('Email address already used'))
-  }
+    if (existingUser != null) {
+      return reject(new ApiError('Email address already used'))
+    }
 
-  return Promise.resolve({ message: 'Email is valid' })
+    return resolve({ message: 'Email is valid' })
+  })
 }
