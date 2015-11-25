@@ -3,19 +3,33 @@ import config from 'config'
 import { connect } from 'react-redux'
 import DocumentMeta from 'react-document-meta'
 import { initialize } from 'redux-form'
-import { SignUpForm } from 'components'
+import { login } from 'redux/modules/auth'
+import { SignUpForm, formName } from 'components'
+import { submit as signup } from 'redux/modules/signup'
 
 @connect(
   () => ({}),
-  { initialize })
+  { initialize, login, signup })
 export default class Survey extends Component {
   static propTypes = {
-    initialize: PropTypes.func.isRequired
+    initialize: PropTypes.func.isRequired,
+    login: PropTypes.func.isRequired,
+    signup: PropTypes.func.isRequired
   }
 
   handleSubmit = (data) => {
-    window.alert('Data submitted! ' + JSON.stringify(data))
-    this.props.initialize('survey', {})
+    return this.props.signup(data)
+    .then(user => {
+      this.props.initialize(formName, {})
+      return user
+    })
+    .then(user => this.props.login(data.email, data.password))
+    .catch(error => {
+      const errors = {
+        _error: error.message
+      }
+      throw errors
+    })
   }
 
   render () {
