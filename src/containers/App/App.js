@@ -73,11 +73,6 @@ export default class App extends Component {
 
           <CollapsibleNav eventKey={0}>
             <Nav navbar>
-              {user &&
-              <LinkContainer to='/lists'>
-                <NavItem eventKey={1}>Lists</NavItem>
-              </LinkContainer>}
-
               {!user &&
               <LinkContainer to='/login'>
                 <NavItem eventKey={2}>Login</NavItem>
