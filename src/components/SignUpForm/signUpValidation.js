@@ -10,6 +10,6 @@ import {
 const signUpValidation = createValidator({
   name: [required, maxLength(30)],
   email: [required, email],
-  password: [required, minLength(6)]
+  password: [required, minLength(16)]
 })
 export default memoize(10)(signUpValidation)
