@@ -1,3 +1,4 @@
+import config from 'config'
 import React, { Component } from 'react'
 import DocumentMeta from 'react-document-meta'
 import { ListRow } from 'components'
@@ -8,7 +9,7 @@ export default class Lists extends Component {
     return (
       <div className='container'>
         <h1>Lists</h1>
-        <DocumentMeta title='List Share: Lists'/>
+        <DocumentMeta title={`${config.app.title}: Lists`}/>
         <ul>
           <ListRow
               avatarImg='https://avatars1.githubusercontent.com/u/170270?v=3&s=60'
