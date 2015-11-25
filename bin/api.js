@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 ;(function (root) {
-  /* Prefer bluebird for Promise */
-  root.Promise = require('bluebird')
-
   if (process.env.IRON_NODE == null && process.env.NODE_ENV !== 'production') {
     var pipingOpts = {
       hook: true,
