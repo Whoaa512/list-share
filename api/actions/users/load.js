@@ -24,7 +24,7 @@ export default function load (req) {
       userId
     } = req.body
 
-    if (email == null || userId == null) {
+    if (email == null && userId == null) {
       return reject(new ApiError('Missing email or user id'))
     }
 
