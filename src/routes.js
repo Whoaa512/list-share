@@ -4,6 +4,7 @@ import {
   App,
   Lists,
   Login,
+  MyList,
   NotFound,
   SignUp
 } from 'containers'
@@ -19,6 +20,7 @@ export default (store) => {
 
       { /* Routes */ }
       <Route path='login' component={Login}/>
+      <Route path='my-list' component={MyList}/>
       <Route path='sign-up' component={SignUp}/>
 
       { /* Catch all route */ }

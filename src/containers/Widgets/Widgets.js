@@ -1,3 +1,4 @@
+import config from 'config'
 import React, {Component, PropTypes} from 'react'
 import DocumentMeta from 'react-document-meta'
 import {connect} from 'react-redux'
@@ -52,7 +53,7 @@ export default class Widgets extends Component {
             <i className={refreshClassName}/> {' '} Reload Widgets
           </button>
         </h1>
-        <DocumentMeta title='React Redux Example: Widgets'/>
+        <DocumentMeta title={`${config.app.title}: Widgets`}/>
         <p>
           If you hit refresh on your browser, the data loading will take place on the server before the page is returned.
           If you navigated here from another page, the data was fetched from the client after the route transition.

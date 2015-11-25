@@ -8,6 +8,7 @@
 export CounterButton from './CounterButton/CounterButton'
 export GithubButton from './GithubButton/GithubButton'
 export InfoBar from './InfoBar/InfoBar'
+export ListItem from './ListItem/ListItem'
 export ListRow from './ListRow/ListRow'
 export MiniInfoBar from './MiniInfoBar/MiniInfoBar'
 export SignUpForm from './SignUpForm/SignUpForm'
