@@ -6,7 +6,6 @@ import { Navbar, NavBrand, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import DocumentMeta from 'react-document-meta'
 import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
-import { InfoBar } from 'components'
 import { pushState } from 'redux-router'
 import connectData from 'helpers/connectData'
 import config from '../../config'
@@ -69,30 +68,18 @@ export default class App extends Component {
 
           <CollapsibleNav eventKey={0}>
             <Nav navbar>
-              {user && <LinkContainer to='/chat'>
-                <NavItem eventKey={1}>Chat</NavItem>
-              </LinkContainer>}
-
-              <LinkContainer to='/widgets'>
-                <NavItem eventKey={2}>Widgets</NavItem>
-              </LinkContainer>
+              {user &&
               <LinkContainer to='/lists'>
-                <NavItem eventKey={3}>Lists</NavItem>
-              </LinkContainer>
-              <LinkContainer to='/survey'>
-                <NavItem eventKey={4}>Survey</NavItem>
-              </LinkContainer>
-              <LinkContainer to='/about'>
-                <NavItem eventKey={5}>About Us</NavItem>
-              </LinkContainer>
+                <NavItem eventKey={1}>Lists</NavItem>
+              </LinkContainer>}
 
               {!user &&
               <LinkContainer to='/login'>
-                <NavItem eventKey={6}>Login</NavItem>
+                <NavItem eventKey={2}>Login</NavItem>
               </LinkContainer>}
               {user &&
               <LinkContainer to='/logout'>
-                <NavItem eventKey={7} className='logout-link' onClick={this.handleLogout}>
+                <NavItem eventKey={3} className='logout-link' onClick={this.handleLogout}>
                   Logout
                 </NavItem>
               </LinkContainer>}
@@ -110,7 +97,6 @@ export default class App extends Component {
         <div className={styles.appContent}>
           {this.props.children}
         </div>
-        <InfoBar/>
 
         <div className='well text-center'>
           Have questions? Ask for help <a
