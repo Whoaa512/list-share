@@ -1,4 +1,4 @@
-export function ApiError (message, errorDetails = {}) {
+export default function ApiError (message, errorDetails = {}) {
   if (message instanceof ApiError) {
     return message
   }
