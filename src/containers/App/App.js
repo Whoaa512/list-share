@@ -55,6 +55,11 @@ export default class App extends Component {
   render () {
     const {user} = this.props
     const styles = require('./App.scss')
+
+    if (!this.props.user) {
+      this.props.pushState(null, '/login')
+    }
+
     return (
       <div className={styles.app}>
         <DocumentMeta {...config.app}/>
