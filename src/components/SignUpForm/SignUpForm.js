@@ -33,15 +33,10 @@ export const formName = 'sign-up'
 })
 export default class SurveyForm extends Component {
   static propTypes = {
-    active: PropTypes.string,
     asyncValidating: PropTypes.bool.isRequired,
     fields: PropTypes.object.isRequired,
-    dirty: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
-    invalid: PropTypes.bool.isRequired,
-    pristine: PropTypes.bool.isRequired,
-    valid: PropTypes.bool.isRequired
+    resetForm: PropTypes.func.isRequired
   }
 
   render () {
