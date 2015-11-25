@@ -1,5 +1,6 @@
 import ApiError from 'utils/ApiError'
 import bcrypt, { cryptoCatch } from 'utils/bcrypt-as-promised'
+import logger from 'utils/api-logger'
 import { default as loadUser } from './users/load'
 
 export default function login (req) {
@@ -22,7 +23,13 @@ export default function login (req) {
     if (!isValidPassword) {
       throw new ApiError('Incorrect password', { status: 401 })
     }
+    const save = Promise.promisify(req.session.save.bind(req.session))
     req.session.user = user
-    return user
+    return [user, save()]
+  })
+  .spread(user => user)
+  .catch(error => {
+    logger.error(error, 'Problem saving session')
+    throw new ApiError('Problem saving session')
   })
 }

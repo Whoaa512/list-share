@@ -29,12 +29,7 @@ export default function create (req) {
         usersCollection.insert(userObj)
         return db.saveAsync()
         .then(() => {
-          resolve({
-            email,
-            id: userObj.id,
-            message: 'User created',
-            name
-          })
+          resolve(userObj)
         })
         .catch(dbCatch(`User id: ${userObj.id}`, { userObj }, 'User to be created'))
       })

@@ -16,6 +16,8 @@ import getRoutes from './routes'
 import makeRouteHooksSafe from './helpers/makeRouteHooksSafe'
 
 const client = new ApiClient()
+// Expose the instance so we can require it from other files
+ApiClient.client = client
 
 // Three different types of scroll behavior available.
 // Documented here: https://github.com/rackt/scroll-behavior

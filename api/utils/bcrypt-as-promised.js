@@ -1,11 +1,11 @@
-import ApiError from 'utils/ApiError'
+import ApiError from './ApiError'
 import bcrypt_ from 'bcrypt'
-import logger from 'utils/logger'
+import logger from './api-logger'
 import Promise from 'bluebird'
 
 export const saltRounds = 10
 
-export const bcrypt = Promise.promisifyAll(bcrypt_)
+export default Promise.promisifyAll(bcrypt_)
 
 export function cryptoCatch (userId) {
   return (err) => {

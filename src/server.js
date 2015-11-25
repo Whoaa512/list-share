@@ -60,6 +60,8 @@ app.use((req, res) => {
     webpackIsomorphicTools.refresh()
   }
   const client = new ApiClient(req)
+  // Expose the instance so we can require it from other files
+  ApiClient.client = client
 
   const store = createStore(reduxReactRouter, getRoutes, createHistory, client)
 

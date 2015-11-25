@@ -1,3 +1,4 @@
+import config from 'config'
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import DocumentMeta from 'react-document-meta'
@@ -15,9 +16,16 @@ export default class Login extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    const input = this.refs.username
-    this.props.login(input.value)
-    input.value = ''
+    const email = this.refs.email
+    const password = this.refs.password
+    return this.props.login(email.value, password.value)
+    .then(() => {
+      email.value = ''
+      password.value = ''
+    })
+    .catch(error => {
+      console.error(error, 'Problem logging in')
+    })
   }
 
   render () {
@@ -25,24 +33,34 @@ export default class Login extends Component {
     const styles = require('./Login.scss')
     return (
       <div className={styles.loginPage + ' container'}>
-        <DocumentMeta title='React Redux Example: Login'/>
+        <DocumentMeta title={`${config.app.title}: Login`}/>
         <h1>Login</h1>
         {!user &&
-        <div>
-          <form className='login-form' onSubmit={this.handleSubmit}>
-            <input type='text' ref='username' placeholder='Enter a username'/>
-            <button className='btn btn-success' onClick={this.handleSubmit}><i className='fa fa-sign-in'/>{' '}Log In
-            </button>
+        <div className='text-center'>
+          <form className='login-form form-horizontal' onSubmit={this.handleSubmit}>
+            <div className='form-group'>
+              <input type='text' ref='email' placeholder='Enter your email'/>
+            </div>
+            <div className='form-group'>
+              <input type='password' ref='password' placeholder='Enter your password'/>
+            </div>
+            <div className='form-group'>
+              <button className='btn btn-success' onClick={this.handleSubmit}>
+                <i className='fa fa-sign-in'/>
+                Log In
+              </button>
+            </div>
           </form>
-          <p>This will 'log you in' as this user, storing the username in the session of the API server.</p>
         </div>
         }
         {user &&
         <div>
           <p>You are currently logged in as {user.name}.</p>
-
           <div>
-            <button className='btn btn-danger' onClick={logout}><i className='fa fa-sign-out'/>{' '}Log Out</button>
+            <button className='btn btn-danger' onClick={logout}>
+              <i className='fa fa-sign-out'/>
+              Log Out
+            </button>
           </div>
         </div>
         }

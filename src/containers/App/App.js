@@ -6,7 +6,6 @@ import { Navbar, NavBrand, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import DocumentMeta from 'react-document-meta'
 import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
-import { InfoBar } from 'components'
 import { pushState } from 'redux-router'
 import connectData from 'helpers/connectData'
 import config from '../../config'
@@ -41,10 +40,10 @@ export default class App extends Component {
   componentWillReceiveProps (nextProps) {
     if (!this.props.user && nextProps.user) {
       // login
-      this.props.pushState(null, '/loginSuccess')
+      this.props.pushState(null, '/')
     } else if (this.props.user && !nextProps.user) {
       // logout
-      this.props.pushState(null, '/')
+      this.props.pushState(null, '/login')
     }
   }
 
@@ -56,6 +55,11 @@ export default class App extends Component {
   render () {
     const {user} = this.props
     const styles = require('./App.scss')
+
+    if (!this.props.user) {
+      this.props.pushState(null, '/login')
+    }
+
     return (
       <div className={styles.app}>
         <DocumentMeta {...config.app}/>
@@ -63,36 +67,23 @@ export default class App extends Component {
           <NavBrand>
             <IndexLink to='/' activeStyle={{color: '#33e0ff'}}>
               <div className={styles.brand}/>
-              <span>React Redux Example</span>
+              <span>{config.app.title}</span>
             </IndexLink>
           </NavBrand>
 
           <CollapsibleNav eventKey={0}>
             <Nav navbar>
-              {user && <LinkContainer to='/chat'>
-                <NavItem eventKey={1}>Chat</NavItem>
-              </LinkContainer>}
-
-              <LinkContainer to='/widgets'>
-                <NavItem eventKey={2}>Widgets</NavItem>
-              </LinkContainer>
-              <LinkContainer to='/lists'>
-                <NavItem eventKey={3}>Lists</NavItem>
-              </LinkContainer>
-              <LinkContainer to='/survey'>
-                <NavItem eventKey={4}>Survey</NavItem>
-              </LinkContainer>
-              <LinkContainer to='/about'>
-                <NavItem eventKey={5}>About Us</NavItem>
-              </LinkContainer>
-
               {!user &&
               <LinkContainer to='/login'>
-                <NavItem eventKey={6}>Login</NavItem>
+                <NavItem eventKey={2}>Login</NavItem>
+              </LinkContainer>}
+              {!user &&
+              <LinkContainer to='/sign-up'>
+                <NavItem eventKey={3}>Sign Up</NavItem>
               </LinkContainer>}
               {user &&
               <LinkContainer to='/logout'>
-                <NavItem eventKey={7} className='logout-link' onClick={this.handleLogout}>
+                <NavItem eventKey={4} className='logout-link' onClick={this.handleLogout}>
                   Logout
                 </NavItem>
               </LinkContainer>}
@@ -110,13 +101,9 @@ export default class App extends Component {
         <div className={styles.appContent}>
           {this.props.children}
         </div>
-        <InfoBar/>
 
         <div className='well text-center'>
-          Have questions? Ask for help <a
-          href='https://github.com/erikras/react-redux-universal-hot-example/issues'
-          target='_blank'>on Github</a> or in the <a
-          href='https://discord.gg/0ZcbPKXt5bZZb1Ko' target='_blank'>#react-redux-universal</a> Discord channel.
+          Have questions? <a href='mailto:hello@presentsfor.me' target='_blank'>Contact us</a>.
         </div>
       </div>
     )

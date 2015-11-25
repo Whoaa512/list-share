@@ -5,11 +5,11 @@ export function getUser (email, userId) {
   let user = null
 
   if (userId != null) {
-    user = usersCollection.find({
+    user = usersCollection.findOne({
       id: userId
     })
   } else if (email != null) {
-    user = usersCollection.find({
+    user = usersCollection.findOne({
       email
     })
   }
@@ -24,7 +24,7 @@ export default function load (req) {
       userId
     } = req.body
 
-    if (email == null || userId == null) {
+    if (email == null && userId == null) {
       return reject(new ApiError('Missing email or user id'))
     }
 
