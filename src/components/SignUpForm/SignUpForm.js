@@ -26,7 +26,7 @@ export const formName = 'sign-up'
 
 @reduxForm({
   form: formName,
-  fields: ['name', 'email', 'password', 'passwordAgain'],
+  fields: ['name', 'email', 'password'],
   validate: signUpValidation,
   asyncValidate,
   asyncBlurFields: ['email']
