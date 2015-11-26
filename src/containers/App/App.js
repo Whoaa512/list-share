@@ -28,6 +28,7 @@ function fetchData (getState, dispatch) {
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
+    location: PropTypes.object,
     user: PropTypes.object,
     logout: PropTypes.func.isRequired,
     pushState: PropTypes.func.isRequired
@@ -53,10 +54,10 @@ export default class App extends Component {
   }
 
   render () {
-    const {user} = this.props
+    const { location, user } = this.props
     const styles = require('./App.scss')
 
-    if (!this.props.user) {
+    if (!user && location.pathname !== '/sign-up') {
       this.props.pushState(null, '/login')
     }
 
