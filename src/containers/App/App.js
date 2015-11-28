@@ -57,7 +57,7 @@ export default class App extends Component {
     const { location, user } = this.props
     const styles = require('./App.scss')
 
-    if (!user && location.pathname !== '/sign-up') {
+    if (!__DEVELOPMENT__ && !user && location.pathname !== '/sign-up') {
       this.props.pushState(null, '/login')
     }
 
