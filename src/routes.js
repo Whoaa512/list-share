@@ -2,6 +2,7 @@ import React from 'react'
 import { IndexRoute, Route } from 'react-router'
 import {
   App,
+  CreateList,
   Lists,
   Login,
   MyList,
@@ -19,6 +20,7 @@ export default (store) => {
       <IndexRoute component={Lists}/>
 
       { /* Routes */ }
+      <Route path='create-list' component={CreateList}/>
       <Route path='login' component={Login}/>
       <Route path='my-list' component={MyList}/>
       <Route path='sign-up' component={SignUp}/>
