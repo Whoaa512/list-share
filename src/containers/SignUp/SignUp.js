@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import DocumentMeta from 'react-document-meta'
 import { initialize } from 'redux-form'
 import { login } from 'redux/modules/auth'
-import { SignUpForm, formName } from 'components'
+import { SignUpForm } from 'components'
 import { submit as signup } from 'redux/modules/signup'
 
 @connect(
@@ -20,7 +20,7 @@ export default class Survey extends Component {
   handleSubmit = (data) => {
     return this.props.signup(data)
     .then(user => {
-      this.props.initialize(formName, {})
+      this.props.initialize(SignUpForm.formName, {})
       return user
     })
     .then(user => this.props.login(data.email, data.password))

@@ -31,7 +31,7 @@ export const formName = 'sign-up'
   asyncValidate,
   asyncBlurFields: ['email']
 })
-export default class SurveyForm extends Component {
+export default class SignUpForm extends Component {
   static propTypes = {
     asyncValidating: PropTypes.bool.isRequired,
     fields: PropTypes.object.isRequired,
@@ -79,3 +79,4 @@ export default class SurveyForm extends Component {
   }
 }
 
+SignUpForm.formName = formName
