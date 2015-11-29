@@ -1,6 +1,8 @@
 import config from 'config'
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
+import { Link } from 'react-router'
+import { Button } from 'react-bootstrap'
 import DocumentMeta from 'react-document-meta'
 import * as authActions from 'redux/modules/auth'
 
@@ -49,6 +51,11 @@ export default class Login extends Component {
                 <i className='fa fa-sign-in'/>
                 Log In
               </button>
+              <Link to='/sign-up'>
+                <Button>
+                  Sign Up
+                </Button>
+              </Link>
             </div>
           </form>
         </div>
