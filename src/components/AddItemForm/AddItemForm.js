@@ -8,9 +8,6 @@ export const formName = 'add-item'
 @reduxForm({
   form: formName,
   fields: ['title', 'imageUrl', 'link', 'comments'],
-  initialValues: {
-    imageUrl: 'https://d1luk0418egahw.cloudfront.net/static/images/guide/NoImage_592x444.jpg'
-  },
   validate: addItemValidation
 }, undefined, { resetForm })
 export default class AddItemForm extends Component {

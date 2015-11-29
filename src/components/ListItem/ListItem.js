@@ -15,7 +15,7 @@ export default class ListItem extends Component {
   render () {
     const {
       comments,
-      imageUrl,
+      imageUrl = 'https://d1luk0418egahw.cloudfront.net/static/images/guide/NoImage_592x444.jpg',
       link,
       remove,
       title
