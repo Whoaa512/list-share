@@ -47,7 +47,7 @@ export default class MyList extends Component {
           {userHasList &&
           <Row ref='listItems'>
             {listItems.map((item, idx) =>
-              <ListItem key={idx} {...item} />
+              <ListItem key={idx} showEdit {...item} />
             )}
           </Row>
           }
