@@ -83,6 +83,10 @@ export function getLists (globalState) {
   return get(globalState, `${STATE_PATH}.lists`, {})
 }
 
+export function getList (globalState, listId) {
+  return get(globalState, `${STATE_PATH}.lists.${listId}`, { items: [] })
+}
+
 export function userHasList (globalState) {
   return !!getMyList(globalState)
 }
