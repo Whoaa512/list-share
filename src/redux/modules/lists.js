@@ -73,6 +73,10 @@ export function getLists (globalState) {
   return get(globalState, `${STATE_PATH}.lists`, {})
 }
 
+export function userHasList (globalState) {
+  return !!getMyList(globalState)
+}
+
 export function getMyList (globalState) {
   const userId = getUserId(globalState)
   if (!userId) {
