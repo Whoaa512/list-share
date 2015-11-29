@@ -50,7 +50,7 @@ export default class CreateList extends Component {
 
 function mapStateToProps (state) {
   const user = getUser(state)
-  const userId = get(user, 'id', false)
+  const userId = get(user, 'id', '')
   return {
     userId
   }
