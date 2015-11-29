@@ -76,13 +76,7 @@ export default class CreateListForm extends Component {
           {itemsToBeAdded.length > 0 && <Row>
             <Panel header={<h4>Items to be added</h4>}>
               {itemsToBeAdded.map((item, idx) =>
-                <ListItem
-                    description={item.comments}
-                    key={idx}
-                    link={item.link}
-                    thumbnailUrl={item.imageUrl}
-                    title={item.title}
-                />
+                <ListItem key={idx} {...item}/>
               )}
             </Panel>
           </Row>}
