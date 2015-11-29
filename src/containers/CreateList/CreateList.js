@@ -23,10 +23,11 @@ export default class CreateList extends Component {
 
     return this.props.create(data, this.props.userId)
     .then(list => {
-      this.props.initialize(CreateListForm.formName, {})
       // @todo: tell the user they were successful
       //    also redirect them somewhere to see their created list
-      return list
+
+      // @note: have to use old school way to reset since reset was buggy
+      return this.props.initialize(CreateListForm.formName, {})
     })
     .catch(error => {
       const errors = {
