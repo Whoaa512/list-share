@@ -2,7 +2,7 @@ import config from 'config'
 import DocumentMeta from 'react-document-meta'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Grid, Row, Col, Button } from 'react-bootstrap'
+import { Grid, Row, Col } from 'react-bootstrap'
 import { ListItem } from 'components'
 import { getItems } from 'redux/modules/items'
 import { getList } from 'redux/modules/lists'
@@ -24,9 +24,11 @@ export default class List extends Component {
         <Grid>
           <Row>
             <Col xs={12} md={4}><h2>{list.title}</h2></Col>
+            {/*
             <Col xs={4} xsOffset={8} md={3} mdOffset={9}>
               <Button>Suggest a Gift</Button>
             </Col>
+            */}
           </Row>
           {listItems.length > 0 &&
           <Row ref='listItems'>
