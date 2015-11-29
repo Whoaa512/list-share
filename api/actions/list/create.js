@@ -7,6 +7,7 @@ export default function create (req) {
   return new Promise((resolve, reject) => {
     const {
       items,
+      title,
       userId
     } = req.body
     const creator = userId
@@ -22,6 +23,7 @@ export default function create (req) {
     let newList = {
       id: uuid.v4(),
       creator,
+      title,
       createdAt: Date.now(),
       items: newItems.map(item => item.id)
     }
