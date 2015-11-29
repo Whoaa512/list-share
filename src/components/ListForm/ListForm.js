@@ -72,7 +72,12 @@ export default class ListForm extends Component {
     const saveButton = (saveText) => {
       return (
         <div className='text-center'>
-          <ButtonInput bsSize='lg' bsStyle='success' onClick={handleSubmit}>
+          <ButtonInput
+              bsSize='large'
+              bsStyle='success'
+              onClick={handleSubmit}
+              type='submit'
+          >
             {saveText}
           </ButtonInput>
         </div>
