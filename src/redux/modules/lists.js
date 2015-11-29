@@ -120,7 +120,7 @@ export function userHasList (globalState) {
 export function getMyList (globalState) {
   const userId = getUserId(globalState)
   if (!userId) {
-    return false
+    return { items: [] }
   }
   const lists = getLists(globalState)
   return find(lists, { creator: userId }) || { items: [] }
