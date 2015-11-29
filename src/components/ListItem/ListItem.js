@@ -7,6 +7,7 @@ export default class ListItem extends Component {
       comments: PropTypes.string,
       imageUrl: PropTypes.string,
       link: PropTypes.string,
+      remove: PropTypes.func,
       title: PropTypes.string
     }
   }
@@ -16,17 +17,29 @@ export default class ListItem extends Component {
       comments,
       imageUrl,
       link,
+      remove,
       title
     } = this.props
     const styles = require('./ListItem.scss')
+    const xsColSizes = remove != null ? [1, 11, 12] : [0, 12, 12]
+    const mdColSizes = remove != null ? [1, 2, 9] : [0, 2, 10]
+    const [removeMd, imgMd, detailsMd] = mdColSizes
+    const [removeXs, imgXs, detailsXs] = xsColSizes
     return (
       <li className={styles.listItem}>
         <Grid>
           <Row>
-            <Col xs={12} md={2}>
+            {remove != null &&
+            <Col xs={removeXs} md={removeMd}>
+              <p className='text-danger' onClick={remove}>
+                <i className='fa fa-times'/>
+              </p>
+            </Col>
+            }
+            <Col xs={imgXs} md={imgMd}>
               <img src={imageUrl}/>
             </Col>
-            <Col xs={12} md={10}>
+            <Col xs={detailsXs} md={detailsMd}>
               <Row>
                 <a href={link}>{title}</a>
               </Row>
