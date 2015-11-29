@@ -1,20 +1,39 @@
 import React, { Component, PropTypes } from 'react'
+import get from 'lodash.get'
 import config from 'config'
 import { connect } from 'react-redux'
 import DocumentMeta from 'react-document-meta'
 import { initialize } from 'redux-form'
 import { CreateListForm } from 'components'
+import { create } from 'redux/modules/lists'
+import { getUser } from 'redux/modules/auth'
 
 @connect(
-  () => ({}),
-  { initialize })
+  mapStateToProps,
+  { initialize, create })
 export default class CreateList extends Component {
   static propTypes = {
-    initialize: PropTypes.func.isRequired
+    create: PropTypes.func.isRequired,
+    initialize: PropTypes.func.isRequired,
+    userId: PropTypes.string.isRequired
   }
 
   handleSubmit = (data) => {
-    console.log('submitting', data)
+    data.items = JSON.parse(data.items)
+
+    return this.props.create(data, this.props.userId)
+    .then(list => {
+      this.props.initialize(CreateListForm.formName, {})
+      // @todo: tell the user they were successful
+      //    also redirect them somewhere to see their created list
+      return list
+    })
+    .catch(error => {
+      const errors = {
+        _error: error.message
+      }
+      throw errors
+    })
   }
 
   render () {
@@ -25,5 +44,13 @@ export default class CreateList extends Component {
         <CreateListForm onSubmit={this.handleSubmit} />
       </div>
     )
+  }
+}
+
+function mapStateToProps (state) {
+  const user = getUser(state)
+  const userId = get(user, 'id', false)
+  return {
+    userId
   }
 }
