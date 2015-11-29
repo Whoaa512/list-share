@@ -9,11 +9,11 @@ export function getList (req) {
 
   let list
   if (listId != null) {
-    list = listsCollection.find({
+    list = listsCollection.findOne({
       id: listId
     })
   } else if (userId != null) {
-    list = listsCollection.find({
+    list = listsCollection.findOne({
       creator: userId
     })
   } else {

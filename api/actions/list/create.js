@@ -11,7 +11,7 @@ export default function create (req) {
       userId
     } = req.body
     const creator = userId
-    const existingList = listsCollection.find({ creator })
+    const existingList = listsCollection.findOne({ creator })
 
     if (existingList != null) {
       let errStr = 'Only one list allowed per user.'
