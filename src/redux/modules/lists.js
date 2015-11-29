@@ -63,9 +63,15 @@ export default function lists (state = initialState, action = {}) {
 }
 
 function addList (newList, currentlists) {
+  if (newList.id != null) {
+    return {
+      ...currentlists,
+      [newList.id]: newList
+    }
+  }
   return {
     ...currentlists,
-    [newList.id]: newList
+    ...newList
   }
 }
 
