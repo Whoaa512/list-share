@@ -1,12 +1,7 @@
 import ApiError from 'utils/ApiError'
 import { listsCollection } from 'utils/db-collections'
 
-export function getList (req) {
-  const {
-    listId,
-    userId
-  } = req.body
-
+export function getList (listId, userId) {
   let list
   if (listId != null) {
     list = listsCollection.findOne({
@@ -16,22 +11,24 @@ export function getList (req) {
     list = listsCollection.findOne({
       creator: userId
     })
-  } else {
-    return new ApiError('Missing list id or user id')
-  }
-
-  if (list == null) {
-    return new ApiError('No list found for the given parameters')
   }
 
   return list
 }
 
 export default function load (req) {
+  const {
+    listId,
+    userId
+  } = req.body
+
   return new Promise((resolve, reject) => {
+    if (listId == null || userId == null) {
+      return reject(new ApiError('Missing list id or user id'))
+    }
     const list = getList(req)
-    if (list instanceof ApiError) {
-      return reject(list)
+    if (list == null) {
+      return reject(new ApiError('No list found for the given parameters'))
     }
     resolve(list)
   })
