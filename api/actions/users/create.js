@@ -6,6 +6,7 @@ import { db, dbCatch, usersCollection } from 'utils/db-collections'
 export default function create (req) {
   return new Promise((resolve, reject) => {
     const {
+      avatarImg = 'http://gettingreal2014.com/wp-content/uploads/2014/07/default-avatar.png',
       name,
       email,
       password
@@ -19,6 +20,7 @@ export default function create (req) {
       bcrypt.hashAsync(password, saltRounds)
       .then(hash => {
         return {
+          avatarImg,
           email,
           id: uuid.v4(),
           name,
