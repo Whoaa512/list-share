@@ -9,6 +9,7 @@ import info from './info'
 import items from './items'
 import lists from './lists'
 import signup from './signup'
+import users from './users'
 import widgets from './widgets'
 
 export default combineReducers({
@@ -24,5 +25,6 @@ export default combineReducers({
   items,
   lists,
   signup,
+  users,
   widgets
 })
