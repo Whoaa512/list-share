@@ -16,11 +16,13 @@ export function updateList (list, idsToAdd, idsToRemove) {
 
   listsCollection.update(list)
 
-  return db.saveAsync()
+  const dbSave = db.saveAsync()
   .catch(dbCatch(`List id: ${list.id}`, {
     old,
     updated: list
   }, 'List to be updated'))
+
+  return [list, dbSave]
 }
 
 export default function update (req) {
@@ -43,6 +45,7 @@ export default function update (req) {
         const idsToRemove = removedItems.map(x => x.id)
         return updateList(list, idsToAdd, idsToRemove)
       })
+      .spread(list => list)
     )
   })
 }
