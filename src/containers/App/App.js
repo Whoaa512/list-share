@@ -4,7 +4,6 @@ import { IndexLink } from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, NavBrand, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import DocumentMeta from 'react-document-meta'
-import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
 import { isLoaded as areItemsLoaded, load as loadItems } from 'redux/modules/items'
 import { isLoaded as areListsLoaded, load as loadLists } from 'redux/modules/lists'
@@ -15,9 +14,6 @@ import config from '../../config'
 
 function fetchData (getState, dispatch) {
   const promises = []
-  if (!isInfoLoaded(getState())) {
-    promises.push(dispatch(loadInfo()))
-  }
   if (!isAuthLoaded(getState())) {
     promises.push(dispatch(loadAuth()))
   }
