@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { reduxForm, initialize as resetForm } from 'redux-form'
+import { reduxForm, initialize } from 'redux-form'
 import { Input, Button, ButtonToolbar } from 'react-bootstrap'
 import itemValidation from './itemValidation'
 
@@ -9,10 +9,10 @@ export const formName = 'item-form'
   form: formName,
   fields: ['title', 'imageUrl', 'link', 'comments'],
   validate: itemValidation
-}, undefined, { resetForm })
+})
 export default class ItemForm extends Component {
   static propTypes = {
-    resetForm: PropTypes.func.isRequired,
+    dispatch: PropTypes.func.isRequired,
     fields: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     resetText: PropTypes.string,
@@ -21,13 +21,8 @@ export default class ItemForm extends Component {
   }
 
   reset () {
-    const { resetForm } = this.props
-    resetForm(formName, {
-      comments: '',
-      imageUrl: '',
-      link: '',
-      title: ''
-    })
+    const { dispatch } = this.props
+    dispatch(initialize(formName, {}))
   }
 
   render () {
