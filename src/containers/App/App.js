@@ -103,12 +103,19 @@ export default class App extends Component {
               </LinkContainer>}
             </Nav>
             {user &&
-            <p className={styles.loggedInMessage + ' navbar-text'}>Logged in as <strong>{user.name}</strong>.</p>}
             <Nav navbar right>
-              <NavItem eventKey={1} target='_blank' title='View on Github' href='https://github.com/erikras/react-redux-universal-hot-example'>
-                <i className='fa fa-github'/>
+              {user &&
+              <p className={styles.loggedInMessage + ' navbar-text'}>Logged in as <strong>{user.name}</strong>.</p>
+              }
+              <NavItem eventKey={1}>
+                <img
+                    alt='avatar'
+                    className={`${styles.avatarImage} img-responsive img-circle`}
+                    src={user.avatarImg}
+                />
               </NavItem>
             </Nav>
+            }
           </CollapsibleNav>
         </Navbar>
 
