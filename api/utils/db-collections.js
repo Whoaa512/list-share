@@ -4,7 +4,7 @@ import Lokijs from 'lokijs'
 import path from 'path'
 import Promise from 'bluebird'
 
-const dbPath = path.resolve('../list-share-db.json')
+const dbPath = path.resolve(__dirname, '../list-share-db.json')
 export const db = Promise.promisifyAll(new Lokijs(dbPath, { autoload: true, autoloadCallback: autoloadCb }))
 export let listsCollection = { data: [] }
 export let itemsCollection = { data: [] }
