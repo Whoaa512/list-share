@@ -2,15 +2,15 @@ import get from 'lodash.get'
 
 const STATE_PATH = 'users'
 
-const LOAD = 'list-share/lists/LOAD'
-const LOAD_SUCCESS = 'list-share/lists/LOAD_SUCCESS'
-const LOAD_FAIL = 'list-share/lists/LOAD_FAIL'
+const LOAD = 'list-share/users/LOAD'
+const LOAD_SUCCESS = 'list-share/users/LOAD_SUCCESS'
+const LOAD_FAIL = 'list-share/users/LOAD_FAIL'
 
 const initialState = {
   loaded: false
 }
 
-export default function lists (state = initialState, action = {}) {
+export default function users (state = initialState, action = {}) {
   switch (action.type) {
     case LOAD:
       return {
