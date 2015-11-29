@@ -1,5 +1,7 @@
+import cloneDeep from 'lodash.clonedeep'
 import get from 'lodash.get'
 import find from 'lodash.find'
+import { getMyItems } from './items'
 import { getUserId } from './auth'
 
 const STATE_PATH = 'lists'
@@ -99,6 +101,13 @@ export function getMyList (globalState) {
   const lists = getLists(globalState)
   return find(lists, { creator: userId }) || { items: [] }
 }
+
+export function getMyListAndItems (globalState) {
+  const myList = cloneDeep(getMyList(globalState))
+  const myItems = getMyItems(globalState)
+  myList.itemIds = myList.items
+  myList.items = myItems
+  return myList
 }
 
 export function create (data, userId) {

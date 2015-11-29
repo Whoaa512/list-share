@@ -7,6 +7,7 @@ import {
   initialize as initForm
 } from 'redux-form'
 import { Grid, Row, Col, ButtonInput, Panel } from 'react-bootstrap'
+import { getMyListAndItems } from 'redux/modules/lists'
 import { getUser } from 'redux/modules/auth'
 import { AddItemForm, ListItem } from 'components'
 
@@ -27,6 +28,7 @@ export default class ListForm extends Component {
     changeField: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     initForm: PropTypes.func.isRequired,
+    currentItems: PropTypes.array,
     itemsToBeAdded: PropTypes.array,
     title: PropTypes.string
   }
@@ -48,6 +50,7 @@ export default class ListForm extends Component {
   render () {
     const {
       handleSubmit,
+      currentItems,
       title
     } = this.props
     const { itemsToBeAdded } = this
@@ -74,13 +77,34 @@ export default class ListForm extends Component {
               <AddItemForm onSubmit={this.addAndClear.bind(this)} />
             </Col>
           </Row>
-          {itemsToBeAdded.length > 0 && <Row>
-            <Panel header={<h4>Items to be added</h4>}>
-              {itemsToBeAdded.map((item, idx) =>
+          <Row>
+            <Panel
+                eventKey={1}
+                defaultExpanded
+                collapsible
+                header={<h4>Items to be added <small>Click to collapse</small></h4>}
+            >
+            {itemsToBeAdded.length <= 0 &&
+              <p>No items to be added</p>
+            }
+            {itemsToBeAdded.map((item, idx) =>
+              <ListItem key={idx} {...item}/>
+            )}
+            </Panel>
+            <Panel
+                eventKey={2}
+                defaultExpanded
+                collapsible
+                header={<h4>Items in list <small>Click to collapse</small></h4>}
+            >
+              {currentItems.length <= 0 &&
+                <p>No items added yet</p>
+              }
+              {currentItems.map((item, idx) =>
                 <ListItem key={idx} {...item}/>
               )}
             </Panel>
-          </Row>}
+          </Row>
         </Grid>
       </form>
     )
@@ -92,8 +116,11 @@ ListForm.formName = formName
 function mapStateToProps (state) {
   const user = getUser(state)
   const [name] = get(user, 'name', 'Anon').split(' ')
+  const myListAndItems = getMyListAndItems(state)
+  const title = myListAndItems.title || `${name}'s Chrstmas List`
   return {
-    title: `${name}'s Chrstmas List`
+    currentItems: myListAndItems.items,
+    title
   }
 }
 
