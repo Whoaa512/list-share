@@ -69,6 +69,10 @@ function addList (newList, currentlists) {
   }
 }
 
+export function isLoaded (globalState) {
+  return get(globalState, `${STATE_PATH}.loaded`, false)
+}
+
 export function getLists (globalState) {
   return get(globalState, `${STATE_PATH}.lists`, {})
 }
