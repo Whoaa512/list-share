@@ -2,7 +2,7 @@ import config from 'config'
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import { Link } from 'react-router'
-import { Button } from 'react-bootstrap'
+import { Button, Col, Grid, Input } from 'react-bootstrap'
 import DocumentMeta from 'react-document-meta'
 import * as authActions from 'redux/modules/auth'
 
@@ -16,14 +16,14 @@ export default class Login extends Component {
     logout: PropTypes.func
   }
 
-  handleSubmit = (event) => {
+  handleSubmit (event) {
     event.preventDefault()
     const email = this.refs.email
     const password = this.refs.password
-    return this.props.login(email.value, password.value)
+    return this.props.login(email.getValue(), password.getValue())
     .then(() => {
-      email.value = ''
-      password.value = ''
+      email.refs.input.value = ''
+      password.refs.input.value = ''
     })
     .catch(error => {
       console.error(error, 'Problem logging in')
@@ -38,36 +38,30 @@ export default class Login extends Component {
         <DocumentMeta title={`${config.app.title}: Login`}/>
         <h1>Login</h1>
         {!user &&
-        <div className='text-center'>
-          <form className='login-form form-horizontal' onSubmit={this.handleSubmit}>
-            <div className='form-group'>
-              <input type='text' ref='email' placeholder='Enter your email'/>
-            </div>
-            <div className='form-group'>
-              <input type='password' ref='password' placeholder='Enter your password'/>
-            </div>
-            <div className='form-group'>
-              <button className='btn btn-success' onClick={this.handleSubmit}>
-                <i className='fa fa-sign-in'/>
+        <Grid className='text-center'>
+          <form className='login-form form-horizontal' onSubmit={this.handleSubmit.bind(this)}>
+            <Col md={4} mdOffset={4}>
+              <Input type='text' ref='email' placeholder='Enter your email'/>
+              <Input type='password' ref='password' placeholder='Enter your password'/>
+              <Button bsStyle='success' type='submit' onClick={this.handleSubmit.bind(this)}>
                 Log In
-              </button>
+              </Button>
               <Link to='/sign-up'>
-                <Button>
-                  Sign Up
+                <Button bsStyle='link'>
+                  No account? Sign up now!
                 </Button>
               </Link>
-            </div>
+            </Col>
           </form>
-        </div>
+        </Grid>
         }
         {user &&
         <div>
           <p>You are currently logged in as {user.name}.</p>
           <div>
-            <button className='btn btn-danger' onClick={logout}>
-              <i className='fa fa-sign-out'/>
+            <Button bsStyle='danger' onClick={logout}>
               Log Out
-            </button>
+            </Button>
           </div>
         </div>
         }
