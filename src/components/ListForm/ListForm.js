@@ -51,6 +51,7 @@ export default class ListForm extends Component {
     const {
       handleSubmit,
       currentItems,
+      type,
       title
     } = this.props
     const { itemsToBeAdded } = this
@@ -87,6 +88,7 @@ export default class ListForm extends Component {
               <ListItem key={idx} {...item}/>
             )}
             </Panel>
+            {type === 'edit' &&
             <Panel
                 eventKey={2}
                 defaultExpanded
@@ -100,6 +102,7 @@ export default class ListForm extends Component {
                 <ListItem key={idx} {...item}/>
               )}
             </Panel>
+            }
           </Row>
         </Grid>
       </form>
