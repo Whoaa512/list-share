@@ -3,6 +3,7 @@ import { IndexRoute, Route } from 'react-router'
 import {
   App,
   CreateList,
+  EditList,
   List,
   Lists,
   Login,
@@ -25,6 +26,7 @@ export default (store) => {
       <Route path='list/:listId' component={List}/>
       <Route path='login' component={Login}/>
       <Route path='my-list' component={MyList}/>
+      <Route path='my-list/edit' component={EditList}/>
       <Route path='sign-up' component={SignUp}/>
 
       { /* Catch all route */ }
