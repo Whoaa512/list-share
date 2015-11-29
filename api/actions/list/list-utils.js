@@ -1,3 +1,4 @@
+import logger from 'utils/api-logger'
 import { itemsCollection } from 'utils/db-collections'
 import uuid from 'uuid'
 
@@ -13,7 +14,14 @@ export function createListItem (raw) {
 }
 
 export function removeListItems (items) {
+  const sizeBefore = itemsCollection.data.length
   itemsCollection.remove(items)
+  const sizeAfter = itemsCollection.data.length
+  logger.info({
+    items,
+    sizeBefore,
+    sizeAfter
+  }, 'Removing items')
   return items
 }
 
