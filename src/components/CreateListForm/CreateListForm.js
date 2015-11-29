@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux'
 import {
   change as changeField,
   reduxForm,
-  initialize as initForm,
-  reset as resetForm
+  initialize as initForm
 } from 'redux-form'
 import { Grid, Row, Col, ButtonInput, Panel } from 'react-bootstrap'
 import { getUser } from 'redux/modules/auth'
@@ -28,8 +27,7 @@ export default class CreateListForm extends Component {
     handleSubmit: PropTypes.func.isRequired,
     initForm: PropTypes.func.isRequired,
     itemsToBeAdded: PropTypes.array,
-    title: PropTypes.string,
-    resetForm: PropTypes.func.isRequired
+    title: PropTypes.string
   }
 
   componentDidMount () {
@@ -40,11 +38,10 @@ export default class CreateListForm extends Component {
   }
 
   addAndClear (data) {
-    const { changeField, resetForm } = this.props
     const { itemsToBeAdded } = this
     itemsToBeAdded.push(data)
-    resetForm(AddItemForm.formName)
-    changeField(formName, 'items', JSON.stringify(itemsToBeAdded))
+    this.props.initForm(AddItemForm.formName, { comments: '' })
+    this.props.changeField(formName, 'items', JSON.stringify(itemsToBeAdded))
   }
 
   render () {
@@ -106,5 +103,5 @@ function mapStateToProps (state) {
 }
 
 function mapDispatchToProps (dispatch) {
-  return bindActionCreators({ changeField, initForm, resetForm }, dispatch)
+  return bindActionCreators({ changeField, initForm }, dispatch)
 }
