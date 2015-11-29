@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import DocumentMeta from 'react-document-meta'
 import { pushState } from 'redux-router'
 import { initialize } from 'redux-form'
-import { CreateListForm } from 'components'
+import { ListForm } from 'components'
 import { create } from 'redux/modules/lists'
 import { getUserId } from 'redux/modules/auth'
 import { load as loadItems } from 'redux/modules/items'
@@ -33,7 +33,7 @@ export default class CreateList extends Component {
     .then(() => this.props.pushState(null, '/my-list'))
     .then(() => {
       // @note: have to use old school way to reset since reset was buggy
-      return this.props.initialize(CreateListForm.formName, {})
+      return this.props.initialize(ListForm.formName, {})
     })
     .catch(error => {
       const errors = {
@@ -48,7 +48,7 @@ export default class CreateList extends Component {
       <div className='container'>
         <h1>{/* @todo: fix this; Leave an empty header for better styling */}</h1>
         <DocumentMeta title={`${config.app.title}: Create a List`}/>
-        <CreateListForm onSubmit={this.handleSubmit} />
+        <ListForm type='create' onSubmit={this.handleSubmit} />
       </div>
     )
   }

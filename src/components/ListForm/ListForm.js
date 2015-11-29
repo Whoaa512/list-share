@@ -10,19 +10,20 @@ import { Grid, Row, Col, ButtonInput, Panel } from 'react-bootstrap'
 import { getUser } from 'redux/modules/auth'
 import { AddItemForm, ListItem } from 'components'
 
-export const formName = 'create-list'
+export const formName = 'list-form'
 
 @reduxForm({
   form: formName,
   fields: ['items', 'title']
 }, mapStateToProps, mapDispatchToProps)
-export default class CreateListForm extends Component {
+export default class ListForm extends Component {
   constructor (props) {
     super(props)
     this.itemsToBeAdded = []
   }
 
   static propTypes = {
+    type: PropTypes.string.isRequired,
     changeField: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     initForm: PropTypes.func.isRequired,
@@ -50,7 +51,7 @@ export default class CreateListForm extends Component {
       title
     } = this.props
     const { itemsToBeAdded } = this
-    const styles = require('./CreateListForm.scss')
+    const styles = require('./ListForm.scss')
 
     return (
       <form className='form-horizontal' onSubmit={handleSubmit}>
@@ -86,7 +87,7 @@ export default class CreateListForm extends Component {
   }
 }
 
-CreateListForm.formName = formName
+ListForm.formName = formName
 
 function mapStateToProps (state) {
   const user = getUser(state)

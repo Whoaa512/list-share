@@ -7,9 +7,9 @@
 
 export AddItemForm from './AddItemForm/AddItemForm'
 export CounterButton from './CounterButton/CounterButton'
-export CreateListForm from './CreateListForm/CreateListForm'
 export GithubButton from './GithubButton/GithubButton'
 export InfoBar from './InfoBar/InfoBar'
+export ListForm from './ListForm/ListForm'
 export ListItem from './ListItem/ListItem'
 export ListRow from './ListRow/ListRow'
 export MiniInfoBar from './MiniInfoBar/MiniInfoBar'
