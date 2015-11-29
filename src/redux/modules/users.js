@@ -58,7 +58,7 @@ export function getUsers (globalState) {
   return get(globalState, `${STATE_PATH}.data`, {})
 }
 
-export function load (userId) {
+export function load (userId = 'all') {
   const all = userId === 'all'
   const url = `/users/load${all ? '/all' : ''}`
   const body = all ? undefined : {
