@@ -93,7 +93,7 @@ export function create (data, userId) {
 
 export function load (listId) {
   return {
-    types: [CREATE, CREATE_SUCCESS, CREATE_FAIL],
+    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     promise: (client) => client.post('/list/load', {
       data: { listId }
     })
