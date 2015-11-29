@@ -83,6 +83,10 @@ export function getUser (globalState) {
   return get(globalState, 'auth.user', null)
 }
 
+export function getUserId (globalState) {
+  return get(globalState, 'auth.user.id', '')
+}
+
 export function load () {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],

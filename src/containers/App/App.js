@@ -6,6 +6,7 @@ import { Navbar, NavBrand, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import DocumentMeta from 'react-document-meta'
 import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
+import { isLoaded as areItemsLoaded, load as loadItems } from 'redux/modules/items'
 import { pushState } from 'redux-router'
 import connectData from 'helpers/connectData'
 import config from '../../config'
@@ -17,6 +18,9 @@ function fetchData (getState, dispatch) {
   }
   if (!isAuthLoaded(getState())) {
     promises.push(dispatch(loadAuth()))
+  }
+  if (!areItemsLoaded(getState())) {
+    promises.push(dispatch(loadItems()))
   }
   return Promise.all(promises)
 }
