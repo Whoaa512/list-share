@@ -60,9 +60,7 @@ export default class ListForm extends Component {
       <form className='form-horizontal' onSubmit={handleSubmit}>
         <Grid>
           <Row>
-            <Col md={10}>
-              <h3 className={styles.listTitle}>{title}</h3>
-            </Col>
+            <h3 className={styles.listTitle}>{title}</h3>
             <Col md={2}>
               <ButtonInput bsStyle='success' onClick={handleSubmit}>
                 Save List
@@ -70,10 +68,8 @@ export default class ListForm extends Component {
             </Col>
           </Row>
           <Row>
-            <Col md={2}>
+            <Col md={8} mdOffset={2}>
               <h5>Add an item</h5>
-            </Col>
-            <Col md={8}>
               <AddItemForm onSubmit={this.addAndClear.bind(this)} />
             </Col>
           </Row>
