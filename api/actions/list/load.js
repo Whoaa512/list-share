@@ -1,4 +1,5 @@
 import ApiError from 'utils/ApiError'
+import indexBy from 'lodash.indexby'
 import { listsCollection } from 'utils/db-collections'
 
 export function getList (listId, userId) {
@@ -26,7 +27,7 @@ export default function load (req, params) {
 
   return new Promise((resolve, reject) => {
     if (all === 'all') {
-      return resolve(listsCollection.data)
+      return resolve(indexBy(listsCollection.data, 'id'))
     }
     if (listId == null || userId == null) {
       return reject(new ApiError('Missing list id or user id'))

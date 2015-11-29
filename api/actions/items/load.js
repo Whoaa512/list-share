@@ -1,6 +1,7 @@
 import ApiError from 'utils/ApiError'
 import isEmpty from 'lodash.isempty'
 import includes from 'lodash.includes'
+import indexBy from 'lodash.indexby'
 import { itemsCollection } from 'utils/db-collections'
 
 export function getItems (itemIds) {
@@ -18,7 +19,7 @@ export default function load (req, params) {
 
   return new Promise((resolve, reject) => {
     if (all === 'all') {
-      return resolve(itemsCollection.data)
+      return resolve(indexBy(itemsCollection.data, 'id'))
     }
     if (!itemIds) {
       return reject(new ApiError('Missing item ids'))
