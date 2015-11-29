@@ -8,6 +8,7 @@ import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { getLists, userHasList } from 'redux/modules/lists'
 import { getUsers } from 'redux/modules/users'
+import { getUserId } from 'redux/modules/auth'
 import { ListRow } from 'components'
 
 @connect(mapStateToProps)
@@ -51,11 +52,15 @@ export default class Lists extends Component {
 
 function mapStateToProps (state) {
   const users = getUsers(state)
+  const userId = getUserId(state)
   const allLists = getLists(state)
   const lists = Object.keys(allLists).map(id => {
     const list = cloneDeep(allLists[id])
     list.avatarImg = get(users, `${list.creator}.avatarImg`)
     list.link = `/list/${list.id}`
+    if (userId === list.creator) {
+      list.link = `/my-list`
+    }
     return list
   })
   return {
