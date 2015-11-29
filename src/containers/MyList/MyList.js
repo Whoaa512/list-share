@@ -5,8 +5,8 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { Grid, Row, Col, Button } from 'react-bootstrap'
 import { ListItem } from 'components'
-import { getItems } from 'redux/modules/items'
-import { getMyList, userHasList } from 'redux/modules/lists'
+import { getMyItems } from 'redux/modules/items'
+import { userHasList } from 'redux/modules/lists'
 
 @connect(mapStateToProps)
 export default class MyList extends Component {
@@ -50,9 +50,7 @@ export default class MyList extends Component {
 }
 
 function mapStateToProps (state) {
-  const mylist = getMyList(state) || { items: [] }
-  const allItems = getItems(state)
-  const listItems = mylist.items.map(id => allItems[id])
+  const listItems = getMyItems(state)
   return {
     userHasList: userHasList(state),
     listItems

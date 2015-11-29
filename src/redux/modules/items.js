@@ -1,4 +1,5 @@
 import get from 'lodash.get'
+import { getMyList } from './lists'
 
 const STATE_PATH = 'items'
 
@@ -50,6 +51,12 @@ export function getError (globalState) {
 
 export function getItems (globalState) {
   return get(globalState, `${STATE_PATH}.data`, {})
+}
+
+export function getMyItems (globalState) {
+  const myList = getMyList(globalState)
+  const allItems = getItems(globalState)
+  return myList.items.map(id => allItems[id])
 }
 
 export function load (itemIds = 'all') {
