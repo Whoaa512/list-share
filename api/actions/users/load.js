@@ -18,7 +18,7 @@ export function getUser (email, userId) {
   return user
 }
 
-export default function load (req, params) {
+export default function load (req, params, INTERNAL) {
   return new Promise((resolve, reject) => {
     const {
       email,
@@ -34,6 +34,10 @@ export default function load (req, params) {
         }
       })
       return resolve(indexBy(allUsers, 'id'))
+    }
+
+    if (!INTERNAL) {
+      return reject(new ApiError('Users are not allowed to be queried.'))
     }
 
     if (email == null && userId == null) {
