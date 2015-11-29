@@ -90,13 +90,16 @@ export default class ListForm extends Component {
           <Row>
             <h3 className={styles.listTitle}>{title}</h3>
           </Row>
+          {type === 'add' &&
           <Row>
             <Col md={8} mdOffset={2}>
               <h5>Add an item to draft</h5>
               <AddItemForm submitText='Add to draft' onSubmit={this.addAndClear.bind(this)} />
             </Col>
           </Row>
+          }
           <Row>
+            {type === 'add' &&
             <Panel
                 eventKey={1}
                 defaultExpanded
@@ -112,6 +115,7 @@ export default class ListForm extends Component {
             )}
             {itemsToBeAdded.length > 0 && saveButton('Add Items to My List')}
             </Panel>
+            }
             {type === 'edit' &&
             <Panel
                 eventKey={2}

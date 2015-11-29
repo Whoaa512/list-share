@@ -1,6 +1,7 @@
 import React from 'react'
 import { IndexRoute, Route } from 'react-router'
 import {
+  AddToList,
   App,
   CreateList,
   EditList,
@@ -26,6 +27,7 @@ export default (store) => {
       <Route path='list/:listId' component={List}/>
       <Route path='login' component={Login}/>
       <Route path='my-list' component={MyList}/>
+      <Route path='my-list/add' component={AddToList}/>
       <Route path='my-list/edit' component={EditList}/>
       <Route path='sign-up' component={SignUp}/>
 

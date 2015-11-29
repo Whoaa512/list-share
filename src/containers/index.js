@@ -1,3 +1,4 @@
+export AddToList from './AddToList/AddToList'
 export App from './App/App'
 export Chat from './Chat/Chat'
 export CreateList from './CreateList/CreateList'
