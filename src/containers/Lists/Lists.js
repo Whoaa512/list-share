@@ -1,3 +1,4 @@
+import cloneDeep from 'lodash.clonedeep'
 import config from 'config'
 import get from 'lodash.get'
 import React, { Component, PropTypes } from 'react'
@@ -33,10 +34,10 @@ export default class Lists extends Component {
 
 function mapStateToProps (state) {
   const users = getUsers(state)
-  let lists = getLists(state)
-  lists = Object.keys(lists).map(x => {
-    const list = lists[x]
-    list.avatarImg = get(users, list.creator)
+  const allLists = getLists(state)
+  const lists = Object.keys(allLists).map(id => {
+    const list = cloneDeep(allLists[id])
+    list.avatarImg = get(users, `${list.creator}.avatarImg`)
     list.link = `/list/${list.id}`
     return list
   })
