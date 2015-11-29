@@ -18,21 +18,21 @@ export function getList (listId, userId) {
 }
 
 export default function load (req, params) {
-  const {
-    listId,
-    userId
-  } = req.body
-
-  const [all] = params
-
   return new Promise((resolve, reject) => {
+    const {
+      listId,
+      userId
+    } = req.body
+
+    const [all] = params
     if (all === 'all') {
       return resolve(indexBy(listsCollection.data, 'id'))
     }
-    if (listId == null || userId == null) {
+
+    if (listId == null && userId == null) {
       return reject(new ApiError('Missing list id or user id'))
     }
-    const list = getList(req)
+    const list = getList(listId, userId)
     if (list == null) {
       return reject(new ApiError('No list found for the given parameters'))
     }
