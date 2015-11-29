@@ -1,22 +1,23 @@
 import React, { Component, PropTypes } from 'react'
 import { reduxForm, initialize as resetForm } from 'redux-form'
 import { Input, Button, ButtonToolbar } from 'react-bootstrap'
-import addItemValidation from './addItemValidation'
+import itemValidation from './itemValidation'
 
-export const formName = 'add-item'
+export const formName = 'item-form'
 
 @reduxForm({
   form: formName,
   fields: ['title', 'imageUrl', 'link', 'comments'],
-  validate: addItemValidation
+  validate: itemValidation
 }, undefined, { resetForm })
-export default class AddItemForm extends Component {
+export default class ItemForm extends Component {
   static propTypes = {
     resetForm: PropTypes.func.isRequired,
     fields: PropTypes.object.isRequired,
     handleSubmit: PropTypes.func.isRequired,
     resetText: PropTypes.string,
-    submitText: PropTypes.string
+    submitText: PropTypes.string,
+    type: PropTypes.string
   }
 
   reset () {
@@ -34,7 +35,8 @@ export default class AddItemForm extends Component {
       fields: { title, imageUrl, link, comments },
       handleSubmit,
       resetText = 'Clear',
-      submitText = 'Add'
+      submitText = 'Add',
+      type
     } = this.props
 
     const renderInput = (type, field, label) => {
@@ -61,5 +63,4 @@ export default class AddItemForm extends Component {
   }
 }
 
-AddItemForm.formName = formName
-
+ItemForm.formName = formName

@@ -10,7 +10,7 @@ import {
 import { Grid, Row, Col, ButtonInput, Panel } from 'react-bootstrap'
 import { getMyListAndItems } from 'redux/modules/lists'
 import { getUser } from 'redux/modules/auth'
-import { AddItemForm, ListItem } from 'components'
+import { ItemForm, ListItem } from 'components'
 
 export const formName = 'list-form'
 
@@ -44,7 +44,7 @@ export default class ListForm extends Component {
   addAndClear (data) {
     const { itemsToBeAdded } = this
     itemsToBeAdded.push(data)
-    this.props.initForm(AddItemForm.formName, { comments: '' })
+    this.props.initForm(ItemForm.formName, { comments: '' })
     this.props.changeField(formName, 'itemsToBeAdded', JSON.stringify(itemsToBeAdded))
   }
 
@@ -94,7 +94,7 @@ export default class ListForm extends Component {
           <Row>
             <Col md={8} mdOffset={2}>
               <h5>Add an item to draft</h5>
-              <AddItemForm submitText='Add to draft' onSubmit={this.addAndClear.bind(this)} />
+              <ItemForm type='add' submitText='Add to draft' onSubmit={this.addAndClear.bind(this)} />
             </Col>
           </Row>
           }

@@ -5,10 +5,10 @@
  *
  */
 
-export AddItemForm from './AddItemForm/AddItemForm'
 export CounterButton from './CounterButton/CounterButton'
 export GithubButton from './GithubButton/GithubButton'
 export InfoBar from './InfoBar/InfoBar'
+export ItemForm from './ItemForm/ItemForm'
 export ListForm from './ListForm/ListForm'
 export ListItem from './ListItem/ListItem'
 export ListRow from './ListRow/ListRow'
