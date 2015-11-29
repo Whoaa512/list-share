@@ -1,8 +1,8 @@
 import ApiError from 'utils/ApiError'
 import arrayUniq from 'array-uniq'
-import cloneDeep from 'clone-deep'
+import cloneDeep from 'lodash.clonedeep'
 import { db, dbCatch, listsCollection } from 'utils/db-collections'
-import { getList } from './load'
+import { default as getList } from './load'
 import { removeListItems, upsertListItems } from './list-utils'
 
 export function updateList (list, idsToAdd, idsToRemove) {

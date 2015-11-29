@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { Grid, Row, Col } from 'react-bootstrap'
-import { Link } from 'react-router'
 
 export default class ListItem extends Component {
   static get propTypes () {
     return {
-      description: PropTypes.string,
-      thumbnailUrl: PropTypes.string,
+      comments: PropTypes.string,
+      imageUrl: PropTypes.string,
       link: PropTypes.string,
       title: PropTypes.string
     }
@@ -14,8 +13,8 @@ export default class ListItem extends Component {
 
   render () {
     const {
-      description,
-      thumbnailUrl,
+      comments,
+      imageUrl,
       link,
       title
     } = this.props
@@ -25,14 +24,14 @@ export default class ListItem extends Component {
         <Grid>
           <Row>
             <Col xs={12} md={2}>
-              <img src={thumbnailUrl}/>
+              <img src={imageUrl}/>
             </Col>
             <Col xs={12} md={10}>
               <Row>
-                <Link to={link}>{title}</Link>
+                <a href={link}>{title}</a>
               </Row>
               <Row>
-                {description && <p>{description}</p>}
+                {comments && <p>{comments}</p>}
               </Row>
             </Col>
           </Row>

@@ -7,10 +7,11 @@ export default function create (req) {
   return new Promise((resolve, reject) => {
     const {
       items,
+      title,
       userId
     } = req.body
     const creator = userId
-    const existingList = listsCollection.find({ creator })
+    const existingList = listsCollection.findOne({ creator })
 
     if (existingList != null) {
       let errStr = 'Only one list allowed per user.'
@@ -22,6 +23,7 @@ export default function create (req) {
     let newList = {
       id: uuid.v4(),
       creator,
+      title,
       createdAt: Date.now(),
       items: newItems.map(item => item.id)
     }
@@ -30,10 +32,7 @@ export default function create (req) {
 
     db.saveAsync()
     .then(() => {
-      resolve({
-        message: 'List created',
-        id: newList.id
-      })
+      resolve(newList)
     })
     .catch(dbCatch(`List id: ${newList.id}`, {
       newList,

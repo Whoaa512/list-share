@@ -1,6 +1,6 @@
 import ApiError from 'utils/ApiError'
 import bcrypt, { saltRounds } from 'utils/bcrypt-as-promised'
-import cloneDeep from 'clone-deep'
+import cloneDeep from 'lodash.clonedeep'
 import login from 'actions/login'
 import { db, dbCatch, usersCollection } from 'utils/db-collections'
 

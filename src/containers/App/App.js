@@ -4,19 +4,27 @@ import { IndexLink } from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Navbar, NavBrand, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import DocumentMeta from 'react-document-meta'
-import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
+import { isLoaded as areItemsLoaded, load as loadItems } from 'redux/modules/items'
+import { isLoaded as areListsLoaded, load as loadLists } from 'redux/modules/lists'
+import { isLoaded as areUsersLoaded, load as loadUsers } from 'redux/modules/users'
 import { pushState } from 'redux-router'
 import connectData from 'helpers/connectData'
 import config from '../../config'
 
 function fetchData (getState, dispatch) {
   const promises = []
-  if (!isInfoLoaded(getState())) {
-    promises.push(dispatch(loadInfo()))
-  }
   if (!isAuthLoaded(getState())) {
     promises.push(dispatch(loadAuth()))
+  }
+  if (!areItemsLoaded(getState())) {
+    promises.push(dispatch(loadItems()))
+  }
+  if (!areListsLoaded(getState())) {
+    promises.push(dispatch(loadLists(null, true)))
+  }
+  if (!areUsersLoaded(getState())) {
+    promises.push(dispatch(loadUsers()))
   }
   return Promise.all(promises)
 }
@@ -28,6 +36,7 @@ function fetchData (getState, dispatch) {
 export default class App extends Component {
   static propTypes = {
     children: PropTypes.object.isRequired,
+    location: PropTypes.object,
     user: PropTypes.object,
     logout: PropTypes.func.isRequired,
     pushState: PropTypes.func.isRequired
@@ -53,10 +62,10 @@ export default class App extends Component {
   }
 
   render () {
-    const {user} = this.props
+    const { location, user } = this.props
     const styles = require('./App.scss')
 
-    if (!this.props.user) {
+    if (!user && location.pathname !== '/sign-up') {
       this.props.pushState(null, '/login')
     }
 
@@ -82,10 +91,6 @@ export default class App extends Component {
               <LinkContainer to='/login'>
                 <NavItem eventKey={2}>Login</NavItem>
               </LinkContainer>}
-              {!user &&
-              <LinkContainer to='/sign-up'>
-                <NavItem eventKey={3}>Sign Up</NavItem>
-              </LinkContainer>}
               {user &&
               <LinkContainer to='/logout'>
                 <NavItem eventKey={4} className='logout-link' onClick={this.handleLogout}>
@@ -94,12 +99,19 @@ export default class App extends Component {
               </LinkContainer>}
             </Nav>
             {user &&
-            <p className={styles.loggedInMessage + ' navbar-text'}>Logged in as <strong>{user.name}</strong>.</p>}
             <Nav navbar right>
-              <NavItem eventKey={1} target='_blank' title='View on Github' href='https://github.com/erikras/react-redux-universal-hot-example'>
-                <i className='fa fa-github'/>
+              {user &&
+              <p className={styles.loggedInMessage + ' navbar-text'}>Logged in as <strong>{user.name}</strong>.</p>
+              }
+              <NavItem eventKey={1}>
+                <img
+                    alt='avatar'
+                    className={`${styles.avatarImage} img-responsive img-circle`}
+                    src={user.avatarImg}
+                />
               </NavItem>
             </Nav>
+            }
           </CollapsibleNav>
         </Navbar>
 

@@ -1,0 +1,12 @@
+.listRow {
+  list-style: none;
+  margin: 2em;
+}
+
+.avatarImage {
+  $size: 64px;
+  display: inline-block;
+  margin-right: 2em;
+  height: $size;
+  width: $size;
+}

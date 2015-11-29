@@ -13,7 +13,9 @@ export default function login (req) {
     return Promise.reject(new ApiError('Missing email, password'))
   }
 
-  return loadUser(req)
+  const INTERNAL = true
+
+  return loadUser(req, [], INTERNAL)
   .then(user => {
     const isValidPassword = bcrypt.compareAsync(password, user.passwordHash)
     .catch(cryptoCatch(user.id))

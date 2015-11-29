@@ -2,41 +2,33 @@ import config from 'config'
 import DocumentMeta from 'react-document-meta'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
 import { Grid, Row, Col, Button } from 'react-bootstrap'
 import { ListItem } from 'components'
 import { getItems } from 'redux/modules/items'
-import { getMyList, userHasList } from 'redux/modules/lists'
+import { getList } from 'redux/modules/lists'
 
 @connect(mapStateToProps)
-export default class MyList extends Component {
+export default class List extends Component {
   static get propTypes () {
     return {
-      listItems: PropTypes.array,
-      userHasList: PropTypes.bool
+      list: PropTypes.object,
+      listItems: PropTypes.array
     }
   }
 
   render () {
-    const { userHasList, listItems } = this.props
+    const { list, listItems } = this.props
     return (
       <div className='container'>
-        <DocumentMeta title={`${config.app.title}: Lists`}/>
+        <DocumentMeta title={`${config.app.title}: ${list.title}`}/>
         <Grid>
           <Row>
-            <Col xs={12} md={2}><h2>My List</h2></Col>
+            <Col xs={12} md={4}><h2>{list.title}</h2></Col>
             <Col xs={4} xsOffset={8} md={3} mdOffset={9}>
-              {userHasList &&
-              <Button>Edit</Button>
-              }
-              {!userHasList &&
-              <Link to='/create-list'>
-                <Button>Create New List</Button>
-              </Link>
-              }
+              <Button>Suggest a Gift</Button>
             </Col>
           </Row>
-          {userHasList &&
+          {listItems.length > 0 &&
           <Row ref='listItems'>
             {listItems.map(item =>
               <ListItem {...item} />
@@ -50,11 +42,12 @@ export default class MyList extends Component {
 }
 
 function mapStateToProps (state) {
-  const mylist = getMyList(state) || { items: [] }
+  const { listId } = state.router.params
+  const list = getList(state, listId)
   const allItems = getItems(state)
-  const listItems = mylist.items.map(id => allItems[id])
+  const listItems = list.items.map(id => allItems[id])
   return {
-    userHasList: userHasList(state),
+    list,
     listItems
   }
 }

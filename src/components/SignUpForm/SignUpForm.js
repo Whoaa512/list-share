@@ -26,22 +26,17 @@ export const formName = 'sign-up'
 
 @reduxForm({
   form: formName,
-  fields: ['name', 'email', 'password', 'passwordAgain'],
+  fields: ['name', 'email', 'password'],
   validate: signUpValidation,
   asyncValidate,
   asyncBlurFields: ['email']
 })
-export default class SurveyForm extends Component {
+export default class SignUpForm extends Component {
   static propTypes = {
-    active: PropTypes.string,
     asyncValidating: PropTypes.bool.isRequired,
     fields: PropTypes.object.isRequired,
-    dirty: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired,
-    resetForm: PropTypes.func.isRequired,
-    invalid: PropTypes.bool.isRequired,
-    pristine: PropTypes.bool.isRequired,
-    valid: PropTypes.bool.isRequired
+    resetForm: PropTypes.func.isRequired
   }
 
   render () {
@@ -84,3 +79,4 @@ export default class SurveyForm extends Component {
   }
 }
 
+SignUpForm.formName = formName

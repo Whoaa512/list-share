@@ -6,7 +6,10 @@ import auth from './auth'
 import counter from './counter'
 import {reducer as form} from 'redux-form'
 import info from './info'
+import items from './items'
+import lists from './lists'
 import signup from './signup'
+import users from './users'
 import widgets from './widgets'
 
 export default combineReducers({
@@ -19,6 +22,9 @@ export default combineReducers({
     counter3: counter
   }),
   info,
+  items,
+  lists,
   signup,
+  users,
   widgets
 })
