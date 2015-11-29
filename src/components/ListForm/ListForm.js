@@ -67,7 +67,7 @@ export default class ListForm extends Component {
       type,
       title
     } = this.props
-    const { itemsToBeAdded } = this
+    const { itemsToBeAdded, itemsToRemove } = this
     const styles = require('./ListForm.scss')
     const saveButton = (saveText) => {
       return (
@@ -118,6 +118,7 @@ export default class ListForm extends Component {
                 <p>No items added yet</p>
               }
               {currentItems.map((item, idx) =>
+                !itemsToRemove.some(removed => item.id === removed.id) &&
                 <ListItem remove={this.removeSaved.bind(this, item)} key={idx} {...item}/>
               )}
             </Panel>
