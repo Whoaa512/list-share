@@ -27,7 +27,7 @@ export default class MyList extends Component {
             <Col xs={12} md={2}><h2>My List</h2></Col>
             <Col xs={4} xsOffset={8} md={3} mdOffset={9}>
               {userHasList &&
-              <Link to='my-list/edit'>
+              <Link to='/my-list/edit'>
                 <Button>Edit</Button>
               </Link>
               }
