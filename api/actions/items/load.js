@@ -9,12 +9,17 @@ export function getItems (itemIds) {
   })
 }
 
-export default function load (req) {
+export default function load (req, params) {
   const {
     itemIds
   } = req.body
 
+  const [all] = params
+
   return new Promise((resolve, reject) => {
+    if (all === 'all') {
+      return resolve(itemsCollection.data)
+    }
     if (!itemIds) {
       return reject(new ApiError('Missing item ids'))
     }
