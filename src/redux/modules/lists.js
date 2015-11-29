@@ -12,10 +12,14 @@ const CREATE_FAIL = 'list-share/lists/CREATE_FAIL'
 const LOAD = 'list-share/lists/LOAD'
 const LOAD_SUCCESS = 'list-share/lists/LOAD_SUCCESS'
 const LOAD_FAIL = 'list-share/lists/LOAD_FAIL'
+const UPDATE = 'list-share/lists/UPDATE'
+const UPDATE_SUCCESS = 'list-share/lists/UPDATE_SUCCESS'
+const UPDATE_FAIL = 'list-share/lists/UPDATE_FAIL'
 
 const initialState = {
   created: false,
-  loaded: false
+  loaded: false,
+  updated: false
 }
 
 export default function lists (state = initialState, action = {}) {
@@ -57,6 +61,26 @@ export default function lists (state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: false,
+        error: action.error
+      }
+    case UPDATE:
+      return {
+        ...state,
+        updating: true,
+        updated: false
+      }
+    case UPDATE_SUCCESS:
+      return {
+        ...state,
+        updating: false,
+        updated: true,
+        lists: addList(action.result, state.lists)
+      }
+    case UPDATE_FAIL:
+      return {
+        ...state,
+        updating: false,
+        updated: false,
         error: action.error
       }
     default:
@@ -114,6 +138,15 @@ export function create (data, userId) {
   return {
     types: [CREATE, CREATE_SUCCESS, CREATE_FAIL],
     promise: (client) => client.post('/list/create', {
+      data: { ...data, userId }
+    })
+  }
+}
+
+export function update (data, userId) {
+  return {
+    types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
+    promise: (client) => client.post('/list/update', {
       data: { ...data, userId }
     })
   }
