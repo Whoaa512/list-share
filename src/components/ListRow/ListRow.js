@@ -11,13 +11,14 @@ export default class ListRow extends Component {
   }
 
   render () {
+    const styles = require('./ListRow.scss')
     const {
       avatarImg,
       link,
       title
     } = this.props
     return (
-      <li>
+      <li className={styles.listRow}>
         <img src={avatarImg}/>
         <Link to={link}>{title}</Link>
       </li>
