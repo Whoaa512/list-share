@@ -22,7 +22,7 @@ export default class CreateList extends Component {
   }
 
   handleSubmit = (data) => {
-    data.items = JSON.parse(data.items)
+    data.items = JSON.parse(data.itemsToBeAdded)
 
     return this.props.create(data, this.props.userId)
     .then(list => {

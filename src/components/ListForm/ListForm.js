@@ -1,3 +1,4 @@
+import compact from 'lodash.compact'
 import get from 'lodash.get'
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
@@ -15,12 +16,13 @@ export const formName = 'list-form'
 
 @reduxForm({
   form: formName,
-  fields: ['items', 'title']
+  fields: ['itemsToBeAdded', 'itemsToRemove', 'title']
 }, mapStateToProps, mapDispatchToProps)
 export default class ListForm extends Component {
   constructor (props) {
     super(props)
     this.itemsToBeAdded = []
+    this.itemsToRemove = []
   }
 
   static propTypes = {
@@ -29,7 +31,6 @@ export default class ListForm extends Component {
     handleSubmit: PropTypes.func.isRequired,
     initForm: PropTypes.func.isRequired,
     currentItems: PropTypes.array,
-    itemsToBeAdded: PropTypes.array,
     title: PropTypes.string
   }
 
@@ -44,7 +45,19 @@ export default class ListForm extends Component {
     const { itemsToBeAdded } = this
     itemsToBeAdded.push(data)
     this.props.initForm(AddItemForm.formName, { comments: '' })
-    this.props.changeField(formName, 'items', JSON.stringify(itemsToBeAdded))
+    this.props.changeField(formName, 'itemsToBeAdded', JSON.stringify(itemsToBeAdded))
+  }
+
+  removeSaved (item) {
+    const { itemsToRemove } = this
+    itemsToRemove.push(item)
+    this.props.changeField(formName, 'itemsToRemove', JSON.stringify(itemsToRemove))
+  }
+
+  removeUnSaved (idx) {
+    this.itemsToBeAdded[idx] = undefined
+    this.itemsToBeAdded = compact(this.itemsToBeAdded)
+    this.props.changeField(formName, 'itemsToBeAdded', JSON.stringify(this.itemsToBeAdded))
   }
 
   render () {
@@ -85,7 +98,7 @@ export default class ListForm extends Component {
               <p>No items to be added</p>
             }
             {itemsToBeAdded.map((item, idx) =>
-              <ListItem key={idx} {...item}/>
+              <ListItem remove={this.removeUnSaved.bind(this, idx)} key={idx} {...item}/>
             )}
             </Panel>
             {type === 'edit' &&
@@ -99,7 +112,7 @@ export default class ListForm extends Component {
                 <p>No items added yet</p>
               }
               {currentItems.map((item, idx) =>
-                <ListItem key={idx} {...item}/>
+                <ListItem remove={this.removeSaved.bind(this, item)} key={idx} {...item}/>
               )}
             </Panel>
             }
