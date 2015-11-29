@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Grid, Row, Col } from 'react-bootstrap'
+import { Button, Grid, Row, Col } from 'react-bootstrap'
 
 export default class ListItem extends Component {
   static get propTypes () {
@@ -31,9 +31,9 @@ export default class ListItem extends Component {
           <Row>
             {remove != null &&
             <Col xs={removeXs} md={removeMd}>
-              <p className='text-danger' onClick={remove}>
-                <i className='fa fa-times'/>
-              </p>
+              <Button bsStyle='default' onClick={remove}>
+                <i className='fa fa-2 fa-times text-danger'/>
+              </Button>
             </Col>
             }
             <Col xs={imgXs} md={imgMd}>
