@@ -107,6 +107,7 @@
     "history": "^1.13.0",
     "hoist-non-react-statics": "^1.0.3",
     "http-proxy": "^1.12.0",
+    "lodash.find": "^3.2.1",
     "lodash.get": "^3.7.0",
     "lodash.isempty": "^3.0.4",
     "lodash.omit": "^3.1.0",
