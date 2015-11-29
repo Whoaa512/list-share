@@ -32,10 +32,7 @@ export default function create (req) {
 
     db.saveAsync()
     .then(() => {
-      resolve({
-        message: 'List created',
-        id: newList.id
-      })
+      resolve(newList)
     })
     .catch(dbCatch(`List id: ${newList.id}`, {
       newList,
