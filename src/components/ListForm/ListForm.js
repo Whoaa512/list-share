@@ -69,22 +69,26 @@ export default class ListForm extends Component {
     } = this.props
     const { itemsToBeAdded } = this
     const styles = require('./ListForm.scss')
+    const saveButton = (saveText) => {
+      return (
+        <div className='text-center'>
+          <ButtonInput bsSize='lg' bsStyle='success' onClick={handleSubmit}>
+            {saveText}
+          </ButtonInput>
+        </div>
+      )
+    }
 
     return (
       <form className='form-horizontal' onSubmit={handleSubmit}>
         <Grid>
           <Row>
             <h3 className={styles.listTitle}>{title}</h3>
-            <Col md={2}>
-              <ButtonInput bsStyle='success' onClick={handleSubmit}>
-                Save List
-              </ButtonInput>
-            </Col>
           </Row>
           <Row>
             <Col md={8} mdOffset={2}>
-              <h5>Add an item</h5>
-              <AddItemForm onSubmit={this.addAndClear.bind(this)} />
+              <h5>Add an item to draft</h5>
+              <AddItemForm submitText='Add to draft' onSubmit={this.addAndClear.bind(this)} />
             </Col>
           </Row>
           <Row>
@@ -92,14 +96,16 @@ export default class ListForm extends Component {
                 eventKey={1}
                 defaultExpanded
                 collapsible
-                header={<h4>Items to be added <small>Click to collapse</small></h4>}
+                header={<h4>Draft List <small>Click to collapse</small></h4>}
             >
+            {itemsToBeAdded.length >= 2 && saveButton('Add Items to My List')}
             {itemsToBeAdded.length <= 0 &&
               <p>No items to be added</p>
             }
             {itemsToBeAdded.map((item, idx) =>
               <ListItem remove={this.removeUnSaved.bind(this, idx)} key={idx} {...item}/>
             )}
+            {itemsToBeAdded.length > 0 && saveButton('Add Items to My List')}
             </Panel>
             {type === 'edit' &&
             <Panel
