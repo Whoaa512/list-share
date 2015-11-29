@@ -1,3 +1,5 @@
+import validUrlRegex from './valid-url-regex'
+
 const isEmpty = value => value === undefined || value === null || value === ''
 function join (rules) {
   return (value, data) => {
@@ -56,6 +58,12 @@ export function match (field) {
         return 'Do not match'
       }
     }
+  }
+}
+
+export function validUrl (value) {
+  if (!isEmpty(value) && !validUrlRegex.test(value)) {
+    return 'Invalid url'
   }
 }
 
