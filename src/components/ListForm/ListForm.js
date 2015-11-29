@@ -69,12 +69,12 @@ export default class ListForm extends Component {
     } = this.props
     const { itemsToBeAdded, itemsToRemove } = this
     const styles = require('./ListForm.scss')
-    const saveButton = (saveText) => {
+    const saveButton = (saveText, style = 'success') => {
       return (
         <div className='text-center'>
           <ButtonInput
               bsSize='large'
-              bsStyle='success'
+              bsStyle={style}
               onClick={handleSubmit}
               type='submit'
           >
@@ -130,6 +130,20 @@ export default class ListForm extends Component {
                 !itemsToRemove.some(removed => item.id === removed.id) &&
                 <ListItem remove={this.removeSaved.bind(this, item)} key={idx} {...item}/>
               )}
+            </Panel>
+            }
+            {type === 'edit' && itemsToRemove.length > 0 &&
+            <Panel
+                eventKey={3}
+                defaultExpanded
+                collapsible
+                header={<h4>Items to be removed <small>Click to collapse</small></h4>}
+            >
+              {itemsToRemove.length >= 2 && saveButton('Confirm removals and update your list', 'danger')}
+              {itemsToRemove.map((item, idx) =>
+                <ListItem key={idx} {...item}/>
+              )}
+              {itemsToRemove.length > 0 && saveButton('Confirm removals and update your list', 'danger')}
             </Panel>
             }
           </Row>

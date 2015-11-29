@@ -22,7 +22,6 @@ export default class EditList extends Component {
   }
 
   handleSubmit = (data) => {
-    data.itemsToUpsert = JSON.parse(data.itemsToBeAdded)
     data.itemsToRemove = JSON.parse(data.itemsToRemove)
 
     return this.props.update(data, this.props.userId)
