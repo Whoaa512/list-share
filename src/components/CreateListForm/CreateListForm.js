@@ -75,10 +75,10 @@ export default class CreateListForm extends Component {
           </Row>
           {itemsToBeAdded.length > 0 && <Row>
             <Panel header={<h4>Items to be added</h4>}>
-              {itemsToBeAdded.map(item =>
+              {itemsToBeAdded.map((item, idx) =>
                 <ListItem
                     description={item.comments}
-                    key={item.title}
+                    key={idx}
                     link={item.link}
                     thumbnailUrl={item.imageUrl}
                     title={item.title}
