@@ -1,12 +1,17 @@
 import React, { Component, PropTypes } from 'react'
 import { reduxForm, reset as resetForm } from 'redux-form'
 import { Input, Button, ButtonToolbar } from 'react-bootstrap'
+import addItemValidation from './addItemValidation'
 
 export const formName = 'add-item'
 
 @reduxForm({
   form: formName,
-  fields: ['title', 'imageUrl', 'link', 'comments']
+  fields: ['title', 'imageUrl', 'link', 'comments'],
+  initialValues: {
+    imageUrl: 'https://d1luk0418egahw.cloudfront.net/static/images/guide/NoImage_592x444.jpg'
+  },
+  validate: addItemValidation
 }, undefined, { resetForm })
 export default class AddItemForm extends Component {
   static propTypes = {
