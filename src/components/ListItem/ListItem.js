@@ -12,7 +12,7 @@ export default class ListItem extends Component {
       link: PropTypes.string,
       remove: PropTypes.func,
       showEdit: PropTypes.bool,
-      title: PropTypes.string
+      title: PropTypes.string.isRequired
     }
   }
 
