@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { Grid, Row, Col } from 'react-bootstrap'
-import { Link } from 'react-router'
 
 export default class ListItem extends Component {
   static get propTypes () {
@@ -29,7 +28,7 @@ export default class ListItem extends Component {
             </Col>
             <Col xs={12} md={10}>
               <Row>
-                <Link to={link}>{title}</Link>
+                <a href={link}>{title}</a>
               </Row>
               <Row>
                 {comments && <p>{comments}</p>}
