@@ -88,7 +88,7 @@ export function getList (globalState, listId) {
 }
 
 export function userHasList (globalState) {
-  return !!getMyList(globalState)
+  return !!(getMyList(globalState).id)
 }
 
 export function getMyList (globalState) {
@@ -97,7 +97,8 @@ export function getMyList (globalState) {
     return false
   }
   const lists = getLists(globalState)
-  return find(lists, { creator: userId })
+  return find(lists, { creator: userId }) || { items: [] }
+}
 }
 
 export function create (data, userId) {
