@@ -28,6 +28,7 @@ export default class ListItem extends Component {
     const [removeXs, imgXs, detailsXs] = xsColSizes
     let query = ''
     let url = link
+    // @todo: move this tag addition to server
     if (link != null && typeof link.split === 'function') {
       [ url, query ] = link.split('?')
       const parsedQuery = querystring.parse(query)
