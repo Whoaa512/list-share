@@ -91,11 +91,13 @@ export function create (data, userId) {
   }
 }
 
-export function load (listId) {
+export function load (listId, all) {
+  const url = `/list/load${all ? '/all' : ''}`
+  const body = all ? undefined : {
+    data: { listId }
+  }
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    promise: (client) => client.post('/list/load', {
-      data: { listId }
-    })
+    promise: (client) => client.post(url, body)
   }
 }

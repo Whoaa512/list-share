@@ -7,6 +7,7 @@ import DocumentMeta from 'react-document-meta'
 import { isLoaded as isInfoLoaded, load as loadInfo } from 'redux/modules/info'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
 import { isLoaded as areItemsLoaded, load as loadItems } from 'redux/modules/items'
+import { isLoaded as areListsLoaded, load as loadLists } from 'redux/modules/lists'
 import { pushState } from 'redux-router'
 import connectData from 'helpers/connectData'
 import config from '../../config'
@@ -21,6 +22,9 @@ function fetchData (getState, dispatch) {
   }
   if (!areItemsLoaded(getState())) {
     promises.push(dispatch(loadItems()))
+  }
+  if (!areListsLoaded(getState())) {
+    promises.push(dispatch(loadLists(null, true)))
   }
   return Promise.all(promises)
 }
