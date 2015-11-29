@@ -1,6 +1,6 @@
 import get from 'lodash.get'
 import find from 'lodash.find'
-import { getUser } from './auth'
+import { getUserId } from './auth'
 
 const STATE_PATH = 'lists'
 
@@ -74,7 +74,7 @@ export function getLists (globalState) {
 }
 
 export function getMyList (globalState) {
-  const userId = getUser(globalState).id || false
+  const userId = getUserId(globalState)
   if (!userId) {
     return false
   }

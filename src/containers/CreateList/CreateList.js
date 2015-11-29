@@ -1,12 +1,11 @@
 import React, { Component, PropTypes } from 'react'
-import get from 'lodash.get'
 import config from 'config'
 import { connect } from 'react-redux'
 import DocumentMeta from 'react-document-meta'
 import { initialize } from 'redux-form'
 import { CreateListForm } from 'components'
 import { create } from 'redux/modules/lists'
-import { getUser } from 'redux/modules/auth'
+import { getUserId } from 'redux/modules/auth'
 
 @connect(
   mapStateToProps,
@@ -49,9 +48,7 @@ export default class CreateList extends Component {
 }
 
 function mapStateToProps (state) {
-  const user = getUser(state)
-  const userId = get(user, 'id', '')
   return {
-    userId
+    userId: getUserId(state)
   }
 }
