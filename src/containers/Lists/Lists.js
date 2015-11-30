@@ -6,7 +6,7 @@ import DocumentMeta from 'react-document-meta'
 import { Link } from 'react-router'
 import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { getLists } from 'redux/modules/lists'
+import { getLists, userHasList } from 'redux/modules/lists'
 import { getUsers } from 'redux/modules/users'
 import { ListRow } from 'components'
 
@@ -14,7 +14,8 @@ import { ListRow } from 'components'
 export default class Lists extends Component {
   static get propTypes () {
     return {
-      lists: PropTypes.array.isRequired
+      lists: PropTypes.array.isRequired,
+      userHasList: PropTypes.bool.isRequired
     }
   }
 
@@ -31,6 +32,12 @@ export default class Lists extends Component {
             <Button>Create New List</Button>
           </Link>
         </div>
+        }
+        {!userHasList &&
+        /* @todo: refactor all links to their own module */
+        <Link to='/create-list'>
+          <Button>Create Your List</Button>
+        </Link>
         }
         <ul>
           {lists.map((list, idx) =>
@@ -52,6 +59,7 @@ function mapStateToProps (state) {
     return list
   })
   return {
-    lists
+    lists,
+    userHasList: userHasList(state)
   }
 }
