@@ -36,7 +36,7 @@ export default class ListItem extends Component {
         ...parsedQuery
       })
     }
-    const amazonLink = `${url}${query}`
+    const href = `${url}${query}`
 
     return (
       <li className={styles.listItem}>
@@ -54,7 +54,10 @@ export default class ListItem extends Component {
             </Col>
             <Col xs={detailsXs} md={detailsMd}>
               <Row>
-                <a target='blank' href={amazonLink}>{title}</a>
+                { href != null
+                ? <a target='blank' href={href}>{title}</a>
+                : <p>{title}</p>
+                }
               </Row>
               <Row>
                 {comments && <p>{comments}</p>}
