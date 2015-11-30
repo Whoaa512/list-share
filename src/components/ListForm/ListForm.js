@@ -90,7 +90,7 @@ export default class ListForm extends Component {
           <Row>
             <h3 className={styles.listTitle}>{title}</h3>
           </Row>
-          {type === 'add' &&
+          {(type === 'add' || type === 'create') &&
           <Row>
             <Col md={8} mdOffset={2}>
               <h5>Add an item to draft</h5>
@@ -99,7 +99,7 @@ export default class ListForm extends Component {
           </Row>
           }
           <Row>
-            {type === 'add' &&
+            {(type === 'add' || type === 'create') &&
             <Panel
                 eventKey={1}
                 defaultExpanded
