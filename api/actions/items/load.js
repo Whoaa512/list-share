@@ -28,6 +28,6 @@ export default function load (req, params) {
     if (isEmpty(items)) {
       return reject(new ApiError('No list found for the given parameters'))
     }
-    resolve(items)
+    resolve(indexBy(items, 'id'))
   })
 }

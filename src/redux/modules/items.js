@@ -1,4 +1,5 @@
 import get from 'lodash.get'
+import merge from 'lodash.merge'
 import { getMyList } from './lists'
 
 const STATE_PATH = 'items'
@@ -24,10 +25,7 @@ export default function items (state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        data: {
-          ...state.data,
-          ...action.result
-        }
+        data: merge({}, state.data, action.result)
       }
     case LOAD_FAIL:
       return {
