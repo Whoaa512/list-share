@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { IndexLink } from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, NavBrand, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
+import { Navbar, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import DocumentMeta from 'react-document-meta'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
 import { isLoaded as areItemsLoaded, load as loadItems } from 'redux/modules/items'
@@ -64,6 +64,7 @@ export default class App extends Component {
   render () {
     const { location, user } = this.props
     const styles = require('./App.scss')
+    const logo = require('./logo.png')
 
     if (!user && location.pathname !== '/sign-up') {
       this.props.pushState(null, '/login')
@@ -77,12 +78,11 @@ export default class App extends Component {
       <div className={styles.app}>
         <DocumentMeta {...config.app}/>
         <Navbar fixedTop toggleNavKey={0}>
-          <NavBrand>
-            <IndexLink to='/' activeStyle={{color: '#33e0ff'}}>
-              <div className={styles.brand}/>
-              <span>{config.app.title}</span>
+          <span className='pull-left'>
+            <IndexLink to='/'>
+              <img src={logo}/>
             </IndexLink>
-          </NavBrand>
+          </span>
 
           <CollapsibleNav eventKey={0}>
             <Nav navbar>
