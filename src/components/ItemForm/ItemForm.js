@@ -14,6 +14,9 @@ export const formName = 'item-form'
 })
 export default class ItemForm extends Component {
   static propTypes = {
+    cancelStyle: PropTypes.string,
+    cancelText: PropTypes.string,
+    handleCancel: PropTypes.func,
     dispatch: PropTypes.func.isRequired,
     fields: PropTypes.object.isRequired,
     itemToEdit: PropTypes.object,
@@ -48,6 +51,9 @@ export default class ItemForm extends Component {
   render () {
     const styles = require('./ItemForm.scss')
     const {
+      cancelStyle = 'link',
+      cancelText = 'Cancel',
+      handleCancel = () => void 0,
       fields: { title, imageUrl, link, comments },
       handleSubmit,
       resetText = 'Clear',
@@ -88,6 +94,11 @@ export default class ItemForm extends Component {
             <Button type='reset' onClick={this.reset.bind(this)}>
               {resetText}
             </Button>
+            {isEditing &&
+            <Button type='button' bsStyle={cancelStyle} onClick={handleCancel}>
+              {cancelText}
+            </Button>
+            }
           </ButtonToolbar>
         </Row>
         {isEditing &&
