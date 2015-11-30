@@ -69,6 +69,10 @@ export default class App extends Component {
       this.props.pushState(null, '/login')
     }
 
+    if (user && location.pathname === '/sign-up') {
+      this.props.pushState(null, '/')
+    }
+
     return (
       <div className={styles.app}>
         <DocumentMeta {...config.app}/>
