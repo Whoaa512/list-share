@@ -35,7 +35,7 @@ export default class List extends Component {
             }
             {isUsersList &&
             <Link to='/my-list/edit'>
-              <Button>Edit My List</Button>
+              <Button>Remove Items</Button>
             </Link>
             }
             {/*

@@ -33,7 +33,7 @@ export default class MyList extends Component {
               }
               {userHasList &&
               <Link to='/my-list/edit'>
-                <Button>Edit My List</Button>
+                <Button>Remove Items</Button>
               </Link>
               }
               {!userHasList &&
