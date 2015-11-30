@@ -47,12 +47,12 @@ export default class SignUpForm extends Component {
       resetForm
     } = this.props
     const styles = require('./SignUpForm.scss')
-    const renderInput = (field, label, showAsyncValidating) =>
+    const renderInput = (field, label, showAsyncValidating, type = 'text') =>
       <div className={'form-group' + (field.error && field.touched ? ' has-error' : '')}>
         <label htmlFor={field.name} className='col-sm-2'>{label}</label>
         <div className={`col-sm-8 ${styles.inputGroup}`}>
           {showAsyncValidating && asyncValidating && <i className={'fa fa-cog fa-spin ' + styles.cog}/>}
-          <input type='text' className='form-control' id={field.name} {...field}/>
+          <input type={type} className='form-control' id={field.name} {...field}/>
           {field.error && field.touched && <div className='text-danger'>{field.error}</div>}
         </div>
       </div>
@@ -62,7 +62,7 @@ export default class SignUpForm extends Component {
         <form className='form-horizontal' onSubmit={handleSubmit}>
           {renderInput(name, 'Full Name')}
           {renderInput(email, 'Email', true)}
-          {renderInput(password, 'Password')}
+          {renderInput(password, 'Password', false, 'password')}
           <div className='form-group'>
             <div className='col-sm-offset-2 col-sm-10'>
               <button className='btn btn-success' onClick={handleSubmit}>
