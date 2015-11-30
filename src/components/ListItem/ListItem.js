@@ -1,4 +1,4 @@
-import url from 'url'
+import querystring from 'querystring'
 import React, { Component, PropTypes } from 'react'
 import { Button, Grid, Row, Col } from 'react-bootstrap'
 
@@ -26,17 +26,17 @@ export default class ListItem extends Component {
     const mdColSizes = remove != null ? [1, 2, 9] : [0, 2, 10]
     const [removeMd, imgMd, detailsMd] = mdColSizes
     const [removeXs, imgXs, detailsXs] = xsColSizes
-    let amazonLink = '#'
-    if (link != null) {
-      const parsedLink = url.parse(link)
-      amazonLink = url.format({
-        ...parsedLink,
-        query: {
-          ...parsedLink.query,
-          tag: 'performe-20'
-        }
+    let query = ''
+    let url = link
+    if (link != null && typeof link.split === 'function') {
+      [ url, query ] = link.split('?')
+      const parsedQuery = querystring.parse(query)
+      query = '?' + querystring.stringify({
+        tag: 'performe-20',
+        ...parsedQuery
       })
     }
+    const amazonLink = `${url}${query}`
 
     return (
       <li className={styles.listItem}>
