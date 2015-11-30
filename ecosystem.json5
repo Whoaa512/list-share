@@ -57,7 +57,7 @@
       ref  : "origin/develop",
       repo : "git@github.com:whoaa512/list-share.git",
       path : "/var/www/production",
-      "post-deploy" : "npm install && pm2 startOrRestart ecosystem.json5 --env production"
+      "post-deploy" : "npm install && pm2 startOrGracefulReload ecosystem.json5 --env production"
     }
   }
 }
