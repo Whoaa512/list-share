@@ -50,7 +50,7 @@ export default class ListItem extends Component {
             </Col>
             <Col xs={detailsXs} md={detailsMd}>
               <Row>
-                <a href={amazonLink}>{title}</a>
+                <a target='blank' href={amazonLink}>{title}</a>
               </Row>
               <Row>
                 {comments && <p>{comments}</p>}
