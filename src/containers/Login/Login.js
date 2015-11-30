@@ -1,6 +1,8 @@
 import config from 'config'
+import isEmpty from 'lodash.isempty'
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
+import { _notifier } from 'react-notification-system'
 import { Link } from 'react-router'
 import { Button, Col, Grid, Input } from 'react-bootstrap'
 import DocumentMeta from 'react-document-meta'
@@ -20,12 +22,29 @@ export default class Login extends Component {
     event.preventDefault()
     const email = this.refs.email
     const password = this.refs.password
-    return this.props.login(email.getValue(), password.getValue())
+    const emailValue = email.getValue()
+    const passwordValue = password.getValue()
+    if (isEmpty(emailValue) || isEmpty(passwordValue)) {
+      _notifier.addNotification({
+        position: 'tc',
+        autoDismiss: 15,
+        message: 'Missing email or password',
+        level: 'error'
+      })
+      return
+    }
+    return this.props.login(emailValue, passwordValue)
     .then(() => {
       email.refs.input.value = ''
       password.refs.input.value = ''
     })
     .catch(error => {
+      _notifier.addNotification({
+        position: 'tc',
+        autoDismiss: 15,
+        message: `There was a problem logging in. ${error.message}.`,
+        level: 'error'
+      })
       console.error(error, 'Problem logging in')
     })
   }
