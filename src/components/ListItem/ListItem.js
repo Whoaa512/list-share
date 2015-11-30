@@ -1,3 +1,4 @@
+import url from 'url'
 import React, { Component, PropTypes } from 'react'
 import { Button, Grid, Row, Col } from 'react-bootstrap'
 
@@ -25,6 +26,14 @@ export default class ListItem extends Component {
     const mdColSizes = remove != null ? [1, 2, 9] : [0, 2, 10]
     const [removeMd, imgMd, detailsMd] = mdColSizes
     const [removeXs, imgXs, detailsXs] = xsColSizes
+    const parsedLink = url.parse(link)
+    const amazonLink = url.format({
+      ...parsedLink,
+      query: {
+        ...parsedLink.query,
+        tag: 'performe-20'
+      }
+    })
     return (
       <li className={styles.listItem}>
         <Grid>
@@ -41,7 +50,7 @@ export default class ListItem extends Component {
             </Col>
             <Col xs={detailsXs} md={detailsMd}>
               <Row>
-                <a href={link}>{title}</a>
+                <a href={amazonLink}>{title}</a>
               </Row>
               <Row>
                 {comments && <p>{comments}</p>}
