@@ -103,8 +103,7 @@ export default class ListForm extends Component {
             <Panel
                 eventKey={1}
                 defaultExpanded
-                collapsible
-                header={<h4>Draft List <small>Click to collapse</small></h4>}
+                header={<h4>Items to be added</h4>}
             >
             {itemsToBeAdded.length >= 2 && saveButton('Add Items to My List')}
             {itemsToBeAdded.length <= 0 &&
