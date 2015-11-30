@@ -26,14 +26,18 @@ export default class ListItem extends Component {
     const mdColSizes = remove != null ? [1, 2, 9] : [0, 2, 10]
     const [removeMd, imgMd, detailsMd] = mdColSizes
     const [removeXs, imgXs, detailsXs] = xsColSizes
-    const parsedLink = url.parse(link)
-    const amazonLink = url.format({
-      ...parsedLink,
-      query: {
-        ...parsedLink.query,
-        tag: 'performe-20'
-      }
-    })
+    let amazonLink = '#'
+    if (link != null) {
+      const parsedLink = url.parse(link)
+      amazonLink = url.format({
+        ...parsedLink,
+        query: {
+          ...parsedLink.query,
+          tag: 'performe-20'
+        }
+      })
+    }
+
     return (
       <li className={styles.listItem}>
         <Grid>
