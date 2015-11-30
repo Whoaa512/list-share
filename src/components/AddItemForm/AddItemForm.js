@@ -1,12 +1,14 @@
 import React, { Component, PropTypes } from 'react'
-import { reduxForm, reset as resetForm } from 'redux-form'
+import { reduxForm, initialize as resetForm } from 'redux-form'
 import { Input, Button, ButtonToolbar } from 'react-bootstrap'
+import addItemValidation from './addItemValidation'
 
 export const formName = 'add-item'
 
 @reduxForm({
   form: formName,
-  fields: ['title', 'imageUrl', 'link', 'comments']
+  fields: ['title', 'imageUrl', 'link', 'comments'],
+  validate: addItemValidation
 }, undefined, { resetForm })
 export default class AddItemForm extends Component {
   static propTypes = {
@@ -19,7 +21,12 @@ export default class AddItemForm extends Component {
 
   reset () {
     const { resetForm } = this.props
-    resetForm(formName)
+    resetForm(formName, {
+      comments: '',
+      imageUrl: '',
+      link: '',
+      title: ''
+    })
   }
 
   render () {

@@ -16,11 +16,13 @@ export function updateList (list, idsToAdd, idsToRemove) {
 
   listsCollection.update(list)
 
-  return db.saveAsync()
+  const dbSave = db.saveAsync()
   .catch(dbCatch(`List id: ${list.id}`, {
     old,
     updated: list
   }, 'List to be updated'))
+
+  return [list, dbSave]
 }
 
 export default function update (req) {
@@ -29,20 +31,27 @@ export default function update (req) {
       itemsToUpsert,
       itemsToRemove
     } = req.body
-    if (itemsToUpsert == null || !Array.isArray(itemsToUpsert)) {
+    if ((itemsToUpsert == null || !Array.isArray(itemsToUpsert)) && itemsToRemove == null) {
       return reject(new ApiError('Missing items to update list with'))
     }
 
-    const updatedItems = upsertListItems(itemsToUpsert)
-    const removedItems = removeListItems(itemsToRemove)
+    let updatedItems = []
+    let removedItems = []
+    if (itemsToUpsert != null) {
+      updatedItems = upsertListItems(itemsToUpsert)
+    }
+    if (itemsToRemove != null) {
+      removedItems = removeListItems(itemsToRemove)
+    }
 
     resolve(
-      getList(req)
+      getList(req, [])
       .then(list => {
         const idsToAdd = updatedItems.map(x => x.id)
         const idsToRemove = removedItems.map(x => x.id)
         return updateList(list, idsToAdd, idsToRemove)
       })
+      .spread(list => list)
     )
   })
 }
