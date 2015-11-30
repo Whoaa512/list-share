@@ -35,7 +35,7 @@ export default class Survey extends Component {
   render () {
     return (
       <div className='container'>
-        <h1>Sign Up</h1>
+        <h1>{/* @todo: fix this; Leave an empty header for better styling */}</h1>
         <DocumentMeta title={`${config.app.title}: Sign Up`}/>
 
         <SignUpForm onSubmit={this.handleSubmit}/>

@@ -36,7 +36,7 @@ export default class Login extends Component {
     return (
       <div className={styles.loginPage + ' container'}>
         <DocumentMeta title={`${config.app.title}: Login`}/>
-        <h1>Login</h1>
+        <h1>{/* @todo: fix this; Leave an empty header for better styling */}</h1>
         {!user &&
         <Grid className='text-center'>
           <form className='login-form form-horizontal' onSubmit={this.handleSubmit.bind(this)}>

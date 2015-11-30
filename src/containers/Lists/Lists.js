@@ -22,7 +22,7 @@ export default class Lists extends Component {
     const { lists } = this.props
     return (
       <div className='container'>
-        <h1>Lists</h1>
+        <h1>{/* @todo: fix this; Leave an empty header for better styling */}</h1>
         <DocumentMeta title={`${config.app.title}: Lists`}/>
         {lists.length <= 0 &&
         <div>

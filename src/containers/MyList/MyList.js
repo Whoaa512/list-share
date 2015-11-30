@@ -21,10 +21,10 @@ export default class MyList extends Component {
     const { userHasList, listItems } = this.props
     return (
       <div className='container'>
-        <DocumentMeta title={`${config.app.title}: Lists`}/>
+        <h1>{/* @todo: fix this; Leave an empty header for better styling */}</h1>
+        <DocumentMeta title={`${config.app.title}: My List`}/>
         <Grid>
           <Row>
-            <Col xs={12} md={2}><h2>My List</h2></Col>
             <Col xs={4} xsOffset={8} md={3} mdOffset={9}>
               {userHasList &&
               <Link to='/my-list/add'>
