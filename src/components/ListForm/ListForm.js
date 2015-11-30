@@ -159,7 +159,7 @@ function mapStateToProps (state) {
   const user = getUser(state)
   const [name] = get(user, 'name', 'Anon').split(' ')
   const myListAndItems = getMyListAndItems(state)
-  const title = myListAndItems.title || `${name}'s Chrstmas List`
+  const title = myListAndItems.title || `${name}'s Christmas List`
   return {
     currentItems: myListAndItems.items,
     title
