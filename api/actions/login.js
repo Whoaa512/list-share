@@ -26,12 +26,12 @@ export default function login (req) {
       throw new ApiError('Incorrect password', { status: 401 })
     }
     const save = Promise.promisify(req.session.save.bind(req.session))
+    const sessionSave = save().catch(error => {
+      logger.error(error, 'Problem saving session')
+      throw new ApiError('Problem saving session')
+    })
     req.session.user = user
-    return [user, save()]
+    return [user, sessionSave]
   })
   .spread(user => user)
-  .catch(error => {
-    logger.error(error, 'Problem saving session')
-    throw new ApiError('Problem saving session')
-  })
 }
