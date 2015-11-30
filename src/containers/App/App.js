@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import NotificationSystem from 'react-notification-system'
 import { connect } from 'react-redux'
 import { IndexLink } from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -11,6 +12,8 @@ import { isLoaded as areUsersLoaded, load as loadUsers } from 'redux/modules/use
 import { pushState } from 'redux-router'
 import connectData from 'helpers/connectData'
 import config from '../../config'
+
+NotificationSystem._notifier = {}
 
 function fetchData (getState, dispatch) {
   const promises = []
@@ -44,6 +47,10 @@ export default class App extends Component {
 
   static contextTypes = {
     store: PropTypes.object.isRequired
+  }
+
+  componentDidMount () {
+    NotificationSystem._notifier = this.refs.notificationSystem
   }
 
   componentWillReceiveProps (nextProps) {
@@ -118,6 +125,10 @@ export default class App extends Component {
             }
           </CollapsibleNav>
         </Navbar>
+
+        <div className='notifications'>
+          <NotificationSystem ref='notificationSystem' />
+        </div>
 
         <div className={styles.appContent}>
           {this.props.children}
