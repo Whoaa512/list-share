@@ -122,10 +122,11 @@ export default class App extends Component {
         <div className={styles.appContent}>
           {this.props.children}
         </div>
-
+        {/*
         <div className='well text-center'>
           Have questions? <a href='mailto:hello@presentsfor.me' target='_blank'>Contact us</a>.
         </div>
+        */}
       </div>
     )
   }
