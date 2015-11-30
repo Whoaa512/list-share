@@ -33,8 +33,8 @@ export default class Lists extends Component {
         </div>
         }
         <ul>
-          {lists.map(list =>
-            <ListRow {...list} />
+          {lists.map((list, idx) =>
+            <ListRow key={idx} {...list} />
           )}
         </ul>
       </div>

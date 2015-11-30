@@ -45,8 +45,8 @@ export default class List extends Component {
           </Row>
           {listItems.length > 0 &&
           <Row ref='listItems'>
-            {listItems.map(item =>
-              <ListItem {...item} />
+            {listItems.map((item, idx) =>
+              <ListItem key={idx} {...item} />
             )}
           </Row>
           }
