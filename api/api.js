@@ -5,12 +5,14 @@ import bodyParser from 'body-parser'
 import config from '../src/config'
 import express from 'express'
 import http from 'http'
+import logger from 'utils/api-logger'
 import omit from 'lodash.omit'
 import PrettyError from 'pretty-error'
 import session from 'express-session'
 import SocketIo from 'socket.io'
 import { mapUrl } from 'utils/url'
 
+const FileStore = require('session-file-store')(session)
 const pretty = new PrettyError()
 const app = express()
 
@@ -23,6 +25,9 @@ app.use(session({
   secret: config.sessionSecret,
   resave: false,
   saveUninitialized: false,
+  store: new FileStore({
+    logFn: logger.debug
+  }),
   unset: 'destroy',
   cookie: { maxAge: 3600000 }
 }))
