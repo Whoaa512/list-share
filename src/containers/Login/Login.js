@@ -34,10 +34,6 @@ export default class Login extends Component {
       return
     }
     return this.props.login(emailValue, passwordValue)
-    .then(() => {
-      email.refs.input.value = ''
-      password.refs.input.value = ''
-    })
     .catch(error => {
       _notifier.addNotification({
         position: 'tc',
@@ -46,6 +42,10 @@ export default class Login extends Component {
         level: 'error'
       })
       console.error(error, 'Problem logging in')
+    })
+    .finally(() => {
+      email.refs.input.value = ''
+      password.refs.input.value = ''
     })
   }
 
