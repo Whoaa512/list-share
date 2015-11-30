@@ -99,6 +99,7 @@ export default class ListForm extends Component {
           </Row>
           }
           <Row>
+            {itemsToRemove.length > 0 && saveButton('Confirm removals and update your list', 'danger')}
             {(type === 'add' || type === 'create') &&
             <Panel
                 eventKey={1}
@@ -138,11 +139,9 @@ export default class ListForm extends Component {
                 collapsible
                 header={<h4>Items to be removed <small>Click to collapse</small></h4>}
             >
-              {itemsToRemove.length >= 2 && saveButton('Confirm removals and update your list', 'danger')}
               {itemsToRemove.map((item, idx) =>
                 <ListItem key={idx} {...item}/>
               )}
-              {itemsToRemove.length > 0 && saveButton('Confirm removals and update your list', 'danger')}
             </Panel>
             }
           </Row>
