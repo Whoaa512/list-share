@@ -50,16 +50,31 @@ export default class App extends Component {
   }
 
   componentDidMount () {
+    const { location } = this.props
+    const page = location.pathname + location.search
+    this.latestUrl = page
+
     window.ga('create', config.gaUa, 'auto')
-    window.ga('set', 'page', this.props.location.pathname)
-    window.ga('send', 'pageview')
+    window.ga('set', 'page', page)
+    setTimeout(() => {
+      const title = document.title
+      window.ga('send', 'pageview', { page, title })
+    })
     NotificationSystem._notifier = this.refs.notificationSystem
   }
 
   componentDidUpdate () {
-    window.ga('set', 'page', this.props.location.pathname)
-    window.ga('send', 'pageview')
-    NotificationSystem._notifier = this.refs.notificationSystem
+    const { location } = this.props
+    const page = location.pathname + location.search
+    if (this.latestUrl === page) {
+      return
+    }
+    this.latestUrl = page
+    window.ga('set', 'page', page)
+    setTimeout(() => {
+      const title = document.title
+      window.ga('send', 'pageview', { page, title })
+    })
   }
 
   componentWillReceiveProps (nextProps) {
