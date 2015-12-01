@@ -50,6 +50,15 @@ export default class App extends Component {
   }
 
   componentDidMount () {
+    window.ga('create', config.gaUa, 'auto')
+    window.ga('set', 'page', this.props.location.pathname)
+    window.ga('send', 'pageview')
+    NotificationSystem._notifier = this.refs.notificationSystem
+  }
+
+  componentDidUpdate () {
+    window.ga('set', 'page', this.props.location.pathname)
+    window.ga('send', 'pageview')
     NotificationSystem._notifier = this.refs.notificationSystem
   }
 

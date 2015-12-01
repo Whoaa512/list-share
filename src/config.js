@@ -16,6 +16,7 @@ module.exports = Object.assign({
   apiHost: process.env.APIHOST || 'localhost',
   apiPort: process.env.APIPORT,
   sessionSecret: uuid.v4() + '-' + uuid.v4() + '-' + uuid.v4(),
+  gaUa: 'UA-70843519-1',
   app: {
     title: 'List Share',
     description: 'Share yo lists!',
