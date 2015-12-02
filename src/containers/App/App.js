@@ -164,7 +164,7 @@ export default class App extends Component {
         {/*
           Have questions? <a href='mailto:hello@presentsfor.me' target='_blank'>Contact us</a>.
         */}
-          Have questions? <a href='mailto:presentsfor.me.feedback@gmail.com' target='_blank'>Contact us</a>.
+          Got feedback? <a href='mailto:presentsfor.me.feedback@gmail.com' target='_blank'>We'd love to hear it!</a>.
         </div>
       </div>
     )
