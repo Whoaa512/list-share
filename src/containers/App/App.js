@@ -3,7 +3,7 @@ import NotificationSystem from 'react-notification-system'
 import { connect } from 'react-redux'
 import { IndexLink } from 'react-router'
 import { LinkContainer } from 'react-router-bootstrap'
-import { Navbar, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import DocumentMeta from 'react-document-meta'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
 import { isLoaded as areItemsLoaded, load as loadItems } from 'redux/modules/items'
@@ -108,15 +108,17 @@ export default class App extends Component {
     return (
       <div className={styles.app}>
         <DocumentMeta {...config.app}/>
-        <Navbar fixedTop toggleNavKey={0}>
-          <span className='pull-left'>
-            <IndexLink to='/'>
-              <img src={logo}/>
-            </IndexLink>
-          </span>
 
-          <CollapsibleNav eventKey={0}>
-            <Nav navbar>
+        <Navbar fluid>
+          <Navbar.Header>
+            <IndexLink to='/'>
+              <img className={styles.logo} src={logo}/>
+            </IndexLink>
+            <Navbar.Toggle />
+          </Navbar.Header>
+
+          <Navbar.Collapse>
+            <Nav>
               {user &&
               <LinkContainer to='/my-list'>
                 <NavItem eventKey={1}>My List</NavItem>
@@ -134,7 +136,7 @@ export default class App extends Component {
               </LinkContainer>}
             </Nav>
             {user &&
-            <Nav navbar right>
+            <Nav pullRight>
               {user &&
               <p className={styles.loggedInMessage + ' navbar-text'}>Logged in as <strong>{user.name}</strong>.</p>
               }
@@ -147,7 +149,7 @@ export default class App extends Component {
               </NavItem>
             </Nav>
             }
-          </CollapsibleNav>
+          </Navbar.Collapse>
         </Navbar>
 
         <div className='notifications'>
@@ -157,7 +159,7 @@ export default class App extends Component {
         <div className={styles.appContent}>
           {this.props.children}
         </div>
-        <div className='well text-center'>
+        <div className={`well text-center ${styles.footer}`}>
         {/*
           Have questions? <a href='mailto:hello@presentsfor.me' target='_blank'>Contact us</a>.
         */}

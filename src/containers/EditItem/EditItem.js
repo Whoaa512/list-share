@@ -64,7 +64,7 @@ export default class EditList extends Component {
       <div className='container'>
         <h1></h1>
         <DocumentMeta title={`${config.app.title}: Edit your item`}/>
-        <Col md={8} mdOffset={2}>
+        <Col xs={10} xsOffset={1} md={8} mdOffset={2}>
           <ItemForm
               type='edit'
               submitText='Save'

@@ -4,6 +4,20 @@
 }
 
 .listItem {
+  overflow-wrap: break-word;
   list-style: none;
   margin: 25px;
 }
+
+.boughtIcon {
+  font-size: 1.25em;
+}
+
+input[type=checkbox] {
+  /* All browsers except webkit*/
+  transform: scale(1.5);
+
+  /* Webkit browsers*/
+  -webkit-transform: scale(1.5);
+}
+

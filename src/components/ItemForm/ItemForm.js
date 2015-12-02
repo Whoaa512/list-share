@@ -107,7 +107,7 @@ export default class ItemForm extends Component {
               defaultExpanded
               header={<h4>Preview:</h4>}
           >
-            <ListItem {...previewItem} />
+            <ListItem item={previewItem} />
           </Panel>
         </Row>
         }

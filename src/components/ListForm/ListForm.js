@@ -92,7 +92,7 @@ export default class ListForm extends Component {
           </Row>
           {(type === 'add' || type === 'create') &&
           <Row>
-            <Col md={8} mdOffset={2}>
+            <Col xs={10} xsOffset={1} md={8} mdOffset={2}>
               <h5>Add an item to draft</h5>
               <ItemForm type='add' submitText='Add to draft' onSubmit={this.addAndClear.bind(this)} />
             </Col>
@@ -102,6 +102,7 @@ export default class ListForm extends Component {
             {itemsToRemove.length > 0 && saveButton('Confirm removals and update your list', 'danger')}
             {(type === 'add' || type === 'create') &&
             <Panel
+                className={styles.panelPadding}
                 eventKey={1}
                 defaultExpanded
                 header={<h4>Items to be added</h4>}
@@ -111,13 +112,14 @@ export default class ListForm extends Component {
               <p>No items to be added</p>
             }
             {itemsToBeAdded.map((item, idx) =>
-              <ListItem remove={this.removeUnSaved.bind(this, idx)} key={idx} {...item}/>
+              <ListItem remove={this.removeUnSaved.bind(this, idx)} key={idx} item={item}/>
             )}
             {itemsToBeAdded.length > 0 && saveButton('Add Items to My List')}
             </Panel>
             }
             {type === 'edit' &&
             <Panel
+                className={styles.panelPadding}
                 eventKey={2}
                 defaultExpanded
                 collapsible
@@ -128,19 +130,20 @@ export default class ListForm extends Component {
               }
               {currentItems.map((item, idx) =>
                 !itemsToRemove.some(removed => item.id === removed.id) &&
-                <ListItem remove={this.removeSaved.bind(this, item)} key={idx} {...item}/>
+                <ListItem remove={this.removeSaved.bind(this, item)} key={idx} item={item}/>
               )}
             </Panel>
             }
             {type === 'edit' && itemsToRemove.length > 0 &&
             <Panel
+                className={styles.panelPadding}
                 eventKey={3}
                 defaultExpanded
                 collapsible
                 header={<h4>Items to be removed <small>Click to collapse</small></h4>}
             >
               {itemsToRemove.map((item, idx) =>
-                <ListItem key={idx} {...item}/>
+                <ListItem key={idx} item={item}/>
               )}
             </Panel>
             }
