@@ -2,8 +2,8 @@ import ApiError from 'utils/ApiError'
 import indexBy from 'lodash.indexby'
 import { usersCollection } from 'utils/db-collections'
 
-export function getUser (email, userId) {
-  email = email.trim().toLowercase()
+export function getUser (email = '', userId) {
+  email = email.trim().toLowerCase()
   let user = null
 
   if (userId != null) {
