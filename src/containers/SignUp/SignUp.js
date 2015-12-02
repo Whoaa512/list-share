@@ -18,7 +18,6 @@ export default class Survey extends Component {
   }
 
   handleSubmit = (data) => {
-    data.email = data.email.trim()
     return this.props.signup(data)
     .then(user => {
       this.props.initialize(SignUpForm.formName, {})

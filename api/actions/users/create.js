@@ -21,7 +21,7 @@ export default function create (req) {
       .then(hash => {
         return {
           avatarImg,
-          email,
+          email: email.trim().toLowercase(),
           id: uuid.v4(),
           name,
           passwordHash: hash
