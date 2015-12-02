@@ -139,7 +139,7 @@ export function create (data, userId) {
   return {
     types: [CREATE, CREATE_SUCCESS, CREATE_FAIL],
     promise: (client) => {
-      client.post('/list/create', {
+      return client.post('/list/create', {
         data: { ...data, userId }
       })
       .then(list => {

@@ -45,7 +45,7 @@ export function submit (data) {
   return {
     types: [SUBMIT, SUBMIT_SUCCESS, SUBMIT_FAIL],
     promise: (client) => {
-      client.post('/users/create', {
+      return client.post('/users/create', {
         data
       })
       .then(user => {
