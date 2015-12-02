@@ -22,7 +22,7 @@ export default class Login extends Component {
     event.preventDefault()
     const email = this.refs.email
     const password = this.refs.password
-    const emailValue = email.getValue()
+    const emailValue = email.getValue().trim()
     const passwordValue = password.getValue()
     if (isEmpty(emailValue) || isEmpty(passwordValue)) {
       _notifier.addNotification({

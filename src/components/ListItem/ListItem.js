@@ -43,8 +43,6 @@ export default class ListItem extends Component {
     const mdColSizes = remove != null ? [1, 2, 8, 1] : [0, 2, 9, 1]
     const [removeMd, imgMd, detailsMd, editMd] = mdColSizes
     const [removeXs, imgXs, detailsXs, editXs] = xsColSizes
-    console.log('md', {removeMd, imgMd, detailsMd, editMd})
-    console.log('xs', {removeXs, imgXs, detailsXs, editXs})
     let query = ''
     let url = link
     // @todo: move this tag addition to server
