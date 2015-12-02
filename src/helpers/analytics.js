@@ -25,6 +25,7 @@ export const set = analytics.bind(null, 'set')
 export default {
   analytics,
   create,
+  error,
   send,
   set
 }

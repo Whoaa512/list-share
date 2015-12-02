@@ -44,6 +44,7 @@ app.use(session({
   cookie: { maxAge: 3600000 }
 }))
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded())
 app.use(forgot.middleware)
 
 app.post('/forgot', (req, res) => {
@@ -84,7 +85,8 @@ app.post('/reset', (req, res) => {
   .then(() => {
     forgot.expire(req.session.reset.id)
     delete req.session.reset
-    res.redirect('http://presentsfor.me/login')
+    const port = process.env.NODE_ENV === 'production' ? '' : ':3000'
+    res.redirect(`http://${host + port}/login`)
   })
 })
 

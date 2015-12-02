@@ -41,7 +41,6 @@ export default class Login extends Component {
         message: `There was a problem logging in. ${error.message}.`,
         level: 'error'
       })
-      console.error(error, 'Problem logging in')
     })
     // .finally(() => {
     //   email.refs.input.value = ''
