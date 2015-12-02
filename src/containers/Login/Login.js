@@ -43,10 +43,10 @@ export default class Login extends Component {
       })
       console.error(error, 'Problem logging in')
     })
-    .finally(() => {
-      email.refs.input.value = ''
-      password.refs.input.value = ''
-    })
+    // .finally(() => {
+    //   email.refs.input.value = ''
+    //   password.refs.input.value = ''
+    // })
   }
 
   render () {
