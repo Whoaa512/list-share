@@ -1,6 +1,7 @@
 import querystring from 'querystring'
 import React, { Component, PropTypes } from 'react'
-import { Button, Grid, Row, Col, Input } from 'react-bootstrap'
+import { Grid, Row, Col, Input } from 'react-bootstrap'
+import { Divider } from 'pui-react-dividers'
 import { Link } from 'react-router'
 
 export default class ListItem extends Component {
@@ -38,10 +39,12 @@ export default class ListItem extends Component {
       title
     } = item
     const styles = require('./ListItem.scss')
-    const xsColSizes = remove != null ? [1, 11, 11, 1] : [0, 12, 11, 1]
+    const xsColSizes = remove != null ? [1, 10, 10, 1] : [0, 10, 10, 1]
     const mdColSizes = remove != null ? [1, 2, 8, 1] : [0, 2, 9, 1]
     const [removeMd, imgMd, detailsMd, editMd] = mdColSizes
     const [removeXs, imgXs, detailsXs, editXs] = xsColSizes
+    console.log('md', {removeMd, imgMd, detailsMd, editMd})
+    console.log('xs', {removeXs, imgXs, detailsXs, editXs})
     let query = ''
     let url = link
     // @todo: move this tag addition to server
@@ -61,9 +64,9 @@ export default class ListItem extends Component {
           <Row>
             {remove != null &&
             <Col xs={removeXs} md={removeMd}>
-              <Button bsStyle='default' onClick={remove}>
+              <div onClick={remove}>
                 <i className='fa fa-2 fa-times text-danger'/>
-              </Button>
+              </div>
             </Col>
             }
             <Col xs={imgXs} md={imgMd}>
@@ -81,11 +84,11 @@ export default class ListItem extends Component {
               </Row>
             </Col>
             <Col className='pull-right' xs={editXs} md={editMd}>
-              {showEdit && <Link to={`/item/${id}/edit`}>Edit</Link>}
+              {showEdit && <Link className='text-muted' to={`/item/${id}/edit`}><i className='fa fa-pencil'/></Link>}
               {showCheckbox &&
               <Input
                   checked={checked}
-                  label='Bought'
+                  label={<i className={styles.boughtIcon + ' fa fa-2 fa-gift'} />}
                   onChange={(e) => handleCheckbox(item, this.refs.checkbox.getChecked())}
                   ref='checkbox'
                   type='checkbox'
@@ -94,6 +97,7 @@ export default class ListItem extends Component {
             </Col>
           </Row>
         </Grid>
+        <Divider />
       </li>
     )
   }

@@ -26,7 +26,7 @@ export default class MyList extends Component {
         <DocumentMeta title={`${config.app.title}: My List`}/>
         <Grid>
           <Row>
-            <Col className={styles.buttons} xs={4} xsOffset={8} md={3} mdOffset={9}>
+            <Col className={styles.buttons} xs={12} md={3} mdOffset={9}>
               {userHasList &&
               <Link to='/my-list/add'>
                 <Button>Add New Items</Button>
