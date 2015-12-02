@@ -1,3 +1,4 @@
+import analytics from 'helpers/analytics'
 import config from 'config'
 import DocumentMeta from 'react-document-meta'
 import React, { Component, PropTypes } from 'react'
@@ -37,10 +38,9 @@ export default class List extends Component {
       return this.props.loadItems([item.id])
     })
     .then(() => {
-      // @todo: add ga helpers and more tracking events throughout app
-      window.ga('send', {
+      analytics.send({
         hitType: 'event',
-        eventCategory: 'Items',
+        eventCategory: 'Item',
         eventAction: `bought change: ${checkedValue}`,
         eventLabel: 'Present bought'
       })
@@ -51,11 +51,7 @@ export default class List extends Component {
         level: 'success'
       })
     })
-    .catch(error => {
-      window.ga('send', 'exception', {
-        exDescription: error.message,
-        exFatal: false
-      })
+    .catch(() => {
       _notifier.addNotification({
         position: 'tc',
         autoDismiss: 3,

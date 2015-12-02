@@ -1,3 +1,4 @@
+import analytics from 'helpers/analytics'
 import cloneDeep from 'lodash.clonedeep'
 import get from 'lodash.get'
 import find from 'lodash.find'
@@ -137,9 +138,20 @@ export function getMyListAndItems (globalState) {
 export function create (data, userId) {
   return {
     types: [CREATE, CREATE_SUCCESS, CREATE_FAIL],
-    promise: (client) => client.post('/list/create', {
-      data: { ...data, userId }
-    })
+    promise: (client) => {
+      client.post('/list/create', {
+        data: { ...data, userId }
+      })
+      .then(list => {
+        analytics.send({
+          hitType: 'event',
+          eventCategory: 'List',
+          eventAction: 'create',
+          eventLabel: 'List created'
+        })
+        return list
+      })
+    }
   }
 }
 

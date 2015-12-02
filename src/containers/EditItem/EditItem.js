@@ -1,3 +1,4 @@
+import analytics from 'helpers/analytics'
 import config from 'config'
 import DocumentMeta from 'react-document-meta'
 import React, { Component, PropTypes } from 'react'
@@ -38,8 +39,17 @@ export default class EditList extends Component {
 
     return this.props.update(data, this.props.userId)
     .then(list => {
+      analytics.send({
+        hitType: 'event',
+        eventCategory: 'Item',
+        eventAction: 'edit',
+        eventLabel: 'Item updated',
+        eventValue: 1
+      })
+      return list
+    })
+    .then(list => {
       // load new items
-      console.log('loading items', list)
       return this.props.loadItems([itemToEdit.id])
     })
     .then(() => this.props.pushState(null, '/my-list'))

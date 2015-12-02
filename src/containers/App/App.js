@@ -1,3 +1,4 @@
+import analytics from 'helpers/analytics'
 import React, { Component, PropTypes } from 'react'
 import NotificationSystem from 'react-notification-system'
 import { connect } from 'react-redux'
@@ -54,11 +55,11 @@ export default class App extends Component {
     const page = location.pathname + location.search
     this.latestUrl = page
 
-    window.ga('create', config.gaUa, 'auto')
-    window.ga('set', 'page', page)
+    analytics.create()
+    analytics.set('page', page)
     setTimeout(() => {
       const title = document.title
-      window.ga('send', 'pageview', { page, title })
+      analytics.send('pageview', { page, title })
     })
     NotificationSystem._notifier = this.refs.notificationSystem
   }
@@ -70,10 +71,10 @@ export default class App extends Component {
       return
     }
     this.latestUrl = page
-    window.ga('set', 'page', page)
+    analytics.set('page', page)
     setTimeout(() => {
       const title = document.title
-      window.ga('send', 'pageview', { page, title })
+      analytics.send('pageview', { page, title })
     })
   }
 

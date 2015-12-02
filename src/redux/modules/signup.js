@@ -1,3 +1,4 @@
+import analytics from 'helpers/analytics'
 import get from 'lodash.get'
 
 const STATE_PATH = 'signup'
@@ -43,8 +44,19 @@ export function isSubmitted (globalState) {
 export function submit (data) {
   return {
     types: [SUBMIT, SUBMIT_SUCCESS, SUBMIT_FAIL],
-    promise: (client) => client.post('/users/create', {
-      data
-    })
+    promise: (client) => {
+      client.post('/users/create', {
+        data
+      })
+      .then(user => {
+        analytics.send({
+          hitType: 'event',
+          eventCategory: 'Auth',
+          eventAction: 'signup',
+          eventLabel: 'Signup successful'
+        })
+        return user
+      })
+    }
   }
 }

@@ -1,3 +1,4 @@
+import analytics from 'helpers/analytics'
 import get from 'lodash.get'
 
 const LOAD = 'redux-example/auth/LOAD'
@@ -97,12 +98,23 @@ export function load () {
 export function login (email, password) {
   return {
     types: [LOGIN, LOGIN_SUCCESS, LOGIN_FAIL],
-    promise: (client) => client.post('/login', {
-      data: {
-        email,
-        password
-      }
-    })
+    promise: (client) => {
+      client.post('/login', {
+        data: {
+          email,
+          password
+        }
+      })
+      .then(x => {
+        analytics.send({
+          hitType: 'event',
+          eventCategory: 'Auth',
+          eventAction: 'login',
+          eventLabel: 'Login success'
+        })
+        return x
+      })
+    }
   }
 }
 

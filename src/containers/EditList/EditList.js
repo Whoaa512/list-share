@@ -1,3 +1,4 @@
+import analytics from 'helpers/analytics'
 import React, { Component, PropTypes } from 'react'
 import config from 'config'
 import { connect } from 'react-redux'
@@ -25,6 +26,16 @@ export default class EditList extends Component {
     data.itemsToRemove = JSON.parse(data.itemsToRemove)
 
     return this.props.update(data, this.props.userId)
+    .then(list => {
+      analytics.send({
+        hitType: 'event',
+        eventCategory: 'Item',
+        eventAction: 'remove',
+        eventLabel: 'Items removed',
+        eventValue: data.itemsToRemove.length
+      })
+      return list
+    })
     .then(list => {
       // load new items
       return this.props.loadItems(list.items)
