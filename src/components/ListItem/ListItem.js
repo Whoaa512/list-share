@@ -1,31 +1,42 @@
 import querystring from 'querystring'
 import React, { Component, PropTypes } from 'react'
-import { Button, Grid, Row, Col } from 'react-bootstrap'
+import { Button, Grid, Row, Col, Input } from 'react-bootstrap'
 import { Link } from 'react-router'
 
 export default class ListItem extends Component {
   static get propTypes () {
     return {
-      comments: PropTypes.string,
-      id: PropTypes.string,
-      imageUrl: PropTypes.string,
-      link: PropTypes.string,
+      handleCheckbox: PropTypes.func,
+      item: PropTypes.shape({
+        checked: PropTypes.bool,
+        comments: PropTypes.string,
+        id: PropTypes.string,
+        imageUrl: PropTypes.string,
+        link: PropTypes.string,
+        title: PropTypes.string.isRequired
+      }),
       remove: PropTypes.func,
-      showEdit: PropTypes.bool,
-      title: PropTypes.string.isRequired
+      showCheckbox: PropTypes.bool,
+      showEdit: PropTypes.bool
     }
   }
 
   render () {
     const {
+      handleCheckbox,
+      item,
+      remove,
+      showCheckbox = false,
+      showEdit = false
+    } = this.props
+    const {
+      checked,
       comments,
       id,
       imageUrl = 'https://d1luk0418egahw.cloudfront.net/static/images/guide/NoImage_592x444.jpg',
       link,
-      remove,
-      showEdit = false,
       title
-    } = this.props
+    } = item
     const styles = require('./ListItem.scss')
     const xsColSizes = remove != null ? [1, 11, 11, 1] : [0, 12, 11, 1]
     const mdColSizes = remove != null ? [1, 2, 8, 1] : [0, 2, 9, 1]
@@ -71,6 +82,15 @@ export default class ListItem extends Component {
             </Col>
             <Col className='pull-right' xs={editXs} md={editMd}>
               {showEdit && <Link to={`/item/${id}/edit`}>Edit</Link>}
+              {showCheckbox &&
+              <Input
+                  checked={checked}
+                  label='Bought'
+                  onChange={(e) => handleCheckbox(item, this.refs.checkbox.getChecked())}
+                  ref='checkbox'
+                  type='checkbox'
+              />
+              }
             </Col>
           </Row>
         </Grid>

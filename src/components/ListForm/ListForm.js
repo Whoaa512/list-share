@@ -111,7 +111,7 @@ export default class ListForm extends Component {
               <p>No items to be added</p>
             }
             {itemsToBeAdded.map((item, idx) =>
-              <ListItem remove={this.removeUnSaved.bind(this, idx)} key={idx} {...item}/>
+              <ListItem remove={this.removeUnSaved.bind(this, idx)} key={idx} item={item}/>
             )}
             {itemsToBeAdded.length > 0 && saveButton('Add Items to My List')}
             </Panel>
@@ -128,7 +128,7 @@ export default class ListForm extends Component {
               }
               {currentItems.map((item, idx) =>
                 !itemsToRemove.some(removed => item.id === removed.id) &&
-                <ListItem remove={this.removeSaved.bind(this, item)} key={idx} {...item}/>
+                <ListItem remove={this.removeSaved.bind(this, item)} key={idx} item={item}/>
               )}
             </Panel>
             }
@@ -140,7 +140,7 @@ export default class ListForm extends Component {
                 header={<h4>Items to be removed <small>Click to collapse</small></h4>}
             >
               {itemsToRemove.map((item, idx) =>
-                <ListItem key={idx} {...item}/>
+                <ListItem key={idx} item={item}/>
               )}
             </Panel>
             }

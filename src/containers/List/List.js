@@ -1,22 +1,68 @@
 import config from 'config'
 import DocumentMeta from 'react-document-meta'
 import React, { Component, PropTypes } from 'react'
+import { _notifier } from 'react-notification-system'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { Grid, Row, Col, Button } from 'react-bootstrap'
 import { ListItem } from 'components'
-import { getItems } from 'redux/modules/items'
-import { getList } from 'redux/modules/lists'
+import { load as loadItems, getItems } from 'redux/modules/items'
+import { getList, update } from 'redux/modules/lists'
 import { getUserId } from 'redux/modules/auth'
+import { pushState } from 'redux-router'
 
-@connect(mapStateToProps)
+@connect(mapStateToProps, { update, loadItems, pushState })
 export default class List extends Component {
   static get propTypes () {
     return {
       isUsersList: PropTypes.bool,
       list: PropTypes.object,
-      listItems: PropTypes.array
+      listItems: PropTypes.array,
+      loadItems: PropTypes.func,
+      pushState: PropTypes.func,
+      update: PropTypes.func,
+      userId: PropTypes.string
     }
+  }
+
+  handleCheckbox = (item, checkedValue) => {
+    const data = {
+      itemsToUpsert: [{
+        ...item,
+        checked: checkedValue
+      }]
+    }
+    return this.props.update(data, this.props.userId)
+    .then(list => {
+      return this.props.loadItems([item.id])
+    })
+    .then(() => {
+      // @todo: add ga helpers and more tracking events throughout app
+      window.ga('send', {
+        hitType: 'event',
+        eventCategory: 'Items',
+        eventAction: `bought change: ${checkedValue}`,
+        eventLabel: 'Present bought'
+      })
+      _notifier.addNotification({
+        position: 'tc',
+        autoDismiss: 3,
+        message: 'Thanks!',
+        level: 'success'
+      })
+    })
+    .catch(error => {
+      window.ga('send', 'exception', {
+        exDescription: error.message,
+        exFatal: false
+      })
+      _notifier.addNotification({
+        position: 'tc',
+        autoDismiss: 3,
+        message: 'Something went wrong!',
+        level: 'error'
+      })
+    })
   }
 
   render () {
@@ -47,7 +93,12 @@ export default class List extends Component {
           {listItems.length > 0 &&
           <Row ref='listItems'>
             {listItems.map((item, idx) =>
-              <ListItem key={idx} {...item} />
+              <ListItem
+                  key={idx}
+                  showCheckbox={!isUsersList}
+                  handleCheckbox={this.handleCheckbox}
+                  item={item}
+              />
             )}
           </Row>
           }
@@ -64,6 +115,7 @@ function mapStateToProps (state) {
   const allItems = getItems(state)
   const listItems = list.items.map(id => allItems[id])
   return {
+    userId,
     isUsersList: list.creator === userId,
     list,
     listItems
