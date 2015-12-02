@@ -4,6 +4,7 @@ import {
   AddToList,
   App,
   CreateList,
+  EditItem,
   EditList,
   List,
   Lists,
@@ -24,6 +25,7 @@ export default (store) => {
 
       { /* Routes */ }
       <Route path='create-list' component={CreateList}/>
+      <Route path='item/:itemId/edit' component={EditItem}/>
       <Route path='list/:listId' component={List}/>
       <Route path='login' component={Login}/>
       <Route path='my-list' component={MyList}/>

@@ -5,9 +5,9 @@ import {
   validUrl
 } from 'utils/validation'
 
-const addItemValidation = createValidator({
+const itemValidation = createValidator({
   link: validUrl,
   imageUrl: validUrl,
   title: required
 })
-export default memoize(10)(addItemValidation)
+export default memoize(10)(itemValidation)

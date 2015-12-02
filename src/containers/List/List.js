@@ -28,6 +28,7 @@ export default class List extends Component {
           <Row>
             <Col xs={12} md={4}><h2>{list.title}</h2></Col>
             <Col xs={4} xsOffset={8} md={3} mdOffset={9}>
+            {/* @todo: remove these links since we redirect to /my-list now */}
             {isUsersList &&
             <Link to='/my-list/add'>
               <Button>Add New Items</Button>
