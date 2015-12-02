@@ -54,7 +54,7 @@
     production : {
       user : "node",
       host : "104.236.175.106",
-      ref  : "origin/develop",
+      ref  : "origin/prod",
       repo : "git@github.com:whoaa512/list-share.git",
       path : "/var/www/production",
       "post-deploy" : "npm install && pm2 startOrGracefulReload ecosystem.json5 --env production"
