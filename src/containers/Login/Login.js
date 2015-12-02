@@ -70,6 +70,11 @@ export default class Login extends Component {
                   No account? Sign up now!
                 </Button>
               </Link>
+              <Link to='/forgot-password'>
+                <Button bsStyle='link'>
+                  Forgot password?
+                </Button>
+              </Link>
             </Col>
           </form>
         </Grid>

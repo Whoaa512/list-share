@@ -24,8 +24,7 @@ export function updateUser (user, name, newEmail, newPassword) {
     })
   }
 
-  return passwordChange()
-  .then(user => {
+  return passwordChange.then(user => {
     usersCollection.update(user)
 
     return db.saveAsync()
