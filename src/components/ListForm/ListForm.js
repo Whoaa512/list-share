@@ -7,7 +7,7 @@ import {
   reduxForm,
   initialize as initForm
 } from 'redux-form'
-import { Grid, Row, Col, ButtonInput, Panel } from 'react-bootstrap'
+import { Grid, Row, Col, Button, Panel } from 'react-bootstrap'
 import { getMyListAndItems } from 'redux/modules/lists'
 import { getUser } from 'redux/modules/auth'
 import { ItemForm, ListItem } from 'components'
@@ -30,6 +30,7 @@ export default class ListForm extends Component {
     changeField: PropTypes.func.isRequired,
     handleItemAdd: PropTypes.func,
     handleSubmit: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
     initForm: PropTypes.func.isRequired,
     currentItems: PropTypes.array,
     title: PropTypes.string
@@ -71,17 +72,25 @@ export default class ListForm extends Component {
     } = this.props
     const { itemsToBeAdded, itemsToRemove } = this
     const styles = require('./ListForm.scss')
-    const saveButton = (saveText, style = 'success') => {
+    const saveButton = (saveText, style = 'success', cancel) => {
       return (
         <div className='text-center'>
-          <ButtonInput
+          <Button
               bsSize='large'
               bsStyle={style}
               onClick={handleSubmit}
               type='submit'
           >
             {saveText}
-          </ButtonInput>
+          </Button>
+          {cancel &&
+          <Button
+            bsStyle='link'
+            onClick={() => this.props.history.goBack()}
+          >
+            Cancel
+          </Button>
+          }
         </div>
       )
     }
@@ -106,7 +115,7 @@ export default class ListForm extends Component {
           </Row>
           }
           <Row>
-            {itemsToRemove.length > 0 && saveButton('Confirm removals and update your list', 'danger')}
+            {itemsToRemove.length > 0 && saveButton('Confirm removals', 'danger', true)}
             {(type === 'add' || type === 'create') &&
             <Panel
                 className={styles.panelPadding}

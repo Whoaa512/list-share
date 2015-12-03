@@ -16,6 +16,7 @@ import { load as loadItems } from 'redux/modules/items'
 export default class EditList extends Component {
   static propTypes = {
     update: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
     initialize: PropTypes.func.isRequired,
     loadItems: PropTypes.func.isRequired,
     pushState: PropTypes.func.isRequired,
@@ -59,7 +60,7 @@ export default class EditList extends Component {
       <div className='container'>
         <h1>{/* @todo: fix this; Leave an empty header for better styling */}</h1>
         <DocumentMeta title={`${config.app.title}: Edit your List`}/>
-        <ListForm type='edit' onSubmit={this.handleSubmit} />
+        <ListForm type='edit' onSubmit={this.handleSubmit} history={this.props.history}/>
       </div>
     )
   }
