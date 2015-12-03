@@ -95,6 +95,7 @@
     }
   },
   "dependencies": {
+    "amazon-product-api": "^0.3.5",
     "array-uniq": "^1.0.2",
     "babel": "~5.8.29",
     "bcrypt": "^0.8.5",
