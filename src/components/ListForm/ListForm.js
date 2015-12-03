@@ -28,6 +28,7 @@ export default class ListForm extends Component {
   static propTypes = {
     type: PropTypes.string.isRequired,
     changeField: PropTypes.func.isRequired,
+    handleItemAdd: PropTypes.func,
     handleSubmit: PropTypes.func.isRequired,
     initForm: PropTypes.func.isRequired,
     currentItems: PropTypes.array,
@@ -46,6 +47,7 @@ export default class ListForm extends Component {
     itemsToBeAdded.push(data)
     this.props.initForm(ItemForm.formName, { comments: '' })
     this.props.changeField(formName, 'itemsToBeAdded', JSON.stringify(itemsToBeAdded))
+    this.props.handleItemAdd(itemsToBeAdded)
   }
 
   removeSaved (item) {
@@ -93,8 +95,13 @@ export default class ListForm extends Component {
           {(type === 'add' || type === 'create') &&
           <Row>
             <Col xs={10} xsOffset={1} md={8} mdOffset={2}>
-              <h5>Add an item to draft</h5>
-              <ItemForm type='add' submitText='Add to draft' onSubmit={this.addAndClear.bind(this)} />
+              <h5>{type === 'create' ? 'Add items to preview' : ''}</h5>
+              <ItemForm
+                  type='add'
+                  submitStyle={type === 'create' ? null : 'success'}
+                  submitText={type === 'create' ? 'Add to preview' : 'Add to list'}
+                  onSubmit={this.addAndClear.bind(this)}
+              />
             </Col>
           </Row>
           }
@@ -105,16 +112,16 @@ export default class ListForm extends Component {
                 className={styles.panelPadding}
                 eventKey={1}
                 defaultExpanded
-                header={<h4>Items to be added</h4>}
+                header={<h4>Items {type === 'create' ? 'to be ' : ''}added</h4>}
             >
             {itemsToBeAdded.length >= 2 && saveButton('Add Items to My List')}
             {itemsToBeAdded.length <= 0 &&
-              <p>No items to be added</p>
+              <p>No items {type === 'create' ? 'to be ' : ''}added</p>
             }
             {itemsToBeAdded.map((item, idx) =>
               <ListItem remove={this.removeUnSaved.bind(this, idx)} key={idx} item={item}/>
             )}
-            {itemsToBeAdded.length > 0 && saveButton('Add Items to My List')}
+            {itemsToBeAdded.length > 0 && type === 'create' && saveButton('Create My List')}
             </Panel>
             }
             {type === 'edit' &&

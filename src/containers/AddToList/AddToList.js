@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import config from 'config'
+import { _notifier } from 'react-notification-system'
 import { connect } from 'react-redux'
 import DocumentMeta from 'react-document-meta'
 import { pushState } from 'redux-router'
@@ -21,25 +22,28 @@ export default class AddToList extends Component {
     userId: PropTypes.string.isRequired
   }
 
-  handleSubmit = (data) => {
-    data.itemsToUpsert = JSON.parse(data.itemsToBeAdded)
+  handleSubmit = (itemsToBeAdded) => {
+    const data = {
+      itemsToUpsert: itemsToBeAdded
+    }
 
     return this.props.update(data, this.props.userId)
     .then(list => {
       // load new items
       return this.props.loadItems(list.items)
     })
-    // @todo: tell the user they were successful
-    .then(() => this.props.pushState(null, '/my-list'))
     .then(() => {
-      // @note: have to use old school way to reset since reset was buggy
-      return this.props.initialize(ListForm.formName, {})
+      _notifier.addNotification({
+        position: 'tc',
+        autoDismiss: 2.25,
+        message: 'Item added!',
+        level: 'success'
+      })
     })
     .catch(error => {
-      const errors = {
-        _error: error.message
-      }
-      throw errors
+      const err = new Error(error.message)
+      err._error = error.message
+      return Promise.reject(err)
     })
   }
 
@@ -48,7 +52,7 @@ export default class AddToList extends Component {
       <div className='container'>
         <h1>{/* @todo: fix this; Leave an empty header for better styling */}</h1>
         <DocumentMeta title={`${config.app.title}: Add to your List`}/>
-        <ListForm type='add' onSubmit={this.handleSubmit} />
+        <ListForm type='add' handleItemAdd={this.handleSubmit} />
       </div>
     )
   }
