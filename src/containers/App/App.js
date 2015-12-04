@@ -94,17 +94,9 @@ export default class App extends Component {
   }
 
   render () {
-    const { location, user } = this.props
+    const { user } = this.props
     const styles = require('./App.scss')
     const logo = require('./logo.png')
-
-    if (!user && location.pathname !== '/sign-up' && location.pathname !== '/forgot-password') {
-      this.props.pushState(null, '/login')
-    }
-
-    if (user && location.pathname === '/sign-up' && location.pathname === '/forgot-password') {
-      this.props.pushState(null, '/')
-    }
 
     return (
       <div className={styles.app}>
