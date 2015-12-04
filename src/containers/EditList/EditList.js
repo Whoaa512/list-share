@@ -23,10 +23,13 @@ export default class EditList extends Component {
     userId: PropTypes.string.isRequired
   }
 
-  handleSubmit = (data) => {
-    data.itemsToRemove = JSON.parse(data.itemsToRemove)
+  handleSubmit = (fieldsData) => {
+    const data = {
+      userId: this.props.userId,
+      itemsToRemove: JSON.parse(fieldsData.itemsToRemove)
+    }
 
-    return this.props.update(data, this.props.userId)
+    return this.props.update(data)
     .then(list => {
       analytics.send({
         hitType: 'event',

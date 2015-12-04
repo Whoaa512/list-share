@@ -34,10 +34,11 @@ export default class EditList extends Component {
       ...updatedValues
     }
     const data = {
+      userId: this.props.userId,
       itemsToUpsert: [updatedItem]
     }
 
-    return this.props.update(data, this.props.userId)
+    return this.props.update(data)
     .then(list => {
       analytics.send({
         hitType: 'event',

@@ -22,18 +22,19 @@ export default class List extends Component {
       loadItems: PropTypes.func,
       pushState: PropTypes.func,
       update: PropTypes.func,
-      userId: PropTypes.string
+      listId: PropTypes.string
     }
   }
 
   handleCheckbox = (item, checkedValue) => {
     const data = {
+      listId: this.props.listId,
       itemsToUpsert: [{
         ...item,
         checked: checkedValue
       }]
     }
-    return this.props.update(data, this.props.userId)
+    return this.props.update(data)
     .then(list => {
       return this.props.loadItems([item.id])
     })
@@ -111,7 +112,7 @@ function mapStateToProps (state) {
   const allItems = getItems(state)
   const listItems = list.items.map(id => allItems[id])
   return {
-    userId,
+    listId,
     isUsersList: list.creator === userId,
     list,
     listItems
