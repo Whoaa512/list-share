@@ -104,12 +104,13 @@ export default class ListForm extends Component {
           </Row>
           {(type === 'add' || type === 'create') &&
           <Row>
-            <Col xs={10} xsOffset={1} md={8} mdOffset={2}>
-              <h5>{type === 'create' ? 'Add items to preview' : ''}</h5>
+            <Col xs={10} xsOffset={1}>
+              <h5>{type === 'create' ? 'Add items to list preview' : ''}</h5>
               <ItemForm
                   type='add'
+                  showPreview
                   submitStyle={type === 'create' ? null : 'success'}
-                  submitText={type === 'create' ? 'Add to preview' : 'Add to list'}
+                  submitText={type === 'create' ? 'Add to list preview' : 'Add to list'}
                   onSubmit={this.addAndClear.bind(this)}
               />
             </Col>

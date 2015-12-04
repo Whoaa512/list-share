@@ -75,9 +75,10 @@ export default class EditList extends Component {
       <div className='container'>
         <h1></h1>
         <DocumentMeta title={`${config.app.title}: Edit your item`}/>
-        <Col xs={10} xsOffset={1} md={8} mdOffset={2}>
+        <Col xs={10} xsOffset={1}>
           <ItemForm
               type='edit'
+              showPreview
               submitText='Save'
               submitStyle='success'
               handleCancel={() => this.props.history.goBack()}
