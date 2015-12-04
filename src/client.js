@@ -24,7 +24,15 @@ ApiClient.client = client
 const scrollablehistory = useScroll(createHistory)
 
 const dest = document.getElementById('content')
-const store = createStore(reduxReactRouter, makeRouteHooksSafe(getRoutes), scrollablehistory, client, window.__data)
+const seedData = window.__data
+const store = createStore(reduxReactRouter, makeRouteHooksSafe(getRoutes), scrollablehistory, client, seedData)
+clearSeedData()
+
+function clearSeedData () {
+  window.__data = null
+  const seedScript = document.getElementById('seed-data')
+  seedScript.innerHTML = ''
+}
 
 function initSocket () {
   const socket = io('', {path: '/api/ws', transports: ['polling']})
