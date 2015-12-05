@@ -94,9 +94,13 @@ export default class App extends Component {
   }
 
   render () {
-    const { user } = this.props
+    const { user, location, pushState } = this.props
     const styles = require('./App.scss')
     const logo = require('./logo.png')
+
+    if (user && location.pathname === '/login') {
+      pushState(null, '/')
+    }
 
     return (
       <div className={styles.app}>
