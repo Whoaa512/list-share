@@ -15,8 +15,6 @@
     {
       name      : "API",
       script    : "./bin/api.js",
-      exec_mode : "cluster",
-      instances : 2,
       env: {
         APIPORT: 3030,
         NODE_PATH: "./api"
