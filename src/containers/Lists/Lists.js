@@ -21,7 +21,7 @@ export default class Lists extends Component {
   }
 
   render () {
-    const { lists } = this.props
+    const { lists, userHasList } = this.props
     return (
       <div className='container'>
         <h3>All lists</h3>
@@ -29,20 +29,26 @@ export default class Lists extends Component {
         {lists.length <= 0 &&
         <div>
           <h4>No lists yet. Let's create the first!</h4>
-          <Link to='/create-list'>
+          <Link to='/my-list/add'>
             <Button>Create New List</Button>
           </Link>
         </div>
         }
         {!userHasList &&
         /* @todo: refactor all links to their own module */
-        <Link to='/create-list'>
+        <Link className='pull-right' to='/create-list'>
           <Button>Create Your List</Button>
+        </Link>
+        }
+        {userHasList &&
+        /* @todo: refactor all links to their own module */
+        <Link className='pull-right' to='/my-list/add'>
+          <Button>Add items to your list</Button>
         </Link>
         }
         <ul>
           {lists.map((list, idx) =>
-            <ListRow key={idx} {...list} />
+            (list && <ListRow key={idx} {...list} />)
           )}
         </ul>
       </div>
@@ -56,6 +62,9 @@ function mapStateToProps (state) {
   const allLists = getLists(state)
   const lists = Object.keys(allLists).map(id => {
     const list = cloneDeep(allLists[id])
+    if (list.items.length <= 0) {
+      return false
+    }
     list.avatarImg = get(users, `${list.creator}.avatarImg`)
     list.link = `/list/${list.id}`
     if (userId === list.creator) {

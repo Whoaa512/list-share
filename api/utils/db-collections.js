@@ -1,4 +1,3 @@
-import ApiError from './ApiError'
 import logger from './api-logger'
 import Lokijs from 'lokijs'
 import path from 'path'
@@ -17,7 +16,7 @@ export function dbCatch (idStr, ...infoArgs) {
     if (infoArgs.length > 0) {
       logger.info.apply(logger, infoArgs)
     }
-    throw new ApiError(errStr)
+    // throw new ApiError(errStr)
   }
 }
 

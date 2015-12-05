@@ -1,3 +1,4 @@
+import isEmpty from 'lodash.isempty'
 import querystring from 'querystring'
 import React, { Component, PropTypes } from 'react'
 import { Row, Col, Input } from 'react-bootstrap'
@@ -52,6 +53,7 @@ export default class ListItem extends Component {
 
     let query = ''
     let url = link
+    let href = url
     // @todo: move this tag addition to server
     if (link != null && typeof link.split === 'function') {
       [ url, query ] = link.split('?')
@@ -60,8 +62,10 @@ export default class ListItem extends Component {
         tag: 'performe-20',
         ...parsedQuery
       })
+      if (!isEmpty(url)) {
+        href = `${url}${query}`
+      }
     }
-    const href = `${url}${query}`
 
     return (
       <li className={styles.listItem}>
@@ -78,7 +82,7 @@ export default class ListItem extends Component {
           </Col>
           <Col xs={detailsXs} md={detailsMd} mdOffset={1}>
             <Row>
-              { href != null
+              { !isEmpty(href)
               ? <a target='blank' href={href}>{title}</a>
               : <p>{title}</p>
               }

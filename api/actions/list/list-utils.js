@@ -1,3 +1,4 @@
+import isEmpty from 'lodash.isempty'
 import logger from 'utils/api-logger'
 import { itemsCollection } from 'utils/db-collections'
 import uuid from 'uuid'
@@ -29,7 +30,18 @@ export function upsertListItems (items) {
   const updatedItems = items.filter(x => x.$loki != null)
   const newItems = items.filter(x => x.id == null).map(createListItem)
   const allItems = updatedItems.concat(newItems)
-  itemsCollection.update(updatedItems)
-  itemsCollection.insert(newItems)
+
+  logger.info({
+    allItems,
+    updatedItems,
+    newItems
+  }, 'upsertListItems')
+
+  if (!isEmpty(updatedItems)) {
+    itemsCollection.update(updatedItems)
+  }
+  if (!isEmpty(newItems)) {
+    itemsCollection.insert(newItems)
+  }
   return allItems
 }

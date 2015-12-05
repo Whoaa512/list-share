@@ -2,6 +2,7 @@ import ApiError from 'utils/ApiError'
 import bcrypt, { saltRounds } from 'utils/bcrypt-as-promised'
 import uuid from 'uuid'
 import { db, dbCatch, usersCollection } from 'utils/db-collections'
+import { create as createList } from 'actions/list/index'
 
 export default function create (req) {
   return new Promise((resolve, reject) => {
@@ -32,9 +33,24 @@ export default function create (req) {
         return db.saveAsync()
         .then(() => {
           resolve(userObj)
+          return userObj
         })
         .catch(dbCatch(`User id: ${userObj.id}`, { userObj }, 'User to be created'))
       })
+      .then(userObj => {
+        return createFirstList(userObj.id, userObj.name)
+      })
     )
   })
+}
+
+function createFirstList (userId, name = '') {
+  const [firstName] = name.split(' ')
+  const body = {
+    items: [],
+    userId,
+    title: `${firstName}'s Christmas List`
+  }
+
+  return createList({ body })
 }

@@ -6,7 +6,7 @@ import uuid from 'uuid'
 export default function create (req) {
   return new Promise((resolve, reject) => {
     const {
-      items,
+      items = [],
       title,
       userId
     } = req.body
