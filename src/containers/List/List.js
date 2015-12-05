@@ -7,37 +7,29 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router'
 import { Grid, Row, Col, Button } from 'react-bootstrap'
 import { ListItem } from 'components'
-import { load as loadItems, getItems } from 'redux/modules/items'
-import { getList, update } from 'redux/modules/lists'
+import { getItems, update as updateItem } from 'redux/modules/items'
+import { getList } from 'redux/modules/lists'
 import { getUserId } from 'redux/modules/auth'
 import { pushState } from 'redux-router'
 
-@connect(mapStateToProps, { update, loadItems, pushState })
+@connect(mapStateToProps, { updateItem, pushState })
 export default class List extends Component {
   static get propTypes () {
     return {
       isUsersList: PropTypes.bool,
       list: PropTypes.object,
       listItems: PropTypes.array,
-      loadItems: PropTypes.func,
       pushState: PropTypes.func,
-      update: PropTypes.func,
-      listId: PropTypes.string
+      updateItem: PropTypes.func
     }
   }
 
   handleCheckbox = (item, checkedValue) => {
     const data = {
-      listId: this.props.listId,
-      itemsToUpsert: [{
-        ...item,
-        checked: checkedValue
-      }]
+      ...item,
+      checked: checkedValue
     }
-    return this.props.update(data)
-    .then(list => {
-      return this.props.loadItems([item.id])
-    })
+    return this.props.updateItem(data)
     .then(() => {
       analytics.send({
         hitType: 'event',
@@ -112,7 +104,6 @@ function mapStateToProps (state) {
   const allItems = getItems(state)
   const listItems = list.items.map(id => allItems[id])
   return {
-    listId,
     isUsersList: list.creator === userId,
     list,
     listItems
