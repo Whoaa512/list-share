@@ -34,6 +34,7 @@ export function upsertListItems (items) {
   logger.info({
     allItems,
     updatedItems,
+    itemsInDb: itemsCollection.data,
     newItems
   }, 'upsertListItems')
 
@@ -43,5 +44,8 @@ export function upsertListItems (items) {
   if (!isEmpty(newItems)) {
     itemsCollection.insert(newItems)
   }
+  logger.info({
+    itemsInDb: itemsCollection.data
+  }, 'upsertListItems after itemsCollection updates')
   return allItems
 }

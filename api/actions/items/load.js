@@ -2,6 +2,7 @@ import ApiError from 'utils/ApiError'
 import isEmpty from 'lodash.isempty'
 import includes from 'lodash.includes'
 import indexBy from 'lodash.indexby'
+import logger from 'utils/api-logger'
 import { itemsCollection } from 'utils/db-collections'
 
 export function getItems (itemIds) {
@@ -25,6 +26,7 @@ export default function load (req, params) {
       return reject(new ApiError('Missing item ids'))
     }
     const items = getItems(itemIds)
+    logger.info({ items, itemIds }, 'loading items')
     if (isEmpty(items)) {
       return reject(new ApiError('No list found for the given parameters'))
     }
