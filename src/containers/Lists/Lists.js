@@ -42,7 +42,7 @@ export default class Lists extends Component {
         }
         <ul>
           {lists.map((list, idx) =>
-            <ListRow key={idx} {...list} />
+            (list && <ListRow key={idx} {...list} />)
           )}
         </ul>
       </div>
@@ -56,6 +56,9 @@ function mapStateToProps (state) {
   const allLists = getLists(state)
   const lists = Object.keys(allLists).map(id => {
     const list = cloneDeep(allLists[id])
+    if (list.items.length <= 0) {
+      return false
+    }
     list.avatarImg = get(users, `${list.creator}.avatarImg`)
     list.link = `/list/${list.id}`
     if (userId === list.creator) {
