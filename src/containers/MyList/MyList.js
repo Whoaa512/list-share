@@ -1,5 +1,6 @@
 import config from 'config'
 import DocumentMeta from 'react-document-meta'
+import isEmpty from 'lodash.isempty'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
@@ -32,7 +33,7 @@ export default class MyList extends Component {
                 <Button>Add New Items</Button>
               </Link>
               }
-              {userHasList &&
+              {userHasList && !isEmpty(listItems) &&
               <Link to='/my-list/edit'>
                 <Button>Remove Items</Button>
               </Link>
