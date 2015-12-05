@@ -30,6 +30,13 @@ export function upsertListItems (items) {
   const updatedItems = items.filter(x => x.$loki != null)
   const newItems = items.filter(x => x.id == null).map(createListItem)
   const allItems = updatedItems.concat(newItems)
+
+  logger.info({
+    allItems,
+    updatedItems,
+    newItems
+  }, 'upsertListItems')
+
   if (!isEmpty(updatedItems)) {
     itemsCollection.update(updatedItems)
   }
