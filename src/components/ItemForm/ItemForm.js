@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Panel, Row } from 'react-bootstrap'
+import { Panel, Row, Col } from 'react-bootstrap'
 import { reduxForm, initialize } from 'redux-form'
 import { Input, Button, ButtonToolbar } from 'react-bootstrap'
 import { ListItem } from 'components'
@@ -22,6 +22,7 @@ export default class ItemForm extends Component {
     itemToEdit: PropTypes.object,
     handleSubmit: PropTypes.func.isRequired,
     resetText: PropTypes.string,
+    showPreview: PropTypes.bool,
     submitStyle: PropTypes.string,
     submitText: PropTypes.string,
     type: PropTypes.string
@@ -57,6 +58,7 @@ export default class ItemForm extends Component {
       fields: { title, imageUrl, link, comments },
       handleSubmit,
       resetText = 'Clear',
+      showPreview = false,
       submitStyle = 'primary',
       submitText = 'Add',
       type
@@ -64,7 +66,7 @@ export default class ItemForm extends Component {
 
     const isEditing = type === 'edit'
     let previewItem
-    if (isEditing) {
+    if (showPreview) {
       previewItem = {
         title: title.value,
         imageUrl: imageUrl.value,
@@ -77,40 +79,50 @@ export default class ItemForm extends Component {
       const error = field.error && field.touched && <div className='text-danger'>{field.error}</div>
       return <Input type={type} label={label} addonAfter={error} {...field} />
     }
+    const xsSizes = showPreview ? [12, 12] : [12, 0]
+    const [xsForm, xsPreview] = xsSizes
+
+    const mdSizes = showPreview ? [6, 5] : [11, 0]
+    const [mdForm, mdPreview] = mdSizes
 
     return (
       <div className='form-horizontal'>
         <Row>
-          {renderInput('text', title, 'Item Title')}
-          {renderInput('text', imageUrl, 'Image Link')}
-          {renderInput('text', link, 'Purchase or Info Link')}
-          {renderInput('textarea', comments, 'Additional comments')}
-        </Row>
-        <Row>
-          <ButtonToolbar>
-            <Button type='button' bsStyle={submitStyle} onClick={handleSubmit}>
-              {submitText}
-            </Button>
-            <Button type='reset' onClick={this.reset.bind(this)}>
-              {resetText}
-            </Button>
-            {isEditing &&
-            <Button type='button' bsStyle={cancelStyle} onClick={handleCancel}>
-              {cancelText}
-            </Button>
-            }
-          </ButtonToolbar>
-        </Row>
-        {isEditing &&
-        <Row className={styles.itemPreview}>
-          <Panel
-              defaultExpanded
-              header={<h4>Preview:</h4>}
+          <Col xs={xsForm} md={mdForm}>
+            {renderInput('text', title, 'Item Title')}
+            {renderInput('text', imageUrl, 'Image Link')}
+            {renderInput('text', link, 'Purchase or Info Link')}
+            {renderInput('textarea', comments, 'Additional comments')}
+            <ButtonToolbar>
+              <Button type='button' bsStyle={submitStyle} onClick={handleSubmit}>
+                {submitText}
+              </Button>
+              <Button type='reset' onClick={this.reset.bind(this)}>
+                {resetText}
+              </Button>
+              {isEditing &&
+              <Button type='button' bsStyle={cancelStyle} onClick={handleCancel}>
+                {cancelText}
+              </Button>
+              }
+            </ButtonToolbar>
+          </Col>
+          <Col
+              xs={xsPreview}
+              md={mdPreview}
+              mdOffset={1}
+              className={showPreview ? styles.itemPreview : ''}
           >
-            <ListItem item={previewItem} />
-          </Panel>
+            {showPreview &&
+            <Panel
+                defaultExpanded
+                header={<h4>Item Preview:</h4>}
+            >
+              <ListItem item={previewItem} />
+            </Panel>
+            }
+          </Col>
         </Row>
-        }
       </div>
     )
   }

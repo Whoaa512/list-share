@@ -155,11 +155,11 @@ export function create (data, userId) {
   }
 }
 
-export function update (data, userId) {
+export function update (data) {
   return {
     types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
     promise: (client) => client.post('/list/update', {
-      data: { ...data, userId }
+      data
     })
   }
 }

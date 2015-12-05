@@ -34,10 +34,11 @@ export default class EditList extends Component {
       ...updatedValues
     }
     const data = {
+      userId: this.props.userId,
       itemsToUpsert: [updatedItem]
     }
 
-    return this.props.update(data, this.props.userId)
+    return this.props.update(data)
     .then(list => {
       analytics.send({
         hitType: 'event',
@@ -74,9 +75,10 @@ export default class EditList extends Component {
       <div className='container'>
         <h1></h1>
         <DocumentMeta title={`${config.app.title}: Edit your item`}/>
-        <Col xs={10} xsOffset={1} md={8} mdOffset={2}>
+        <Col xs={10} xsOffset={1}>
           <ItemForm
               type='edit'
+              showPreview
               submitText='Save'
               submitStyle='success'
               handleCancel={() => this.props.history.goBack()}

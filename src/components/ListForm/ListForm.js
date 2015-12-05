@@ -72,6 +72,7 @@ export default class ListForm extends Component {
     } = this.props
     const { itemsToBeAdded, itemsToRemove } = this
     const styles = require('./ListForm.scss')
+    const saveText = type === 'remove' ? 'Confirm removals' : 'Create My List'
     const saveButton = (saveText, style = 'success', cancel) => {
       return (
         <div className='text-center'>
@@ -103,19 +104,20 @@ export default class ListForm extends Component {
           </Row>
           {(type === 'add' || type === 'create') &&
           <Row>
-            <Col xs={10} xsOffset={1} md={8} mdOffset={2}>
-              <h5>{type === 'create' ? 'Add items to preview' : ''}</h5>
+            <Col xs={10} xsOffset={1}>
+              <h5>{type === 'create' ? 'Add items to list preview' : ''}</h5>
               <ItemForm
                   type='add'
+                  showPreview
                   submitStyle={type === 'create' ? null : 'success'}
-                  submitText={type === 'create' ? 'Add to preview' : 'Add to list'}
+                  submitText={type === 'create' ? 'Add to list preview' : 'Add to list'}
                   onSubmit={this.addAndClear.bind(this)}
               />
             </Col>
           </Row>
           }
           <Row>
-            {itemsToRemove.length > 0 && saveButton('Confirm removals', 'danger', true)}
+            {itemsToRemove.length > 0 && saveButton(saveText, 'danger', true)}
             {(type === 'add' || type === 'create') &&
             <Panel
                 className={styles.panelPadding}
@@ -123,14 +125,14 @@ export default class ListForm extends Component {
                 defaultExpanded
                 header={<h4>Items {type === 'create' ? 'to be ' : ''}added</h4>}
             >
-            {itemsToBeAdded.length >= 2 && saveButton('Add Items to My List')}
+            {itemsToBeAdded.length >= 2 && type === 'create' && saveButton(saveText)}
             {itemsToBeAdded.length <= 0 &&
               <p>No items {type === 'create' ? 'to be ' : ''}added</p>
             }
             {itemsToBeAdded.map((item, idx) =>
               <ListItem remove={this.removeUnSaved.bind(this, idx)} key={idx} item={item}/>
             )}
-            {itemsToBeAdded.length > 0 && type === 'create' && saveButton('Create My List')}
+            {itemsToBeAdded.length > 0 && type === 'create' && saveButton(saveText)}
             </Panel>
             }
             {type === 'edit' &&

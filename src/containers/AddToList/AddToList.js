@@ -24,10 +24,11 @@ export default class AddToList extends Component {
 
   handleSubmit = (itemsToBeAdded) => {
     const data = {
+      userId: this.props.userId,
       itemsToUpsert: itemsToBeAdded
     }
 
-    return this.props.update(data, this.props.userId)
+    return this.props.update(data)
     .then(list => {
       // load new items
       return this.props.loadItems(list.items)
