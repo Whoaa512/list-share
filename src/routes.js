@@ -48,17 +48,17 @@ export default (store) => {
       <Route onEnter={requireLogin}>
         <Route path='/' component={Lists}/>
         { /* Routes */ }
-        <Route path='create-list' component={CreateList}/>
-        <Route path='item/:itemId/edit' component={EditItem}/>
-        <Route path='list/:listId' component={List}/>
-        <Route path='my-list' component={MyList}/>
-        <Route path='my-list/add' component={AddToList}/>
-        <Route path='my-list/edit' component={EditList}/>
+        <Route path='/create-list' component={CreateList}/>
+        <Route path='/item/:itemId/edit' component={EditItem}/>
+        <Route path='/list/:listId' component={List}/>
+        <Route path='/my-list' component={MyList}/>
+        <Route path='/my-list/add' component={AddToList}/>
+        <Route path='/my-list/edit' component={EditList}/>
       </Route>
 
       <Route path='/forgot-password' component={ForgotPassword}/>
-      <Route path='login' component={Login}/>
-      <Route path='sign-up' component={SignUp}/>
+      <Route path='/login' component={Login}/>
+      <Route path='/sign-up' component={SignUp}/>
 
       { /* Catch all route */ }
       <Route path='*' component={NotFound} status={404} />
