@@ -7,9 +7,13 @@ const STATE_PATH = 'items'
 const LOAD = 'list-share/items/LOAD'
 const LOAD_SUCCESS = 'list-share/items/LOAD_SUCCESS'
 const LOAD_FAIL = 'list-share/items/LOAD_FAIL'
+const UPDATE = 'list-share/items/UPDATE'
+const UPDATE_SUCCESS = 'list-share/items/UPDATE_SUCCESS'
+const UPDATE_FAIL = 'list-share/items/UPDATE_FAIL'
 
 const initialState = {
-  loaded: false
+  loaded: false,
+  udpated: false
 }
 
 export default function items (state = initialState, action = {}) {
@@ -32,6 +36,26 @@ export default function items (state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: false,
+        error: action.error
+      }
+    case UPDATE:
+      return {
+        ...state,
+        updating: true,
+        updated: false
+      }
+    case UPDATE_SUCCESS:
+      return {
+        ...state,
+        updating: false,
+        updated: true,
+        data: merge({}, state.data, action.result)
+      }
+    case UPDATE_FAIL:
+      return {
+        ...state,
+        updating: false,
+        updated: false,
         error: action.error
       }
     default:
@@ -66,5 +90,14 @@ export function load (itemIds = 'all') {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     promise: (client) => client.post(url, body)
+  }
+}
+
+export function update (item) {
+  return {
+    types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
+    promise: (client) => client.post('/items/update', {
+      data: { item }
+    })
   }
 }
