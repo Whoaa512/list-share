@@ -6,6 +6,7 @@ import uuid from 'uuid'
 export function createListItem (raw) {
   return {
     checked: false,
+    checkedBy: '',
     description: '',
     id: uuid.v4(),
     link: '',
