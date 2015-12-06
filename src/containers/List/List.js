@@ -20,14 +20,16 @@ export default class List extends Component {
       list: PropTypes.object,
       listItems: PropTypes.array,
       pushState: PropTypes.func,
-      updateItem: PropTypes.func
+      updateItem: PropTypes.func,
+      userId: PropTypes.string
     }
   }
 
   handleCheckbox = (item, checkedValue) => {
     const data = {
       ...item,
-      checked: checkedValue
+      checked: checkedValue,
+      checkedBy: checkedValue ? this.props.userId : ''
     }
     return this.props.updateItem(data)
     .then(() => {
@@ -55,7 +57,12 @@ export default class List extends Component {
   }
 
   render () {
-    const { list, listItems, isUsersList } = this.props
+    const {
+      list,
+      listItems,
+      isUsersList,
+      userId
+    } = this.props
     return (
       <div className='container'>
         <DocumentMeta title={`${config.app.title}: ${list.title}`}/>
@@ -84,6 +91,7 @@ export default class List extends Component {
             {listItems.map((item, idx) =>
               <ListItem
                   key={idx}
+                  currentUser={userId}
                   showCheckbox={!isUsersList}
                   handleCheckbox={this.handleCheckbox}
                   item={item}
@@ -104,6 +112,7 @@ function mapStateToProps (state) {
   const allItems = getItems(state)
   const listItems = list.items.map(id => allItems[id])
   return {
+    userId,
     isUsersList: list.creator === userId,
     list,
     listItems

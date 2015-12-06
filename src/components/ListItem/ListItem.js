@@ -8,9 +8,11 @@ import { Link } from 'react-router'
 export default class ListItem extends Component {
   static get propTypes () {
     return {
+      currentUser: PropTypes.string,
       handleCheckbox: PropTypes.func,
       item: PropTypes.shape({
         checked: PropTypes.bool,
+        checkedBy: PropTypes.string,
         comments: PropTypes.string,
         id: PropTypes.string,
         imageUrl: PropTypes.string,
@@ -25,6 +27,7 @@ export default class ListItem extends Component {
 
   render () {
     const {
+      currentUser,
       handleCheckbox,
       item,
       remove,
@@ -33,6 +36,7 @@ export default class ListItem extends Component {
     } = this.props
     const {
       checked,
+      checkedBy,
       comments,
       id,
       imageUrl = 'https://d1luk0418egahw.cloudfront.net/static/images/guide/NoImage_592x444.jpg',
@@ -40,6 +44,11 @@ export default class ListItem extends Component {
       title
     } = item
     const styles = require('./ListItem.scss')
+
+    let isCheckboxDisabled = false
+    if (!isEmpty(checkedBy)) {
+      isCheckboxDisabled = checkedBy !== currentUser
+    }
 
     const xsColSizes = remove != null
       ? [1, 10, 10, 1]
@@ -96,6 +105,7 @@ export default class ListItem extends Component {
             {showCheckbox &&
             <Input
                 checked={checked}
+                disabled={isCheckboxDisabled}
                 label={<i className={styles.boughtIcon + ' fa fa-2 fa-gift'} />}
                 onChange={(e) => handleCheckbox(item, this.refs.checkbox.getChecked())}
                 ref='checkbox'
