@@ -30,20 +30,20 @@ export default class Lists extends Component {
         <div>
           <h4>No lists yet. Let's create the first!</h4>
           <Link to='/my-list/add'>
-            <Button>Create New List</Button>
+            <Button bsStyle='primary'>Create New List</Button>
           </Link>
         </div>
         }
         {!userHasList &&
         /* @todo: refactor all links to their own module */
         <Link className='pull-right' to='/create-list'>
-          <Button>Create Your List</Button>
+          <Button bsStyle='primary'>Create Your List</Button>
         </Link>
         }
         {userHasList &&
         /* @todo: refactor all links to their own module */
         <Link className='pull-right' to='/my-list/add'>
-          <Button>Add items to your list</Button>
+          <Button bsStyle='primary'>Add items to your list</Button>
         </Link>
         }
         <ul>
