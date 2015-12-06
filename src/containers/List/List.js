@@ -20,14 +20,16 @@ export default class List extends Component {
       list: PropTypes.object,
       listItems: PropTypes.array,
       pushState: PropTypes.func,
-      updateItem: PropTypes.func
+      updateItem: PropTypes.func,
+      userId: PropTypes.string
     }
   }
 
   handleCheckbox = (item, checkedValue) => {
     const data = {
       ...item,
-      checked: checkedValue
+      checked: checkedValue,
+      checkedBy: checkedValue ? this.props.userId : ''
     }
     return this.props.updateItem(data)
     .then(() => {
@@ -104,6 +106,7 @@ function mapStateToProps (state) {
   const allItems = getItems(state)
   const listItems = list.items.map(id => allItems[id])
   return {
+    userId,
     isUsersList: list.creator === userId,
     list,
     listItems
