@@ -57,7 +57,12 @@ export default class List extends Component {
   }
 
   render () {
-    const { list, listItems, isUsersList } = this.props
+    const {
+      list,
+      listItems,
+      isUsersList,
+      userId
+    } = this.props
     return (
       <div className='container'>
         <DocumentMeta title={`${config.app.title}: ${list.title}`}/>
@@ -86,6 +91,7 @@ export default class List extends Component {
             {listItems.map((item, idx) =>
               <ListItem
                   key={idx}
+                  currentUser={userId}
                   showCheckbox={!isUsersList}
                   handleCheckbox={this.handleCheckbox}
                   item={item}
