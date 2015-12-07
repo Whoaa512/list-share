@@ -39,12 +39,15 @@ export default class ListItem extends Component {
       checkedBy,
       comments,
       id,
-      imageUrl = 'https://d1luk0418egahw.cloudfront.net/static/images/guide/NoImage_592x444.jpg',
       link,
       title
     } = item
+    let { imageUrl } = item
     const styles = require('./ListItem.scss')
 
+    if (isEmpty(imageUrl)) {
+      imageUrl = 'https://d1luk0418egahw.cloudfront.net/static/images/guide/NoImage_592x444.jpg'
+    }
     let isCheckboxDisabled = false
     if (!isEmpty(checkedBy)) {
       isCheckboxDisabled = checkedBy !== currentUser
