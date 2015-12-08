@@ -63,12 +63,10 @@ export default class ListItem extends Component {
       : [0, 4, 7, 1]
     const [removeMd, imgMd, detailsMd, editMd] = mdColSizes
 
-    let query = ''
-    let url = link
-    let href = url
+    let href = link
     // @todo: move this tag addition to server
     if (link != null && typeof link.split === 'function') {
-      [ url, query ] = link.split('?')
+      let [ url, query ] = link.split('?')
       const parsedQuery = querystring.parse(query)
       query = '?' + querystring.stringify({
         tag: 'performe-20',
