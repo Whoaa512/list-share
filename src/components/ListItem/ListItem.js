@@ -104,10 +104,10 @@ export default class ListItem extends Component {
             </div>
           </Col>
           }
-          <Col xs={imgXs} md={imgMd}>
+          <Col className={styles.dim} xs={imgXs} md={imgMd}>
             <img src={imageUrl}/>
           </Col>
-          <Col xs={detailsXs} md={detailsMd} mdOffset={1}>
+          <Col className={styles.dim} xs={detailsXs} md={detailsMd} mdOffset={1}>
             <Row>
               <p>
               { !isEmpty(href)
@@ -120,7 +120,7 @@ export default class ListItem extends Component {
               {comments && <p>{comments}</p>}
             </Row>
           </Col>
-          <Col className='pull-right' xs={editXs} md={editMd}>
+          <Col className={`pull-right ${isCheckboxDisabled ? styles.dim : ''}`} xs={editXs} md={editMd}>
             {showEdit && <Link className='text-muted' to={`/item/${id}/edit`}>{editIcon}</Link>}
             {showCheckbox &&
             <Input
