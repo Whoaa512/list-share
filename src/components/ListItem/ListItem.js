@@ -91,7 +91,7 @@ export default class ListItem extends Component {
 
     const editTooltip = <Tooltip>Edit</Tooltip>
     const editIcon = <OverlayTrigger placement='left' overlay={editTooltip}>
-      <span className='overlay-trigger' tabIndex='0'><i aria-label='Edit item' className={`${styles.boughtIcon}  fa fa-2 fa-gift`} /></span>
+      <span className='overlay-trigger' tabIndex='0'><i aria-label='Edit item' className={`${styles.boughtIcon}  fa fa-2 fa-pencil`} /></span>
     </OverlayTrigger>
 
     return (
