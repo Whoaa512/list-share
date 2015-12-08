@@ -24,8 +24,25 @@ export default class Lists extends Component {
     const { lists, userHasList } = this.props
     return (
       <div className='container'>
-        <h3>All lists</h3>
+        <h3>
+          All lists
+
+          {userHasList &&
+          /* @todo: refactor all links to their own module */
+          <Link className='pull-right' to='/my-list/add'>
+            <Button bsStyle='primary'>Add items to your list</Button>
+          </Link>
+          }
+
+          {!userHasList &&
+          /* @todo: refactor all links to their own module */
+          <Link className='pull-right' to='/create-list'>
+            <Button bsStyle='primary'>Create Your List</Button>
+          </Link>
+          }
+        </h3>
         <DocumentMeta title={`${config.app.title}: Lists`}/>
+
         {lists.length <= 0 &&
         <div>
           <h4>No lists yet. Let's create the first!</h4>
@@ -33,18 +50,6 @@ export default class Lists extends Component {
             <Button bsStyle='primary'>Create New List</Button>
           </Link>
         </div>
-        }
-        {!userHasList &&
-        /* @todo: refactor all links to their own module */
-        <Link className='pull-right' to='/create-list'>
-          <Button bsStyle='primary'>Create Your List</Button>
-        </Link>
-        }
-        {userHasList &&
-        /* @todo: refactor all links to their own module */
-        <Link className='pull-right' to='/my-list/add'>
-          <Button bsStyle='primary'>Add items to your list</Button>
-        </Link>
         }
         <ul>
           {lists.map((list, idx) =>
