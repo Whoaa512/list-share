@@ -18,8 +18,8 @@ module.exports = Object.assign({
   sessionSecret: uuid.v4() + '-' + uuid.v4() + '-' + uuid.v4(),
   gaUa: 'UA-70843519-1',
   app: {
-    title: 'List Share',
-    description: 'Share yo lists!',
+    title: 'Presents for Me',
+    description: 'Share your Christmas lists!',
     meta: {
       charSet: 'utf-8',
       property: {
