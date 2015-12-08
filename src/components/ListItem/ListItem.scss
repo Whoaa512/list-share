@@ -9,6 +9,14 @@
   margin: 25px;
 }
 
+.bought p {
+  text-decoration: line-through
+}
+
+.bought .dim {
+  opacity: 0.45
+}
+
 .boughtIcon {
   font-size: 1.25em;
 }

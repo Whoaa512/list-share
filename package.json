@@ -127,6 +127,8 @@
     "piping": "^0.3.0",
     "pretty-error": "^1.2.0",
     "pui-react-dividers": "^3.0.0-alpha.1",
+    "pui-react-overlay-trigger": "^3.0.0-alpha.1",
+    "pui-react-tooltip": "^3.0.0-alpha.1",
     "query-string": "^3.0.0",
     "react": "^0.14.2",
     "react-bootstrap": "^0.28.1",

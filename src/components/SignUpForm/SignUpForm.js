@@ -61,7 +61,7 @@ export default class SignUpForm extends Component {
       <div>
         <form className='form-horizontal' onSubmit={handleSubmit}>
           {renderInput(name, 'Full Name')}
-          {renderInput(email, 'Email', true)}
+          {renderInput(email, 'Email', true, 'email')}
           {renderInput(password, 'Password', false, 'password')}
           <div className='form-group'>
             <div className='col-sm-offset-2 col-sm-10'>

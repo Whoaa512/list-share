@@ -3,6 +3,8 @@ import querystring from 'querystring'
 import React, { Component, PropTypes } from 'react'
 import { Row, Col, Input } from 'react-bootstrap'
 import { Divider } from 'pui-react-dividers'
+import { Tooltip } from 'pui-react-tooltip'
+import { OverlayTrigger } from 'pui-react-overlay-trigger'
 import { Link } from 'react-router'
 
 export default class ListItem extends Component {
@@ -45,6 +47,11 @@ export default class ListItem extends Component {
     let { imageUrl } = item
     const styles = require('./ListItem.scss')
 
+    let boughtStyle = ''
+    if (showCheckbox && checked) {
+      boughtStyle = styles.bought
+    }
+
     if (isEmpty(imageUrl)) {
       imageUrl = 'https://d1luk0418egahw.cloudfront.net/static/images/guide/NoImage_592x444.jpg'
     }
@@ -63,12 +70,10 @@ export default class ListItem extends Component {
       : [0, 4, 7, 1]
     const [removeMd, imgMd, detailsMd, editMd] = mdColSizes
 
-    let query = ''
-    let url = link
-    let href = url
+    let href = link
     // @todo: move this tag addition to server
     if (link != null && typeof link.split === 'function') {
-      [ url, query ] = link.split('?')
+      let [ url, query ] = link.split('?')
       const parsedQuery = querystring.parse(query)
       query = '?' + querystring.stringify({
         tag: 'performe-20',
@@ -79,8 +84,18 @@ export default class ListItem extends Component {
       }
     }
 
+    const boughtTooltip = <Tooltip>Mark a gift as bought! This info does not show to list owner.</Tooltip>
+    const checkboxLabel = <OverlayTrigger placement='left' overlay={boughtTooltip}>
+      <span className='overlay-trigger' tabIndex='0'><i className={`${styles.boughtIcon} fa fa-2 fa-gift`} /></span>
+    </OverlayTrigger>
+
+    const editTooltip = <Tooltip>Edit</Tooltip>
+    const editIcon = <OverlayTrigger placement='left' overlay={editTooltip}>
+      <span className='overlay-trigger' tabIndex='0'><i aria-label='Edit item' className={`${styles.boughtIcon}  fa fa-2 fa-gift`} /></span>
+    </OverlayTrigger>
+
     return (
-      <li className={styles.listItem}>
+      <li className={`${styles.listItem} ${boughtStyle}`}>
         <Row>
           {remove != null &&
           <Col xs={removeXs} md={removeMd}>
@@ -89,27 +104,29 @@ export default class ListItem extends Component {
             </div>
           </Col>
           }
-          <Col xs={imgXs} md={imgMd}>
+          <Col className={styles.dim} xs={imgXs} md={imgMd}>
             <img src={imageUrl}/>
           </Col>
-          <Col xs={detailsXs} md={detailsMd} mdOffset={1}>
+          <Col className={styles.dim} xs={detailsXs} md={detailsMd} mdOffset={1}>
             <Row>
+              <p>
               { !isEmpty(href)
               ? <a target='blank' href={href}>{title}</a>
-              : <p>{title}</p>
+              : title
               }
+              </p>
             </Row>
             <Row>
               {comments && <p>{comments}</p>}
             </Row>
           </Col>
-          <Col className='pull-right' xs={editXs} md={editMd}>
-            {showEdit && <Link className='text-muted' to={`/item/${id}/edit`}><i className='fa fa-pencil'/></Link>}
+          <Col className={`pull-right ${isCheckboxDisabled ? styles.dim : ''}`} xs={editXs} md={editMd}>
+            {showEdit && <Link className='text-muted' to={`/item/${id}/edit`}>{editIcon}</Link>}
             {showCheckbox &&
             <Input
                 checked={checked}
                 disabled={isCheckboxDisabled}
-                label={<i className={styles.boughtIcon + ' fa fa-2 fa-gift'} />}
+                label={checkboxLabel}
                 onChange={(e) => handleCheckbox(item, this.refs.checkbox.getChecked())}
                 ref='checkbox'
                 type='checkbox'
