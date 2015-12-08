@@ -8,6 +8,7 @@ import {
   initialize as initForm
 } from 'redux-form'
 import { Grid, Row, Col, Button, Panel } from 'react-bootstrap'
+import { Divider } from 'pui-react-dividers'
 import { getMyListAndItems } from 'redux/modules/lists'
 import { getUser } from 'redux/modules/auth'
 import { ItemForm, ListItem } from 'components'
@@ -160,6 +161,8 @@ export default class ListForm extends Component {
                 collapsible
                 header={<h4>Items to be removed <small>Click to collapse</small></h4>}
             >
+              {itemsToRemove.length > 0 && saveButton(saveText, 'danger', true)}
+              <Divider/>
               {itemsToRemove.map((item, idx) =>
                 <ListItem key={idx} item={item}/>
               )}
