@@ -64,6 +64,12 @@ export default class ListForm extends Component {
     this.props.changeField(formName, 'itemsToBeAdded', JSON.stringify(this.itemsToBeAdded))
   }
 
+  undoRemoveSaved (idx) {
+    this.itemsToRemove[idx] = undefined
+    this.itemsToRemove = compact(this.itemsToRemove)
+    this.props.changeField(formName, 'itemsToRemove', JSON.stringify(this.itemsToRemove))
+  }
+
   render () {
     const {
       handleSubmit,
@@ -164,7 +170,7 @@ export default class ListForm extends Component {
               {itemsToRemove.length > 0 && saveButton(saveText, 'danger', true)}
               <Divider/>
               {itemsToRemove.map((item, idx) =>
-                <ListItem key={idx} item={item}/>
+                <ListItem remove={this.undoRemoveSaved.bind(this, idx)} key={idx} item={item}/>
               )}
             </Panel>
             }
