@@ -3,6 +3,8 @@ import querystring from 'querystring'
 import React, { Component, PropTypes } from 'react'
 import { Row, Col, Input } from 'react-bootstrap'
 import { Divider } from 'pui-react-dividers'
+import { Tooltip } from 'pui-react-tooltip'
+import { OverlayTrigger } from 'pui-react-overlay-trigger'
 import { Link } from 'react-router'
 
 export default class ListItem extends Component {
@@ -82,6 +84,16 @@ export default class ListItem extends Component {
       }
     }
 
+    const boughtTooltip = <Tooltip>Mark a gift as bought! This info does not show to list owner.</Tooltip>
+    const checkboxLabel = <OverlayTrigger placement='left' overlay={boughtTooltip}>
+      <span className='overlay-trigger' tabIndex='0'><i className={`${styles.boughtIcon} fa fa-2 fa-gift`} /></span>
+    </OverlayTrigger>
+
+    const editTooltip = <Tooltip>Edit</Tooltip>
+    const editIcon = <OverlayTrigger placement='left' overlay={editTooltip}>
+      <span className='overlay-trigger' tabIndex='0'><i aria-label='Edit item' className={`${styles.boughtIcon}  fa fa-2 fa-gift`} /></span>
+    </OverlayTrigger>
+
     return (
       <li className={`${styles.listItem} ${boughtStyle}`}>
         <Row>
@@ -109,12 +121,12 @@ export default class ListItem extends Component {
             </Row>
           </Col>
           <Col className='pull-right' xs={editXs} md={editMd}>
-            {showEdit && <Link className='text-muted' to={`/item/${id}/edit`}><i className='fa fa-pencil'/></Link>}
+            {showEdit && <Link className='text-muted' to={`/item/${id}/edit`}>{editIcon}</Link>}
             {showCheckbox &&
             <Input
                 checked={checked}
                 disabled={isCheckboxDisabled}
-                label={<i className={styles.boughtIcon + ' fa fa-2 fa-gift'} />}
+                label={checkboxLabel}
                 onChange={(e) => handleCheckbox(item, this.refs.checkbox.getChecked())}
                 ref='checkbox'
                 type='checkbox'
