@@ -77,7 +77,7 @@ export default class List extends Component {
             </Link>
             }
             {isUsersList &&
-            <Link to='/my-list/edit'>
+            <Link to='/my-list/remove'>
               <Button>Remove Items</Button>
             </Link>
             }

@@ -136,7 +136,7 @@ export default class ListForm extends Component {
             {itemsToBeAdded.length > 0 && type === 'create' && saveButton(saveText)}
             </Panel>
             }
-            {type === 'edit' &&
+            {type === 'remove' &&
             <Panel
                 className={styles.panelPadding}
                 eventKey={2}
@@ -153,7 +153,7 @@ export default class ListForm extends Component {
               )}
             </Panel>
             }
-            {type === 'edit' && itemsToRemove.length > 0 &&
+            {type === 'remove' && itemsToRemove.length > 0 &&
             <Panel
                 className={styles.panelPadding}
                 eventKey={3}

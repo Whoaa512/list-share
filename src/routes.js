@@ -53,7 +53,7 @@ export default (store) => {
         <Route path='/list/:listId' component={List}/>
         <Route path='/my-list' component={MyList}/>
         <Route path='/my-list/add' component={AddToList}/>
-        <Route path='/my-list/edit' component={EditList}/>
+        <Route path='/my-list/remove' component={EditList}/>
       </Route>
 
       <Route path='/forgot-password' component={ForgotPassword}/>
