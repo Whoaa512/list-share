@@ -117,7 +117,7 @@ export default class App extends Component {
           <Navbar.Collapse>
             <Nav>
               {user &&
-              <LinkContainer className='visible-xs-block' to='/'>
+              <LinkContainer to='/'>
                 <NavItem eventKey={0}>All Lists</NavItem>
               </LinkContainer>}
               {user &&
