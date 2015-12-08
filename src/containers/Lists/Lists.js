@@ -46,7 +46,7 @@ export default class Lists extends Component {
         {lists.length <= 0 &&
         <div>
           <h4>No lists yet. Let's create the first!</h4>
-          <Link to='/my-list/add'>
+          <Link to='/create-list'>
             <Button bsStyle='primary'>Create New List</Button>
           </Link>
         </div>
