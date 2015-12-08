@@ -45,6 +45,11 @@ export default class ListItem extends Component {
     let { imageUrl } = item
     const styles = require('./ListItem.scss')
 
+    let boughtStyle = ''
+    if (showCheckbox && checked) {
+      boughtStyle = styles.bought
+    }
+
     if (isEmpty(imageUrl)) {
       imageUrl = 'https://d1luk0418egahw.cloudfront.net/static/images/guide/NoImage_592x444.jpg'
     }
@@ -78,7 +83,7 @@ export default class ListItem extends Component {
     }
 
     return (
-      <li className={styles.listItem}>
+      <li className={`${styles.listItem} ${boughtStyle}`}>
         <Row>
           {remove != null &&
           <Col xs={removeXs} md={removeMd}>
@@ -92,10 +97,12 @@ export default class ListItem extends Component {
           </Col>
           <Col xs={detailsXs} md={detailsMd} mdOffset={1}>
             <Row>
+              <p>
               { !isEmpty(href)
               ? <a target='blank' href={href}>{title}</a>
-              : <p>{title}</p>
+              : title
               }
+              </p>
             </Row>
             <Row>
               {comments && <p>{comments}</p>}
