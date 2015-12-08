@@ -62,8 +62,8 @@ export default class EditList extends Component {
     return (
       <div className='container'>
         <h1>{/* @todo: fix this; Leave an empty header for better styling */}</h1>
-        <DocumentMeta title={`${config.app.title}: Edit your List`}/>
-        <ListForm type='edit' onSubmit={this.handleSubmit} history={this.props.history}/>
+        <DocumentMeta title={`${config.app.title}: Remove items from your List`}/>
+        <ListForm type='remove' onSubmit={this.handleSubmit} history={this.props.history}/>
       </div>
     )
   }

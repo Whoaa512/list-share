@@ -34,7 +34,7 @@ export default class MyList extends Component {
               </Link>
               }
               {userHasList && !isEmpty(listItems) &&
-              <Link to='/my-list/edit'>
+              <Link to='/my-list/remove'>
                 <Button>Remove Items</Button>
               </Link>
               }
