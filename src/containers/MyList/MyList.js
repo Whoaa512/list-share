@@ -30,7 +30,7 @@ export default class MyList extends Component {
             <Col className={styles.buttons} xs={12} md={3} mdOffset={9}>
               {userHasList &&
               <Link to='/my-list/add'>
-                <Button>Add New Items</Button>
+                <Button bsStyle='primary'>Add New Items</Button>
               </Link>
               }
               {userHasList && !isEmpty(listItems) &&
