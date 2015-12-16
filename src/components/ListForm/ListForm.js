@@ -49,7 +49,7 @@ export default class ListForm extends Component {
     itemsToBeAdded.push(data)
     this.props.initForm(ItemForm.formName, { comments: '' })
     this.props.changeField(formName, 'itemsToBeAdded', JSON.stringify(itemsToBeAdded))
-    this.props.handleItemAdd(itemsToBeAdded)
+    this.props.handleItemAdd([data])
   }
 
   removeSaved (item) {
