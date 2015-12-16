@@ -29,7 +29,7 @@ export default function update (req, params) {
       return reject(new ApiError('No item exists with that id'))
     }
 
-    logger.info({ itemInDb, item }, 'Updating item')
+    logger.debug({ itemInDb, item }, 'Updating item')
     Object.assign(itemInDb, item)
 
     resolve({

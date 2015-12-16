@@ -19,8 +19,8 @@ export function removeListItems (items) {
   const sizeBefore = itemsCollection.data.length
   itemsCollection.remove(items)
   const sizeAfter = itemsCollection.data.length
-  logger.info({
-    items,
+  logger.debug({
+    itemsIdsRemoved: items.map(x => x.id),
     sizeBefore,
     sizeAfter
   }, 'Removing items')
@@ -32,21 +32,11 @@ export function upsertListItems (items) {
   const newItems = items.filter(x => x.id == null).map(createListItem)
   const allItems = updatedItems.concat(newItems)
 
-  logger.info({
-    allItems,
-    updatedItems,
-    itemsInDb: itemsCollection.data,
-    newItems
-  }, 'upsertListItems')
-
   if (!isEmpty(updatedItems)) {
     itemsCollection.update(updatedItems)
   }
   if (!isEmpty(newItems)) {
     itemsCollection.insert(newItems)
   }
-  logger.info({
-    itemsInDb: itemsCollection.data
-  }, 'upsertListItems after itemsCollection updates')
   return allItems
 }
