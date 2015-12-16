@@ -26,7 +26,7 @@ export default function load (req, params) {
       return reject(new ApiError('Missing item ids'))
     }
     const items = getItems(itemIds)
-    logger.info({ items, itemIds }, 'loading items')
+    logger.debug({ itemIds }, 'loading items')
     if (isEmpty(items)) {
       return reject(new ApiError('No list found for the given parameters'))
     }
