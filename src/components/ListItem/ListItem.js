@@ -55,7 +55,7 @@ export default class ListItem extends Component {
     if (isEmpty(imageUrl)) {
       imageUrl = 'https://d1luk0418egahw.cloudfront.net/static/images/guide/NoImage_592x444.jpg'
     }
-    if (checked) {
+    if (showCheckbox && checked) {
       imageUrl = 'http://personalsuccesstoday.com/wp-content/uploads/2007/03/bought-sign.jpg'
     }
     let isCheckboxDisabled = false
