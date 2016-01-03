@@ -1,6 +1,6 @@
 import get from 'lodash.get'
 import merge from 'lodash.merge'
-import { getMyList } from './lists'
+import { getMyList, getList } from './lists'
 
 const STATE_PATH = 'items'
 
@@ -73,6 +73,12 @@ export function getError (globalState) {
 
 export function getItems (globalState) {
   return get(globalState, `${STATE_PATH}.data`, {})
+}
+
+export function getListItems (globalState, listId) {
+  const list = getList(globalState, listId)
+  const allItems = getItems(globalState)
+  return list.items.map(id => allItems[id])
 }
 
 export function getMyItems (globalState) {
