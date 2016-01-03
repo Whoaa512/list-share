@@ -53,7 +53,7 @@ export default class Lists extends Component {
           </Link>
         </div>
         }
-        <ul>
+        <ul className='list-unstyled'>
           {lists.map((list, idx) =>
             (list && <ListRow key={idx} {...list} />)
           )}
