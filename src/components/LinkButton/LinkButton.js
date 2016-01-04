@@ -13,7 +13,7 @@ export default class LinkButton extends Component {
     const {
       buttonText,
       linkTo = '',
-      style = ''
+      style = 'default'
     } = this.props
     return (
       <Link to={linkTo} {...this.props}>
