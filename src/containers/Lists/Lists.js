@@ -4,14 +4,12 @@ import get from 'lodash.get'
 import some from 'lodash/collection/some'
 import React, { Component, PropTypes } from 'react'
 import DocumentMeta from 'react-document-meta'
-import { Link } from 'react-router'
-import { Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { getLists, userHasList } from 'redux/modules/lists'
 import { getListItems } from 'redux/modules/items'
 import { getUsers } from 'redux/modules/users'
 import { getUserId } from 'redux/modules/auth'
-import { ListRow } from 'components'
+import { LinkButton, ListRow } from 'components'
 
 @connect(mapStateToProps)
 export default class Lists extends Component {
@@ -30,17 +28,21 @@ export default class Lists extends Component {
           All lists
 
           {userHasList &&
-          /* @todo: refactor all links to their own module */
-          <Link className='pull-right' to='/my-list/add'>
-            <Button bsStyle='primary'>Add items to your list</Button>
-          </Link>
+          <LinkButton
+              bsStyle='primary'
+              className='pull-right'
+              to='/my-list/add'
+              buttonText='Add items to your list'
+          />
           }
 
           {!userHasList &&
-          /* @todo: refactor all links to their own module */
-          <Link className='pull-right' to='/create-list'>
-            <Button bsStyle='primary'>Create Your List</Button>
-          </Link>
+          <LinkButton
+              bsStyle='primary'
+              className='pull-right'
+              to='/create-list'
+              buttonText='Create your list'
+          />
           }
         </h3>
         <DocumentMeta title={`${config.app.title}: Lists`}/>
@@ -48,9 +50,11 @@ export default class Lists extends Component {
         {lists.length <= 0 &&
         <div>
           <h4>No lists yet. Let's create the first!</h4>
-          <Link to='/create-list'>
-            <Button bsStyle='primary'>Create New List</Button>
-          </Link>
+          <LinkButton
+              bsStyle='primary'
+              to='/create-list'
+              buttonText='Create your list'
+          />
         </div>
         }
         <ul className='list-unstyled'>

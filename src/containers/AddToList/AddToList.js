@@ -51,7 +51,7 @@ export default class AddToList extends Component {
   render () {
     return (
       <div className='container'>
-        <h1>{/* @todo: fix this; Leave an empty header for better styling */}</h1>
+        <h1>{/* @note: Leave an empty header for better styling */}</h1>
         <DocumentMeta title={`${config.app.title}: Add to your List`}/>
         <ListForm type='add' handleItemAdd={this.handleSubmit} />
       </div>
