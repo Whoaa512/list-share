@@ -23,7 +23,7 @@ export default class MyList extends Component {
     const styles = require('./MyList.scss')
     return (
       <div className='container'>
-        <h1>{/* @todo: fix this; Leave an empty header for better styling */}</h1>
+        <h1>{/* @note: Leave an empty header for better styling */}</h1>
         <DocumentMeta title={`${config.app.title}: My List`}/>
         <Grid>
           <Row>
