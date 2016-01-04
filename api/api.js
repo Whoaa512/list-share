@@ -44,7 +44,7 @@ app.use(session({
   cookie: { maxAge: 3600000 }
 }))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(forgot.middleware)
 
 app.post('/forgot', (req, res) => {
