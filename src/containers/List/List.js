@@ -4,8 +4,7 @@ import DocumentMeta from 'react-document-meta'
 import React, { Component, PropTypes } from 'react'
 import { _notifier } from 'react-notification-system'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
-import { Grid, Row, Col, Button } from 'react-bootstrap'
+import { Grid, Row, Col } from 'react-bootstrap'
 import { ListItem } from 'components'
 import { getItems, update as updateItem } from 'redux/modules/items'
 import { getList } from 'redux/modules/lists'
@@ -69,22 +68,6 @@ export default class List extends Component {
         <Grid>
           <Row>
             <Col xs={12} md={4}><h2>{list.title}</h2></Col>
-            <Col xs={4} xsOffset={8} md={3} mdOffset={9}>
-            {/* @todo: remove these links since we redirect to /my-list now */}
-            {isUsersList &&
-            <Link to='/my-list/add'>
-              <Button>Add New Items</Button>
-            </Link>
-            }
-            {isUsersList &&
-            <Link to='/my-list/remove'>
-              <Button>Remove Items</Button>
-            </Link>
-            }
-            {/*
-              <Button>Suggest a Gift</Button>
-            */}
-            </Col>
           </Row>
           {listItems.length > 0 &&
           <Row ref='listItems'>
