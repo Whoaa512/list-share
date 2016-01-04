@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import config from 'config'
 import { connect } from 'react-redux'
 import DocumentMeta from 'react-document-meta'
+import { _notifier } from 'react-notification-system'
 import { pushState } from 'redux-router'
 import { initialize } from 'redux-form'
 import { ListForm } from 'components'
@@ -29,8 +30,15 @@ export default class CreateList extends Component {
       // load new items
       return this.props.loadItems(list.items)
     })
-    // @todo: tell the user they were successful
     .then(() => this.props.pushState(null, '/my-list'))
+    .then(() => {
+      _notifier.addNotification({
+        position: 'tc',
+        autoDismiss: 3,
+        message: 'List created!',
+        level: 'success'
+      })
+    })
     .then(() => {
       // @note: have to use old school way to reset since reset was buggy
       return this.props.initialize(ListForm.formName, {})
