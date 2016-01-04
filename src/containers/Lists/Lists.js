@@ -1,6 +1,7 @@
 import cloneDeep from 'lodash.clonedeep'
 import config from 'config'
 import get from 'lodash.get'
+// @todo: fix to use full lodash everywhere
 import some from 'lodash/collection/some'
 import React, { Component, PropTypes } from 'react'
 import DocumentMeta from 'react-document-meta'
