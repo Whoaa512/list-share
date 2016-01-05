@@ -28,7 +28,7 @@ export default class List extends Component {
     }
   }
 
-  handleCheckbox = (item, checkedValue) => {
+  handleCheckbox (item, checkedValue) {
     const data = {
       ...item,
       checked: checkedValue,
@@ -98,7 +98,7 @@ export default class List extends Component {
                   key={idx}
                   currentUser={userId}
                   showCheckbox={!isUsersList}
-                  handleCheckbox={this.handleCheckbox}
+                  handleCheckbox={this.handleCheckbox.bind(this)}
                   item={item}
               />
             )}
