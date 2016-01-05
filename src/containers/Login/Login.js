@@ -7,13 +7,15 @@ import { Link } from 'react-router'
 import { Button, Col, Grid, Input } from 'react-bootstrap'
 import DocumentMeta from 'react-document-meta'
 import * as authActions from 'redux/modules/auth'
+import { loadListMetaFromLocal } from 'redux/modules/listMeta'
 
 @connect(
   state => ({user: state.auth.user}),
-  authActions)
+  { ...authActions, loadListMetaFromLocal })
 export default class Login extends Component {
   static propTypes = {
     user: PropTypes.object,
+    loadListMetaFromLocal: PropTypes.func,
     login: PropTypes.func,
     logout: PropTypes.func
   }
@@ -51,6 +53,9 @@ export default class Login extends Component {
         message: `There was a problem logging in. ${error.message}.`,
         level: 'error'
       })
+    })
+    .then(() => {
+      return this.props.loadListMetaFromLocal()
     })
     // .finally(() => {
     //   email.refs.input.value = ''
