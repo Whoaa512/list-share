@@ -1,6 +1,7 @@
 import cloneDeep from 'lodash.clonedeep'
 import config from 'config'
 import get from 'lodash.get'
+// @todo: fix to use full lodash everywhere
 import some from 'lodash/collection/some'
 import React, { Component, PropTypes } from 'react'
 import DocumentMeta from 'react-document-meta'
@@ -9,6 +10,7 @@ import { getLists, userHasList } from 'redux/modules/lists'
 import { getListItems } from 'redux/modules/items'
 import { getUsers } from 'redux/modules/users'
 import { getUserId } from 'redux/modules/auth'
+import { getData as getListMeta } from 'redux/modules/listMeta'
 import { LinkButton, ListRow } from 'components'
 
 @connect(mapStateToProps)
@@ -70,6 +72,7 @@ export default class Lists extends Component {
 function mapStateToProps (state) {
   const users = getUsers(state)
   const userId = getUserId(state)
+  const listMeta = getListMeta(state)
   const allLists = getLists(state)
   const isBoughtByUser = item => item.checkedBy === userId
   const lists = Object.keys(allLists).map(id => {
@@ -77,12 +80,13 @@ function mapStateToProps (state) {
     if (list.items.length <= 0) {
       return false
     }
+    const boughtNonListPresent = get(listMeta, `${list.id}.boughtNonListPresent`, false)
     list.avatarImg = get(users, `${list.creator}.avatarImg`)
     list.link = `/list/${list.id}`
     if (userId === list.creator) {
       list.link = `/my-list`
     }
-    list.anyPresentBought = some(getListItems(state, list.id), isBoughtByUser)
+    list.anyPresentBought = boughtNonListPresent || some(getListItems(state, list.id), isBoughtByUser)
     return list
   })
   return {
