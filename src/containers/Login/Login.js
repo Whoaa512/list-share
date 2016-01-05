@@ -60,7 +60,7 @@ export default class Login extends Component {
 
   render () {
     const {user, logout} = this.props
-    const savedEmail = window.localStorage.getItem('rememberEmail') || ''
+    const savedEmail = (__CLIENT__ && window.localStorage.getItem('rememberEmail')) || ''
     const styles = require('./Login.scss')
     return (
       <div className={styles.loginPage + ' container'}>
