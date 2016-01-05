@@ -3,9 +3,11 @@ const uuid = require('uuid')
 
 const environment = {
   development: {
+    sessionSecret: 'bacon',
     isProduction: false
   },
   production: {
+    sessionSecret: uuid.v4() + '-' + uuid.v4() + '-' + uuid.v4(),
     isProduction: true
   }
 }[process.env.NODE_ENV || 'development']
@@ -15,7 +17,6 @@ module.exports = Object.assign({
   port: process.env.PORT,
   apiHost: process.env.APIHOST || 'localhost',
   apiPort: process.env.APIPORT,
-  sessionSecret: uuid.v4() + '-' + uuid.v4() + '-' + uuid.v4(),
   gaUa: 'UA-70843519-1',
   app: {
     title: 'Presents for Me',

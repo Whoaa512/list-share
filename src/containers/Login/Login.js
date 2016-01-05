@@ -7,23 +7,29 @@ import { Link } from 'react-router'
 import { Button, Col, Grid, Input } from 'react-bootstrap'
 import DocumentMeta from 'react-document-meta'
 import * as authActions from 'redux/modules/auth'
+import { loadListMetaFromLocal } from 'redux/modules/listMeta'
 
 @connect(
   state => ({user: state.auth.user}),
-  authActions)
+  { ...authActions, loadListMetaFromLocal })
 export default class Login extends Component {
   static propTypes = {
     user: PropTypes.object,
+    loadListMetaFromLocal: PropTypes.func,
     login: PropTypes.func,
     logout: PropTypes.func
   }
 
   handleSubmit (event) {
     event.preventDefault()
-    const email = this.refs.email
-    const password = this.refs.password
+    const {
+      email,
+      password,
+      rememberEmail
+    } = this.refs
     const emailValue = email.getValue().trim()
     const passwordValue = password.getValue()
+    const rememberEmailValue = rememberEmail.getChecked()
     if (isEmpty(emailValue) || isEmpty(passwordValue)) {
       _notifier.addNotification({
         position: 'tc',
@@ -33,6 +39,12 @@ export default class Login extends Component {
       })
       return
     }
+    if (rememberEmailValue) {
+      window.localStorage.setItem('rememberEmail', emailValue)
+    } else {
+      window.localStorage.setItem('rememberEmail', null)
+    }
+
     return this.props.login(emailValue, passwordValue)
     .catch(error => {
       _notifier.addNotification({
@@ -42,6 +54,9 @@ export default class Login extends Component {
         level: 'error'
       })
     })
+    .then(() => {
+      return this.props.loadListMetaFromLocal()
+    })
     // .finally(() => {
     //   email.refs.input.value = ''
     //   password.refs.input.value = ''
@@ -50,17 +65,19 @@ export default class Login extends Component {
 
   render () {
     const {user, logout} = this.props
+    const savedEmail = (__CLIENT__ && window.localStorage.getItem('rememberEmail')) || ''
     const styles = require('./Login.scss')
     return (
       <div className={styles.loginPage + ' container'}>
         <DocumentMeta title={`${config.app.title}: Login`}/>
-        <h1>{/* @todo: fix this; Leave an empty header for better styling */}</h1>
+        <h1>{/* @note: Leave an empty header for better styling */}</h1>
         {!user &&
         <Grid className='text-center'>
           <form className='login-form form-horizontal' onSubmit={this.handleSubmit.bind(this)}>
             <Col md={4} mdOffset={4}>
-              <Input type='email' ref='email' placeholder='Enter your email'/>
+              <Input type='email' ref='email' value={savedEmail} placeholder='Enter your email'/>
               <Input type='password' ref='password' placeholder='Enter your password'/>
+              <Input type='checkbox' ref='rememberEmail' defaultChecked={!isEmpty(savedEmail)} label='Remember Email'/>
               <Button bsStyle='success' type='submit' onClick={this.handleSubmit.bind(this)}>
                 Log In
               </Button>

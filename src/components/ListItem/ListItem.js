@@ -87,12 +87,12 @@ export default class ListItem extends Component {
       }
     }
 
-    const boughtTooltip = <Tooltip>Mark a gift as bought! This info does not show to list owner.</Tooltip>
+    const boughtTooltip = <Tooltip id='bought-gift-tooltip'>Mark a gift as bought! This info does not show to list owner.</Tooltip>
     const checkboxLabel = <OverlayTrigger placement='left' overlay={boughtTooltip}>
       <span className='overlay-trigger' tabIndex='0'><i className={`${styles.boughtIcon} fa fa-2 fa-gift`} /></span>
     </OverlayTrigger>
 
-    const editTooltip = <Tooltip>Edit</Tooltip>
+    const editTooltip = <Tooltip id='edit-item-tooltip'>Edit</Tooltip>
     const editIcon = <OverlayTrigger placement='left' overlay={editTooltip}>
       <span className='overlay-trigger' tabIndex='0'><i aria-label='Edit item' className={`${styles.boughtIcon}  fa fa-2 fa-pencil`} /></span>
     </OverlayTrigger>

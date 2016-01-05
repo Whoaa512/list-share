@@ -14,7 +14,7 @@ export default function clientMiddleware (client) {
 
       const [REQUEST, SUCCESS, FAILURE] = types
       next({...rest, type: REQUEST})
-      return promise(client)
+      return promise(client, getState)
       .then(result => {
         dispatch({...rest, result, type: SUCCESS})
         return Promise.resolve(result)

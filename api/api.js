@@ -41,10 +41,10 @@ app.use(session({
     logFn: logger.debug
   }),
   unset: 'destroy',
-  cookie: { maxAge: 3600000 }
+  cookie: { maxAge: 2592000000 }
 }))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(forgot.middleware)
 
 app.post('/forgot', (req, res) => {

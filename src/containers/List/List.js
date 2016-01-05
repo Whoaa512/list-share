@@ -1,31 +1,34 @@
 import analytics from 'helpers/analytics'
 import config from 'config'
 import DocumentMeta from 'react-document-meta'
+import get from 'lodash.get'
+import * as notifier from 'helpers/notifier'
 import React, { Component, PropTypes } from 'react'
-import { _notifier } from 'react-notification-system'
 import { connect } from 'react-redux'
-import { Link } from 'react-router'
-import { Grid, Row, Col, Button } from 'react-bootstrap'
+import { Input, Grid, Row, Col } from 'react-bootstrap'
 import { ListItem } from 'components'
 import { getItems, update as updateItem } from 'redux/modules/items'
 import { getList } from 'redux/modules/lists'
 import { getUserId } from 'redux/modules/auth'
+import { update as updateListMeta, getData as getListMeta } from 'redux/modules/listMeta'
 import { pushState } from 'redux-router'
 
-@connect(mapStateToProps, { updateItem, pushState })
+@connect(mapStateToProps, { updateItem, pushState, updateListMeta })
 export default class List extends Component {
   static get propTypes () {
     return {
       isUsersList: PropTypes.bool,
       list: PropTypes.object,
       listItems: PropTypes.array,
+      listMarkedAsBought: PropTypes.bool,
       pushState: PropTypes.func,
       updateItem: PropTypes.func,
+      updateListMeta: PropTypes.func,
       userId: PropTypes.string
     }
   }
 
-  handleCheckbox = (item, checkedValue) => {
+  handleCheckbox (item, checkedValue) {
     const data = {
       ...item,
       checked: checkedValue,
@@ -39,27 +42,34 @@ export default class List extends Component {
         eventAction: `bought change: ${checkedValue}`,
         eventLabel: 'Present bought'
       })
-      _notifier.addNotification({
-        position: 'tc',
-        autoDismiss: 3,
-        message: 'Thanks!',
-        level: 'success'
-      })
+      notifier.success()
     })
-    .catch(() => {
-      _notifier.addNotification({
-        position: 'tc',
-        autoDismiss: 3,
-        message: 'Something went wrong!',
-        level: 'error'
-      })
+    .catch(() => notifier.error())
+  }
+
+  markListAsBought (listId) {
+    const checkedValue = this.refs.markList.getChecked()
+    return this.props.updateListMeta({
+      [listId]: {
+        boughtNonListPresent: checkedValue
+      }
     })
+    .then(() => {
+      analytics.send({
+        hitType: 'event',
+        eventCategory: 'Item',
+        eventLabel: 'Non-List Present bought'
+      })
+      notifier.success()
+    })
+    .catch(() => notifier.error())
   }
 
   render () {
     const {
       list,
       listItems,
+      listMarkedAsBought,
       isUsersList,
       userId
     } = this.props
@@ -69,21 +79,16 @@ export default class List extends Component {
         <Grid>
           <Row>
             <Col xs={12} md={4}><h2>{list.title}</h2></Col>
-            <Col xs={4} xsOffset={8} md={3} mdOffset={9}>
-            {/* @todo: remove these links since we redirect to /my-list now */}
-            {isUsersList &&
-            <Link to='/my-list/add'>
-              <Button>Add New Items</Button>
-            </Link>
-            }
-            {isUsersList &&
-            <Link to='/my-list/remove'>
-              <Button>Remove Items</Button>
-            </Link>
-            }
-            {/*
-              <Button>Suggest a Gift</Button>
-            */}
+          </Row>
+          <Row>
+            <Col className='pull-right'>
+              <Input
+                  defaultChecked={listMarkedAsBought}
+                  label='Bought non-list present'
+                  onChange={() => this.markListAsBought(list.id)}
+                  ref='markList'
+                  type='checkbox'
+              />
             </Col>
           </Row>
           {listItems.length > 0 &&
@@ -93,7 +98,7 @@ export default class List extends Component {
                   key={idx}
                   currentUser={userId}
                   showCheckbox={!isUsersList}
-                  handleCheckbox={this.handleCheckbox}
+                  handleCheckbox={this.handleCheckbox.bind(this)}
                   item={item}
               />
             )}
@@ -110,11 +115,14 @@ function mapStateToProps (state) {
   const userId = getUserId(state)
   const list = getList(state, listId)
   const allItems = getItems(state)
+  const listMeta = getListMeta(state)
   const listItems = list.items.map(id => allItems[id])
+  const listMarkedAsBought = get(listMeta, `${listId}.boughtNonListPresent`, false)
   return {
     userId,
     isUsersList: list.creator === userId,
     list,
+    listMarkedAsBought,
     listItems
   }
 }

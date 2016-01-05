@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Col } from 'react-bootstrap'
+import { Col, Row } from 'react-bootstrap'
 import { Link } from 'react-router'
 import { OverlayTrigger } from 'pui-react-overlay-trigger'
 import { Tooltip } from 'pui-react-tooltip'
@@ -23,16 +23,20 @@ export default class ListRow extends Component {
       title
     } = this.props
 
-    const boughtPresentTooltip = <Tooltip>You've bought at least 1 present from this list</Tooltip>
+    const boughtPresentTooltip = <Tooltip id='bought-present-tooltip'>You've bought at least 1 present from this list</Tooltip>
     const boughtPresentIcon = <OverlayTrigger placement='top' overlay={boughtPresentTooltip}>
-      <span className='overlay-trigger' tabIndex='0'><i aria-label='Present already bought' className='fa fa-check-circle-o' /></span>
+      <span className='overlay-trigger' tabIndex='0'>
+        <i aria-label='Present already bought' className={`${styles.boughtPresent} fa fa-check-circle-o`} />
+      </span>
     </OverlayTrigger>
 
     return (
       <li className={styles.listRow}>
-        {/* <img className={`${styles.avatarImage} img-responsive img-circle`} src={avatarImg}/> */}
-        <Col xs={1}>{anyPresentBought ? boughtPresentIcon : false}</Col>
-        <Link to={link}>{title}</Link>
+        <Row>
+          {/* <img className={`${styles.avatarImage} img-responsive img-circle`} src={avatarImg}/> */}
+          <Col xs={3} sm={1} md={1}>{anyPresentBought ? boughtPresentIcon : false}</Col>
+          <Col><Link to={link}>{title}</Link></Col>
+        </Row>
       </li>
     )
   }

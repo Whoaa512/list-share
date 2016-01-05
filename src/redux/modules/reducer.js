@@ -7,6 +7,7 @@ import counter from './counter'
 import {reducer as form} from 'redux-form'
 import info from './info'
 import items from './items'
+import listMeta from './listMeta'
 import lists from './lists'
 import signup from './signup'
 import users from './users'
@@ -23,6 +24,7 @@ export default combineReducers({
   }),
   info,
   items,
+  listMeta,
   lists,
   signup,
   users,
