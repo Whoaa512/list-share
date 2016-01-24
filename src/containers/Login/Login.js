@@ -75,7 +75,7 @@ export default class Login extends Component {
         <Grid className='text-center'>
           <form className='login-form form-horizontal' onSubmit={this.handleSubmit.bind(this)}>
             <Col md={4} mdOffset={4}>
-              <Input type='email' ref='email' value={savedEmail} placeholder='Enter your email'/>
+              <Input type='email' ref='email' defaultValue={savedEmail} placeholder='Enter your email'/>
               <Input type='password' ref='password' placeholder='Enter your password'/>
               <Input type='checkbox' ref='rememberEmail' defaultChecked={!isEmpty(savedEmail)} label='Remember Email'/>
               <Button bsStyle='success' type='submit' onClick={this.handleSubmit.bind(this)}>
