@@ -1,5 +1,5 @@
 import config from 'config'
-import isEmpty from 'lodash.isempty'
+import isEmpty from 'lodash/isEmpty'
 import React, {Component, PropTypes} from 'react'
 import {connect} from 'react-redux'
 import { _notifier } from 'react-notification-system'

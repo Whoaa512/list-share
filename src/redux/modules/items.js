@@ -1,5 +1,5 @@
-import get from 'lodash.get'
-import merge from 'lodash.merge'
+import get from 'lodash/get'
+import merge from 'lodash/merge'
 import { getMyList, getList } from './lists'
 
 const STATE_PATH = 'items'
@@ -85,6 +85,14 @@ export function getMyItems (globalState) {
   const myList = getMyList(globalState)
   const allItems = getItems(globalState)
   return myList.items.map(id => allItems[id])
+}
+
+export function archive (id) {
+  return (dispatch, getState, { client }) => {
+    const state = getState()
+    const item = get(getItems(state), id, {})
+    return dispatch(update({ ...item, archivedAt: Date.now() }))
+  }
 }
 
 export function load (itemIds = 'all') {

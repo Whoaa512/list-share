@@ -1,6 +1,6 @@
 import config from 'config'
 import DocumentMeta from 'react-document-meta'
-import isEmpty from 'lodash.isempty'
+import isEmpty from 'lodash/isEmpty'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap'
@@ -52,7 +52,7 @@ export default class MyList extends Component {
           {userHasList &&
           <Row ref='listItems'>
             {listItems.map((item, idx) =>
-              <ListItem key={idx} showEdit item={item} />
+              <ListItem key={idx} showEdit showArchive item={item} />
             )}
           </Row>
           }
@@ -62,8 +62,11 @@ export default class MyList extends Component {
   }
 }
 
+function excludeArchived (item) {
+  return item && item.archivedAt == null
+}
 function mapStateToProps (state) {
-  const listItems = getMyItems(state)
+  const listItems = getMyItems(state).filter(excludeArchived)
   return {
     userHasList: userHasList(state),
     listItems

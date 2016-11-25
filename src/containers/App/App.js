@@ -39,7 +39,7 @@ function fetchData (getState, dispatch) {
   {logout, pushState})
 export default class App extends Component {
   static propTypes = {
-    children: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
     location: PropTypes.object,
     user: PropTypes.object,
     logout: PropTypes.func.isRequired,
@@ -118,11 +118,15 @@ export default class App extends Component {
             <Nav>
               {user &&
               <LinkContainer to='/'>
-                <NavItem eventKey={0}>All Lists</NavItem>
+                <NavItem eventKey={0}>All lists</NavItem>
               </LinkContainer>}
               {user &&
               <LinkContainer to='/my-list'>
-                <NavItem eventKey={1}>My List</NavItem>
+                <NavItem eventKey={1}>My list</NavItem>
+              </LinkContainer>}
+              {user &&
+              <LinkContainer to='/my-archived-items'>
+                <NavItem eventKey={5}>My archived items</NavItem>
               </LinkContainer>}
 
               {!user &&

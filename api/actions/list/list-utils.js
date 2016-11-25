@@ -1,4 +1,4 @@
-import isEmpty from 'lodash.isempty'
+import isEmpty from 'lodash/isEmpty'
 import logger from 'utils/api-logger'
 import { itemsCollection } from 'utils/db-collections'
 import uuid from 'uuid'

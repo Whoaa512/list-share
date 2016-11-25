@@ -1,5 +1,5 @@
 import analytics from 'helpers/analytics'
-import get from 'lodash.get'
+import get from 'lodash/get'
 
 const STATE_PATH = 'signup'
 

@@ -1,7 +1,7 @@
 import analytics from 'helpers/analytics'
 import config from 'config'
 import DocumentMeta from 'react-document-meta'
-import get from 'lodash.get'
+import get from 'lodash/get'
 import * as notifier from 'helpers/notifier'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
@@ -110,13 +110,17 @@ export default class List extends Component {
   }
 }
 
+function excludeArchived (item) {
+  return item && item.archivedAt == null
+}
+
 function mapStateToProps (state) {
   const { listId } = state.router.params
   const userId = getUserId(state)
   const list = getList(state, listId)
   const allItems = getItems(state)
   const listMeta = getListMeta(state)
-  const listItems = list.items.map(id => allItems[id])
+  const listItems = list.items.map(id => allItems[id]).filter(excludeArchived)
   const listMarkedAsBought = get(listMeta, `${listId}.boughtNonListPresent`, false)
   return {
     userId,

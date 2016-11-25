@@ -1,10 +1,11 @@
 import createLogger from 'redux-logger'
 import { createStore as _createStore, applyMiddleware, compose } from 'redux'
 import createMiddleware from './middleware/clientMiddleware'
+import thunk from 'redux-thunk'
 import transitionMiddleware from './middleware/transitionMiddleware'
 
 export default function createStore (reduxReactRouter, getRoutes, createHistory, client, data) {
-  const middleware = [createMiddleware(client), transitionMiddleware]
+  const middleware = [thunk.withExtraArgument({ client }), createMiddleware(client), transitionMiddleware]
   if (__CLIENT__ && __DEVELOPMENT__) {
     const loggerMiddleware = createLogger({
       logger: console

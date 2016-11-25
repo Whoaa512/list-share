@@ -1,4 +1,6 @@
-import isEmpty from 'lodash.isempty'
+import { connect } from 'react-redux'
+import isEmpty from 'lodash/isEmpty'
+import bindAll from 'lodash/bindAll'
 import querystring from 'querystring'
 import React, { Component, PropTypes } from 'react'
 import { Row, Col, Input } from 'react-bootstrap'
@@ -6,7 +8,16 @@ import { Divider } from 'pui-react-dividers'
 import { Tooltip } from 'pui-react-tooltip'
 import { OverlayTrigger } from 'pui-react-overlay-trigger'
 import { Link } from 'react-router'
+import { _notifier } from 'react-notification-system'
 
+import { archive } from 'redux/modules/items'
+
+function mapStateToProps (state) {
+  return {}
+}
+const actions = { archive }
+
+@connect(mapStateToProps, actions)
 export default class ListItem extends Component {
   static get propTypes () {
     return {
@@ -21,10 +32,32 @@ export default class ListItem extends Component {
         link: PropTypes.string,
         title: PropTypes.string.isRequired
       }),
+      archive: PropTypes.func,
       remove: PropTypes.func,
       showCheckbox: PropTypes.bool,
+      showArchive: PropTypes.bool,
       showEdit: PropTypes.bool
     }
+  }
+
+  constructor (props) {
+    super(props)
+    bindAll(this, [
+      'handleArchive'
+    ])
+  }
+
+  handleArchive (e) {
+    e.preventDefault()
+    return this.props.archive(this.props.item.id)
+    .then(() => {
+      _notifier.addNotification({
+        position: 'tc',
+        autoDismiss: 3,
+        message: 'Item archived!',
+        level: 'success'
+      })
+    })
   }
 
   render () {
@@ -34,6 +67,7 @@ export default class ListItem extends Component {
       item,
       remove,
       showCheckbox = false,
+      showArchive = false,
       showEdit = false
     } = this.props
     const {
@@ -88,13 +122,18 @@ export default class ListItem extends Component {
     }
 
     const boughtTooltip = <Tooltip id='bought-gift-tooltip'>Mark a gift as bought! This info does not show to list owner.</Tooltip>
-    const checkboxLabel = <OverlayTrigger placement='left' overlay={boughtTooltip}>
+    const checkboxLabel = <OverlayTrigger placement='top' overlay={boughtTooltip}>
       <span className='overlay-trigger' tabIndex='0'><i className={`${styles.boughtIcon} fa fa-2 fa-gift`} /></span>
     </OverlayTrigger>
 
     const editTooltip = <Tooltip id='edit-item-tooltip'>Edit</Tooltip>
-    const editIcon = <OverlayTrigger placement='left' overlay={editTooltip}>
+    const editIcon = <OverlayTrigger placement='top' overlay={editTooltip}>
       <span className='overlay-trigger' tabIndex='0'><i aria-label='Edit item' className={`${styles.boughtIcon}  fa fa-2 fa-pencil`} /></span>
+    </OverlayTrigger>
+
+    const archiveTooltip = <Tooltip id='archive-item-tooltip'>Archive</Tooltip>
+    const archiveIcon = <OverlayTrigger placement='top' overlay={archiveTooltip}>
+      <span className='overlay-trigger' tabIndex='0'><i aria-label='Archive item' className={`${styles.boughtIcon}  fa fa-2 fa-archive`} /></span>
     </OverlayTrigger>
 
     return (
@@ -125,6 +164,8 @@ export default class ListItem extends Component {
           </Col>
           <Col className={`pull-right ${isCheckboxDisabled ? styles.dim : ''}`} xs={editXs} md={editMd}>
             {showEdit && <Link className='text-muted' to={`/item/${id}/edit`}>{editIcon}</Link>}
+            {showEdit && showArchive && <span className='text-muted' >&nbsp;|&nbsp;</span>}
+            {showArchive && <a className='text-muted' onClick={this.handleArchive}>{archiveIcon}</a>}
             {showCheckbox &&
             <Input
                 checked={checked}

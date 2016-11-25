@@ -1,7 +1,7 @@
 import ApiError from 'utils/ApiError'
-import isEmpty from 'lodash.isempty'
-import includes from 'lodash.includes'
-import indexBy from 'lodash.indexby'
+import isEmpty from 'lodash/isEmpty'
+import includes from 'lodash/includes'
+import indexBy from 'lodash/keyBy'
 import logger from 'utils/api-logger'
 import { itemsCollection } from 'utils/db-collections'
 

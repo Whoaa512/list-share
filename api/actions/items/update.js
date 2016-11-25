@@ -1,8 +1,9 @@
 import ApiError from 'utils/ApiError'
-import isEmpty from 'lodash.isempty'
-import includes from 'lodash.includes'
+import cloneDeep from 'lodash/cloneDeep'
+import isEmpty from 'lodash/isEmpty'
+import includes from 'lodash/includes'
 import logger from 'utils/api-logger'
-import { itemsCollection } from 'utils/db-collections'
+import { db, dbCatch, itemsCollection } from 'utils/db-collections'
 
 export function getItems (itemIds) {
   return itemsCollection.where(obj => {
@@ -29,11 +30,21 @@ export default function update (req, params) {
       return reject(new ApiError('No item exists with that id'))
     }
 
+    const old = cloneDeep(itemInDb)
     logger.debug({ itemInDb, item }, 'Updating item')
     Object.assign(itemInDb, item)
 
-    resolve({
-      [item.id]: itemInDb
+    const dbSave = db.saveAsync()
+    .catch(dbCatch(`Item id: ${item.id}`, {
+      old,
+      updated: item
+    }, 'List to be updated'))
+    .then(() => {
+      return {
+        [item.id]: itemInDb
+      }
     })
+
+    resolve(dbSave)
   })
 }

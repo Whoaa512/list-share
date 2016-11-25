@@ -1,5 +1,5 @@
 import ApiError from 'utils/ApiError'
-import isEmpty from 'lodash.isempty'
+import isEmpty from 'lodash/isEmpty'
 import { getUser } from './users/load'
 
 export default function validateEmail (req, params) {

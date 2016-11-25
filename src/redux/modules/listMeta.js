@@ -1,6 +1,6 @@
-import get from 'lodash.get'
-import isEmpty from 'lodash.isempty'
-import cloneDeep from 'lodash.clonedeep'
+import get from 'lodash/get'
+import isEmpty from 'lodash/isEmpty'
+import cloneDeep from 'lodash/cloneDeep'
 import { getUser } from './auth'
 
 const STATE_PATH = 'listMeta'

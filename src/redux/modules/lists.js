@@ -1,7 +1,7 @@
 import analytics from 'helpers/analytics'
-import cloneDeep from 'lodash.clonedeep'
-import get from 'lodash.get'
-import find from 'lodash.find'
+import cloneDeep from 'lodash/cloneDeep'
+import get from 'lodash/get'
+import find from 'lodash/find'
 import { getMyItems } from './items'
 import { getUserId } from './auth'
 

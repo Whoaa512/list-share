@@ -1,6 +1,6 @@
 import ApiError from 'utils/ApiError'
 import arrayUniq from 'array-uniq'
-import cloneDeep from 'lodash.clonedeep'
+import cloneDeep from 'lodash/cloneDeep'
 import { db, dbCatch, listsCollection } from 'utils/db-collections'
 import { default as getList } from './load'
 import { removeListItems, upsertListItems } from './list-utils'

@@ -1,5 +1,5 @@
-import compact from 'lodash.compact'
-import get from 'lodash.get'
+import compact from 'lodash/compact'
+import get from 'lodash/get'
 import React, { Component, PropTypes } from 'react'
 import { bindActionCreators } from 'redux'
 import {

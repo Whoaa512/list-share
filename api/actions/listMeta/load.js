@@ -1,5 +1,5 @@
 import ApiError from 'utils/ApiError'
-import get from 'lodash.get'
+import get from 'lodash/get'
 import { getUser } from 'actions/users/load'
 
 export default function load (req) {

@@ -1,5 +1,5 @@
 import analytics from 'helpers/analytics'
-import get from 'lodash.get'
+import get from 'lodash/get'
 
 const LOAD = 'redux-example/auth/LOAD'
 const LOAD_SUCCESS = 'redux-example/auth/LOAD_SUCCESS'

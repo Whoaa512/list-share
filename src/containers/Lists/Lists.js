@@ -1,8 +1,8 @@
-import cloneDeep from 'lodash.clonedeep'
+import cloneDeep from 'lodash/cloneDeep'
 import config from 'config'
-import get from 'lodash.get'
+import get from 'lodash/get'
 // @todo: fix to use full lodash everywhere
-import some from 'lodash/collection/some'
+import some from 'lodash/some'
 import React, { Component, PropTypes } from 'react'
 import DocumentMeta from 'react-document-meta'
 import { connect } from 'react-redux'

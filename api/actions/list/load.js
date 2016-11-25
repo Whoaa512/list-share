@@ -1,5 +1,5 @@
 import ApiError from 'utils/ApiError'
-import indexBy from 'lodash.indexby'
+import indexBy from 'lodash/keyBy'
 import { listsCollection } from 'utils/db-collections'
 
 export function getList (listId, userId) {

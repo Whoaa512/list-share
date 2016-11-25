@@ -15,6 +15,7 @@ import {
   List,
   Lists,
   Login,
+  MyArchivedItems,
   MyList,
   NotFound,
   SignUp
@@ -51,6 +52,7 @@ export default (store) => {
         <Route path='/create-list' component={CreateList}/>
         <Route path='/item/:itemId/edit' component={EditItem}/>
         <Route path='/list/:listId' component={List}/>
+        <Route path='/my-archived-items' component={MyArchivedItems}/>
         <Route path='/my-list' component={MyList}/>
         <Route path='/my-list/add' component={AddToList}/>
         <Route path='/my-list/remove' component={EditList}/>
