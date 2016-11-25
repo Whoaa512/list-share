@@ -10,7 +10,6 @@ import {
   App,
   CreateList,
   EditItem,
-  EditList,
   ForgotPassword,
   List,
   Lists,
@@ -55,7 +54,6 @@ export default (store) => {
         <Route path='/my-archived-items' component={MyArchivedItems}/>
         <Route path='/my-list' component={MyList}/>
         <Route path='/my-list/add' component={AddToList}/>
-        <Route path='/my-list/remove' component={EditList}/>
       </Route>
 
       <Route path='/forgot-password' component={ForgotPassword}/>
