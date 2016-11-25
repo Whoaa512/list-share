@@ -1,3 +1,4 @@
+import bindAll from 'lodash/bindAll'
 import config from 'config'
 import DocumentMeta from 'react-document-meta'
 import React, { Component, PropTypes } from 'react'
@@ -14,6 +15,14 @@ export default class MyList extends Component {
       listItems: PropTypes.array,
       userHasList: PropTypes.bool
     }
+  }
+  constructor (props) {
+    super(props)
+    bindAll(this, 'rowMapper')
+  }
+
+  rowMapper (item, idx) {
+    return <ListItem key={idx} showEdit showArchive item={item} />
   }
 
   render () {
@@ -44,9 +53,7 @@ export default class MyList extends Component {
           </Row>
           {userHasList &&
           <Row ref='listItems'>
-            {listItems.map((item, idx) =>
-              <ListItem key={idx} showEdit showArchive item={item} />
-            )}
+            {listItems.map(this.rowMapper)}
           </Row>
           }
         </Grid>
