@@ -1,6 +1,6 @@
+import bindAll from 'lodash/bindAll'
 import config from 'config'
 import DocumentMeta from 'react-document-meta'
-import isEmpty from 'lodash/isEmpty'
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap'
@@ -16,6 +16,14 @@ export default class MyList extends Component {
       userHasList: PropTypes.bool
     }
   }
+  constructor (props) {
+    super(props)
+    bindAll(this, 'rowMapper')
+  }
+
+  rowMapper (item, idx) {
+    return <ListItem key={idx} showEdit showArchive item={item} />
+  }
 
   render () {
     const { userHasList, listItems } = this.props
@@ -26,18 +34,12 @@ export default class MyList extends Component {
         <DocumentMeta title={`${config.app.title}: My List`}/>
         <Grid>
           <Row>
-            <Col className={styles.buttons} xs={12} md={3} mdOffset={9}>
+            <Col className={styles.buttons} xs={12} md={2} mdOffset={10}>
               {userHasList &&
               <LinkButton
                   bsStyle='primary'
                   to='/my-list/add'
                   buttonText='Add New Items'
-              />
-              }
-              {userHasList && !isEmpty(listItems) &&
-              <LinkButton
-                  to='/my-list/remove'
-                  buttonText='Remove Items'
               />
               }
               {!userHasList &&
@@ -51,9 +53,7 @@ export default class MyList extends Component {
           </Row>
           {userHasList &&
           <Row ref='listItems'>
-            {listItems.map((item, idx) =>
-              <ListItem key={idx} showEdit showArchive item={item} />
-            )}
+            {listItems.map(this.rowMapper)}
           </Row>
           }
         </Grid>

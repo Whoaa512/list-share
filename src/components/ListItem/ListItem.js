@@ -10,12 +10,14 @@ import { OverlayTrigger } from 'pui-react-overlay-trigger'
 import { Link } from 'react-router'
 import { _notifier } from 'react-notification-system'
 
-import { archive } from 'redux/modules/items'
+import { archive, unarchive } from 'redux/modules/items'
+
+const styles = require('./ListItem.scss')
 
 function mapStateToProps (state) {
   return {}
 }
-const actions = { archive }
+const actions = { archive, unarchive }
 
 @connect(mapStateToProps, actions)
 export default class ListItem extends Component {
@@ -33,9 +35,11 @@ export default class ListItem extends Component {
         title: PropTypes.string.isRequired
       }),
       archive: PropTypes.func,
+      unarchive: PropTypes.func,
       remove: PropTypes.func,
       showCheckbox: PropTypes.bool,
       showArchive: PropTypes.bool,
+      showUnarchive: PropTypes.bool,
       showEdit: PropTypes.bool
     }
   }
@@ -43,6 +47,7 @@ export default class ListItem extends Component {
   constructor (props) {
     super(props)
     bindAll(this, [
+      'handleUnarchive',
       'handleArchive'
     ])
   }
@@ -60,6 +65,26 @@ export default class ListItem extends Component {
     })
   }
 
+  handleUnarchive (e) {
+    e.preventDefault()
+    return this.props.unarchive(this.props.item.id)
+    .then(() => {
+      _notifier.addNotification({
+        position: 'tc',
+        autoDismiss: 3,
+        message: 'Item added back to your list!',
+        level: 'success'
+      })
+    })
+  }
+
+  unarchiveIcon () {
+    const tooltip = <Tooltip id='unarchive-item-tooltip'>Add back to list</Tooltip>
+    return <OverlayTrigger placement='top' overlay={tooltip}>
+      <span className='overlay-trigger' tabIndex='0'><i aria-label='Add back to list' className={`${styles.boughtIcon}  fa fa-2 fa-plus-square`} /></span>
+    </OverlayTrigger>
+  }
+
   render () {
     const {
       currentUser,
@@ -68,6 +93,7 @@ export default class ListItem extends Component {
       remove,
       showCheckbox = false,
       showArchive = false,
+      showUnarchive = false,
       showEdit = false
     } = this.props
     const {
@@ -79,7 +105,6 @@ export default class ListItem extends Component {
       title
     } = item
     let { imageUrl } = item
-    const styles = require('./ListItem.scss')
 
     let boughtStyle = ''
     if (showCheckbox && checked) {
@@ -166,6 +191,7 @@ export default class ListItem extends Component {
             {showEdit && <Link className='text-muted' to={`/item/${id}/edit`}>{editIcon}</Link>}
             {showEdit && showArchive && <span className='text-muted' >&nbsp;|&nbsp;</span>}
             {showArchive && <a className='text-muted' onClick={this.handleArchive}>{archiveIcon}</a>}
+            {showUnarchive && <a className='text-muted' onClick={this.handleUnarchive}>{this.unarchiveIcon()}</a>}
             {showCheckbox &&
             <Input
                 checked={checked}

@@ -95,6 +95,14 @@ export function archive (id) {
   }
 }
 
+export function unarchive (id) {
+  return (dispatch, getState, { client }) => {
+    const state = getState()
+    const item = get(getItems(state), id, {})
+    return dispatch(update({ ...item, archivedAt: null }))
+  }
+}
+
 export function load (itemIds = 'all') {
   const all = itemIds === 'all'
   const url = `/items/load${all ? '/all' : ''}`
