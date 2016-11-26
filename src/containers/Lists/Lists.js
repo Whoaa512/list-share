@@ -73,7 +73,7 @@ function mapStateToProps (state) {
   const userId = getUserId(state)
   const listMeta = getListMeta(state)
   const allLists = getLists(state)
-  const isBoughtByUser = item => item.checkedBy === userId
+  const isBoughtByUser = item => item.checkedBy === userId && item.archivedAt == null
   const lists = Object.keys(allLists).map(id => {
     const list = cloneDeep(allLists[id])
     if (list.items.length <= 0) {
