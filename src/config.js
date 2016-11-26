@@ -7,7 +7,7 @@ const environment = {
     isProduction: false
   },
   production: {
-    sessionSecret: uuid.v4() + '-' + uuid.v4() + '-' + uuid.v4(),
+    sessionSecret: process.env.SESSION_SECRET || uuid.v4() + '-' + uuid.v4() + '-' + uuid.v4(),
     isProduction: true
   }
 }[process.env.NODE_ENV || 'development']
