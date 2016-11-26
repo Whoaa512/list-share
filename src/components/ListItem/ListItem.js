@@ -192,7 +192,7 @@ export default class ListItem extends Component {
           </Col>
           <Col className={`pull-right ${isCheckboxDisabled ? styles.dim : ''}`} xs={editXs} md={editMd}>
             {showEdit && <Link className='text-muted' to={`/item/${id}/edit`}>{editIcon}</Link>}
-            {showEdit && showArchive && <span className='text-muted' >&nbsp;|&nbsp;</span>}
+            {showEdit && showArchive && <span className='text-muted' >&nbsp;&nbsp;&nbsp;</span>}
             {showArchive && <a className='text-muted' onClick={this.handleArchive}>{archiveIcon}</a>}
             {showUnarchive && <a className='text-muted' onClick={this.handleUnarchive}>{this.unarchiveIcon()}</a>}
             {showCheckbox &&
