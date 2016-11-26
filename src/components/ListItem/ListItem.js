@@ -172,7 +172,10 @@ export default class ListItem extends Component {
           </Col>
           }
           <Col className={styles.dim} xs={imgXs} md={imgMd}>
-            <img src={imageUrl}/>
+            { !isEmpty(href)
+            ? <a target='blank' href={href}><img src={imageUrl}/></a>
+            : <img src={imageUrl}/>
+            }
           </Col>
           <Col className={styles.dim} xs={detailsXs} md={detailsMd} mdOffset={1}>
             <Row>
