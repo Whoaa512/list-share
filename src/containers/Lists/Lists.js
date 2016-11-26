@@ -1,7 +1,10 @@
+import compact from 'lodash/compact'
 import cloneDeep from 'lodash/cloneDeep'
 import config from 'config'
 import get from 'lodash/get'
+import map from 'lodash/map'
 import some from 'lodash/some'
+import sortBy from 'lodash/sortBy'
 import React, { Component, PropTypes } from 'react'
 import DocumentMeta from 'react-document-meta'
 import { connect } from 'react-redux'
@@ -74,8 +77,8 @@ function mapStateToProps (state) {
   const listMeta = getListMeta(state)
   const allLists = getLists(state)
   const isBoughtByUser = item => item.checkedBy === userId && item.archivedAt == null
-  const lists = Object.keys(allLists).map(id => {
-    const list = cloneDeep(allLists[id])
+  let lists = map(allLists, _list => {
+    const list = cloneDeep(_list)
     if (list.items.length <= 0) {
       return false
     }
@@ -88,6 +91,7 @@ function mapStateToProps (state) {
     list.anyPresentBought = boughtNonListPresent || some(getListItems(state, list.id), isBoughtByUser)
     return list
   })
+  lists = sortBy(compact(lists), (list) => list.title.toLowerCase())
   return {
     lists,
     userHasList: userHasList(state)
