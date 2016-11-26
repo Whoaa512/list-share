@@ -80,7 +80,8 @@ export function validUrl (value) {
 }
 
 export function validImage (value) {
-  if (!validDataURL(value) || !validUrl(value)) {
+  const isInvalidImg = !validDataURL(value) || !validUrl(value)
+  if (!isEmpty(value) && isInvalidImg) {
     return 'Invalid image'
   }
 }
