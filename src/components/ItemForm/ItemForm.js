@@ -3,13 +3,14 @@ import { Panel, Row, Col } from 'react-bootstrap'
 import { reduxForm, initialize } from 'redux-form'
 import { Input, Button, ButtonToolbar } from 'react-bootstrap'
 import { ListItem } from 'components'
+import DollarRating from 'components/DollarRating'
 import itemValidation from './itemValidation'
 
 export const formName = 'item-form'
 
 @reduxForm({
   form: formName,
-  fields: ['title', 'imageUrl', 'link', 'comments'],
+  fields: ['title', 'imageUrl', 'link', 'priceRange', 'comments'],
   validate: itemValidation
 })
 export default class ItemForm extends Component {
@@ -55,7 +56,7 @@ export default class ItemForm extends Component {
       cancelStyle = 'link',
       cancelText = 'Cancel',
       handleCancel = () => void 0,
-      fields: { title, imageUrl, link, comments },
+      fields: { title, imageUrl, link, priceRange, comments },
       handleSubmit,
       resetText = 'Clear',
       showPreview = false,
@@ -71,6 +72,7 @@ export default class ItemForm extends Component {
         title: title.value,
         imageUrl: imageUrl.value,
         link: link.value,
+        priceRange: priceRange.value,
         comments: comments.value
       }
     }
@@ -92,6 +94,17 @@ export default class ItemForm extends Component {
             {renderInput('text', title, 'Item Title')}
             {renderInput('text', imageUrl, 'Image Link')}
             {renderInput('text', link, 'Purchase or Info Link')}
+            <div className='form-group'>
+              <label className='control-label'>
+                <span>
+                  Price Range
+                </span>
+              </label>
+              <DollarRating
+                  onChange={priceRange.onChange}
+                  value={priceRange.value}
+              />
+            </div>
             {renderInput('textarea', comments, 'Additional comments')}
             <ButtonToolbar>
               <Button type='button' bsStyle={submitStyle} onClick={handleSubmit}>

@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import isEmpty from 'lodash/isEmpty'
 import bindAll from 'lodash/bindAll'
 import querystring from 'querystring'
+import DollarRating from 'components/DollarRating'
 import React, { Component, PropTypes } from 'react'
 import { Row, Col, Input } from 'react-bootstrap'
 import { Divider } from 'pui-react-dividers'
@@ -31,6 +32,7 @@ export default class ListItem extends Component {
         comments: PropTypes.string,
         id: PropTypes.string,
         imageUrl: PropTypes.string,
+        priceRange: PropTypes.number,
         link: PropTypes.string,
         title: PropTypes.string.isRequired
       }),
@@ -101,6 +103,7 @@ export default class ListItem extends Component {
       checkedBy,
       comments,
       id,
+      priceRange,
       link,
       title
     } = item
@@ -172,7 +175,10 @@ export default class ListItem extends Component {
           </Col>
           }
           <Col className={styles.dim} xs={imgXs} md={imgMd}>
-            <img src={imageUrl}/>
+            { !isEmpty(href)
+            ? <a target='blank' href={href}><img src={imageUrl}/></a>
+            : <img src={imageUrl}/>
+            }
           </Col>
           <Col className={styles.dim} xs={detailsXs} md={detailsMd} mdOffset={1}>
             <Row>
@@ -183,13 +189,21 @@ export default class ListItem extends Component {
               }
               </p>
             </Row>
+            {priceRange &&
+            <Row>
+              <DollarRating
+                  readonly
+                  value={priceRange}
+              />
+            </Row>
+            }
             <Row>
               {comments && <p>{comments}</p>}
             </Row>
           </Col>
           <Col className={`pull-right ${isCheckboxDisabled ? styles.dim : ''}`} xs={editXs} md={editMd}>
             {showEdit && <Link className='text-muted' to={`/item/${id}/edit`}>{editIcon}</Link>}
-            {showEdit && showArchive && <span className='text-muted' >&nbsp;|&nbsp;</span>}
+            {showEdit && showArchive && <span className='text-muted' >&nbsp;&nbsp;&nbsp;</span>}
             {showArchive && <a className='text-muted' onClick={this.handleArchive}>{archiveIcon}</a>}
             {showUnarchive && <a className='text-muted' onClick={this.handleUnarchive}>{this.unarchiveIcon()}</a>}
             {showCheckbox &&

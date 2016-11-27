@@ -19,6 +19,9 @@
 
 .boughtIcon {
   font-size: 1.25em;
+  @media (max-width: 991px) {
+    font-size: 2.25em;
+  }
 }
 
 input[type=checkbox] {
