@@ -1,3 +1,4 @@
+import bindAll from 'lodash/bindAll'
 import React, { Component, PropTypes } from 'react'
 import { Panel, Row, Col } from 'react-bootstrap'
 import { reduxForm, initialize } from 'redux-form'
@@ -5,6 +6,8 @@ import { Input, Button, ButtonToolbar } from 'react-bootstrap'
 import { ListItem } from 'components'
 import DollarRating from 'components/DollarRating'
 import itemValidation from './itemValidation'
+import asinMatcher from 'asin-matcher'
+import productImageFinder from 'utils/productImageFinder'
 
 export const formName = 'item-form'
 
@@ -28,6 +31,11 @@ export default class ItemForm extends Component {
     submitText: PropTypes.string,
     type: PropTypes.string
   }
+  constructor (props) {
+    super(props)
+    this.state = {}
+    bindAll(this, 'onLinkChange')
+  }
 
   componentDidMount () {
     const {
@@ -48,6 +56,19 @@ export default class ItemForm extends Component {
   reset () {
     const { dispatch } = this.props
     dispatch(initialize(formName, {}))
+  }
+
+  onLinkChange (e) {
+    this.props.fields.link.onChange(e)
+    const value = e.target.value
+    if (asinMatcher.isProductLink(value)) {
+      const asin = asinMatcher.getAsin(value)
+      productImageFinder(asin).then((result) => {
+        this.setState({
+          suggestedImgUrl: result
+        })
+      })
+    }
   }
 
   render () {
@@ -93,7 +114,12 @@ export default class ItemForm extends Component {
           <Col xs={xsForm} md={mdForm}>
             {renderInput('text', title, 'Item Title')}
             {renderInput('text', imageUrl, 'Image Link')}
-            {renderInput('text', link, 'Purchase or Info Link')}
+            {this.state.suggestedImgUrl &&
+              <div>
+                Suggested image: {this.state.suggestedImgUrl}
+              </div>
+            }
+            {renderInput('text', { ...link, onChange: this.onLinkChange }, 'Purchase or Info Link')}
             <div className='form-group'>
               <label className='control-label'>
                 <span>

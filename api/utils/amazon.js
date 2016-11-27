@@ -1,7 +1,9 @@
-import amazon from 'amazon-product-api'
+import amazon from '@whoaa/amazon-product-api'
 
-export default amazon.createClient({
+const client = amazon.createClient({
   awsId: process.env.AWS_ID,
   awsSecret: process.env.AWS_SECRET,
-  awsTag: 'presentsfor.me'
+  awsTag: 'presforme-20'
 })
+
+export default client

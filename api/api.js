@@ -15,6 +15,7 @@ import SocketIo from 'socket.io'
 import { mapUrl } from 'utils/url'
 import { getUser } from 'actions/users/load'
 import { updateUser } from 'actions/users/update'
+import productImage from './productImage'
 
 const FileStore = require('session-file-store')(session)
 const pretty = new PrettyError()
@@ -46,6 +47,8 @@ app.use(session({
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(forgot.middleware)
+
+app.post('/productImage', productImage)
 
 app.post('/forgot', (req, res) => {
   let { email } = req.body

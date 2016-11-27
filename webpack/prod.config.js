@@ -78,8 +78,6 @@ module.exports = {
     // set global vars
     new webpack.DefinePlugin({
       'process.env': {
-        AWS_ID: process.env.AWS_ID,
-        AWS_SECRET: process.env.AWS_SECRET,
         // Useful to reduce the size of client-side libraries, e.g. react
         NODE_ENV: JSON.stringify('production')
       }

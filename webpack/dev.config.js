@@ -96,8 +96,6 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
     new webpack.DefinePlugin({
-      AWS_ID: process.env.AWS_ID,
-      AWS_SECRET: process.env.AWS_SECRET,
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: true,
