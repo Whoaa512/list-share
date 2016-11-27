@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import isEmpty from 'lodash/isEmpty'
 import bindAll from 'lodash/bindAll'
 import querystring from 'querystring'
+import DollarRating from 'components/DollarRating'
 import React, { Component, PropTypes } from 'react'
 import { Row, Col, Input } from 'react-bootstrap'
 import { Divider } from 'pui-react-dividers'
@@ -31,6 +32,7 @@ export default class ListItem extends Component {
         comments: PropTypes.string,
         id: PropTypes.string,
         imageUrl: PropTypes.string,
+        priceRange: PropTypes.number,
         link: PropTypes.string,
         title: PropTypes.string.isRequired
       }),
@@ -101,6 +103,7 @@ export default class ListItem extends Component {
       checkedBy,
       comments,
       id,
+      priceRange,
       link,
       title
     } = item
@@ -186,6 +189,14 @@ export default class ListItem extends Component {
               }
               </p>
             </Row>
+            {priceRange &&
+            <Row>
+              <DollarRating
+                  readonly
+                  value={priceRange}
+              />
+            </Row>
+            }
             <Row>
               {comments && <p>{comments}</p>}
             </Row>
