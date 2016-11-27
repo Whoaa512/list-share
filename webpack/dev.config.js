@@ -8,6 +8,14 @@ var assetsPath = path.resolve(__dirname, '../static/dist')
 var host = (process.env.HOST || 'localhost')
 var port = parseInt(process.env.PORT, 10) + 1 || 3001
 
+var isProd = process.env.NODE_ENV === 'production'
+var envPath = path.join(__dirname, '../../.env')
+var dotenv = require('dotenv')
+dotenv.config({
+  path: envPath,
+  silent: !isProd
+})
+
 // https://github.com/halt-hammerzeit/webpack-isomorphic-tools
 var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin')
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'))
@@ -88,6 +96,8 @@ module.exports = {
     new webpack.HotModuleReplacementPlugin(),
     new webpack.IgnorePlugin(/webpack-stats\.json$/),
     new webpack.DefinePlugin({
+      AWS_ID: process.env.AWS_ID,
+      AWS_SECRET: process.env.AWS_SECRET,
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: true,

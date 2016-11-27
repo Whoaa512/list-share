@@ -7,6 +7,14 @@ var CleanPlugin = require('clean-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var strip = require('strip-loader')
 
+var isProd = process.env.NODE_ENV === 'production'
+var envPath = path.join(__dirname, '../../.env')
+var dotenv = require('dotenv')
+dotenv.config({
+  path: envPath,
+  silent: !isProd
+})
+
 var relativeAssetsPath = '../static/dist'
 var assetsPath = path.join(__dirname, relativeAssetsPath)
 
@@ -70,6 +78,8 @@ module.exports = {
     // set global vars
     new webpack.DefinePlugin({
       'process.env': {
+        AWS_ID: process.env.AWS_ID,
+        AWS_SECRET: process.env.AWS_SECRET,
         // Useful to reduce the size of client-side libraries, e.g. react
         NODE_ENV: JSON.stringify('production')
       }
