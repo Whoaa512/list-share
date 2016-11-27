@@ -95,8 +95,9 @@
     }
   },
   "dependencies": {
-    "amazon-product-api": "0.3.5",
+    "@whoaa/amazon-product-api": "1.0.0",
     "array-uniq": "1.0.2",
+    "asin-matcher": "0.1.4",
     "babel": "5.8.29",
     "bcrypt": "0.8.5",
     "bluebird": "3.0.5",

@@ -141,7 +141,7 @@ export default class ListItem extends Component {
       let [ url, query ] = link.split('?')
       const parsedQuery = querystring.parse(query)
       query = '?' + querystring.stringify({
-        tag: 'performe-20',
+        tag: 'presforme-20',
         ...parsedQuery
       })
       if (!isEmpty(url)) {

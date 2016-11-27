@@ -7,6 +7,14 @@ var CleanPlugin = require('clean-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var strip = require('strip-loader')
 
+var isProd = process.env.NODE_ENV === 'production'
+var envPath = path.join(__dirname, '../../.env')
+var dotenv = require('dotenv')
+dotenv.config({
+  path: envPath,
+  silent: !isProd
+})
+
 var relativeAssetsPath = '../static/dist'
 var assetsPath = path.join(__dirname, relativeAssetsPath)
 
