@@ -9,7 +9,8 @@ export default function productImage (req, res, next) {
     responseGroup: 'Images'
   })
   .then((response) => {
-    const imgUrl = get(response, '[0].MediumImage[0].URL[0]', null)
+    let imgUrl = get(response, '[0].MediumImage[0].URL[0]', null)
+    imgUrl = imgUrl.replace('._SL', '._SS')
     res.json({ imgUrl })
   })
   .catch((err) => {

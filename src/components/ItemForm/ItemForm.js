@@ -68,6 +68,9 @@ export default class ItemForm extends Component {
           suggestedImgUrl: result
         })
       })
+      .catch(() => {
+        // ignore
+      })
     }
   }
 
@@ -113,13 +116,13 @@ export default class ItemForm extends Component {
         <Row>
           <Col xs={xsForm} md={mdForm}>
             {renderInput('text', title, 'Item Title')}
+            {renderInput('text', { ...link, onChange: this.onLinkChange }, 'Purchase or Info Link')}
             {renderInput('text', imageUrl, 'Image Link')}
             {this.state.suggestedImgUrl &&
               <div>
                 Suggested image: {this.state.suggestedImgUrl}
               </div>
             }
-            {renderInput('text', { ...link, onChange: this.onLinkChange }, 'Purchase or Info Link')}
             <div className='form-group'>
               <label className='control-label'>
                 <span>
