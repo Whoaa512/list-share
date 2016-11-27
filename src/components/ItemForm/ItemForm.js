@@ -68,6 +68,9 @@ export default class ItemForm extends Component {
           suggestedImgUrl: result
         })
       })
+      .catch(() => {
+        // ignore
+      })
     }
   }
 
