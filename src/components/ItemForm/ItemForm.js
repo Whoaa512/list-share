@@ -64,9 +64,7 @@ export default class ItemForm extends Component {
     if (asinMatcher.isProductLink(value)) {
       const asin = asinMatcher.getAsin(value)
       productImageFinder(asin).then((result) => {
-        this.setState({
-          suggestedImgUrl: result
-        })
+        return this.props.fields.imageUrl.onChange(result)
       })
       .catch(() => {
         // ignore
@@ -118,11 +116,6 @@ export default class ItemForm extends Component {
             {renderInput('text', title, 'Item Title')}
             {renderInput('text', { ...link, onChange: this.onLinkChange }, 'Purchase or Info Link')}
             {renderInput('text', imageUrl, 'Image Link')}
-            {this.state.suggestedImgUrl &&
-              <div>
-                Suggested image: {this.state.suggestedImgUrl}
-              </div>
-            }
             <div className='form-group'>
               <label className='control-label'>
                 <span>
