@@ -9,6 +9,7 @@ import DocumentMeta from 'react-document-meta'
 import { isLoaded as isAuthLoaded, load as loadAuth, logout } from 'redux/modules/auth'
 import { isLoaded as areItemsLoaded, load as loadItems } from 'redux/modules/items'
 import { isLoaded as areListsLoaded, load as loadLists } from 'redux/modules/lists'
+import { isLoaded as isListMetaLoaded, load as loadListMeta } from 'redux/modules/listMeta'
 import { isLoaded as areUsersLoaded, load as loadUsers } from 'redux/modules/users'
 import { pushState } from 'redux-router'
 import connectData from 'helpers/connectData'
@@ -29,6 +30,9 @@ function fetchData (getState, dispatch) {
   }
   if (!areUsersLoaded(getState())) {
     promises.push(dispatch(loadUsers()))
+  }
+  if (!isListMetaLoaded(getState())) {
+    promises.push(dispatch(loadListMeta()))
   }
   return Promise.all(promises)
 }
