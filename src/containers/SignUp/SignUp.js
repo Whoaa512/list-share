@@ -6,14 +6,16 @@ import { initialize } from 'redux-form'
 import { login } from 'redux/modules/auth'
 import { SignUpForm } from 'components'
 import { submit as signup } from 'redux/modules/signup'
+import { load as loadLists } from 'redux/modules/lists'
 
 @connect(
   () => ({}),
-  { initialize, login, signup })
+  { initialize, login, signup, loadLists })
 export default class Survey extends Component {
   static propTypes = {
     initialize: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
+    loadLists: PropTypes.func.isRequired,
     signup: PropTypes.func.isRequired
   }
 
@@ -24,6 +26,7 @@ export default class Survey extends Component {
       return user
     })
     .then(user => this.props.login(data.email, data.password))
+    .then(() => this.props.loadLists())
     .catch(error => {
       const errors = {
         _error: error.message
