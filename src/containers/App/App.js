@@ -14,6 +14,7 @@ import { isLoaded as areUsersLoaded, load as loadUsers } from 'redux/modules/use
 import { pushState } from 'redux-router'
 import connectData from 'helpers/connectData'
 import config from '../../config'
+import defaultAvatarImg from 'default-avatar.png'
 
 NotificationSystem._notifier = {}
 
@@ -153,7 +154,7 @@ export default class App extends Component {
                 <img
                     alt='avatar'
                     className={`${styles.avatarImage} img-responsive img-circle`}
-                    src={user.avatarImg}
+                    src={defaultAvatarImg}
                 />
               </NavItem>
             </Nav>
