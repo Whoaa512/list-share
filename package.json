@@ -25,7 +25,9 @@
     "watch-client": "node ./node_modules/better-npm-run watch-client",
     "dev": "concurrent --kill-others \"npm run watch-client\" \"npm run start-dev\" \"npm run start-dev-api\"",
     "test": "karma start",
-    "test-node": "./node_modules/mocha/bin/mocha ./api/**/__tests__/*-test.js --compilers js:babel-core/register"
+    "test-node": "./node_modules/mocha/bin/mocha ./api/**/__tests__/*-test.js --compilers js:babel-core/register",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "pre-commit": "lint",
   "standard": {
@@ -147,7 +149,8 @@
     "superagent": "1.4.0",
     "url-loader": "0.5.6",
     "uuid": "2.0.1",
-    "webpack-isomorphic-tools": "2.2.4"
+    "webpack-isomorphic-tools": "2.2.4",
+    "snyk": "^1.316.1"
   },
   "devDependencies": {
     "autoprefixer-loader": "3.1.0",
@@ -207,5 +210,6 @@
   },
   "engines": {
     "node": "4.1.1"
-  }
+  },
+  "snyk": true
 }
