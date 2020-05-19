@@ -111,7 +111,7 @@
     "express-session": "1.12.1",
     "history": "1.13.1",
     "hoist-non-react-statics": "1.0.3",
-    "http-proxy": "1.12.0",
+    "http-proxy": "1.18.1",
     "lodash": "4.17.2",
     "lokijs": "1.3.10",
     "lru-memoize": "1.0.0",
